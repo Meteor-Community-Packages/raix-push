@@ -160,7 +160,7 @@ Push.init = function(options) {
                 collapseKey: from,
             //    delayWhileIdle: true,
             //    timeToLive: 4,
-            //    restricted_package_name: 'dk.gi2.driftsstatus'
+            //    restricted_package_name: 'dk.gi2.app'
                 data: {
                     title: title,
                     message: text,
