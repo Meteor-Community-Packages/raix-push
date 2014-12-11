@@ -1,22 +1,60 @@
-PushApi = {};
+Push = new EventEmitter();
 
-var eventEmitter = new EventEmitter();
-
-PushApi.initPush = function(options) {
+Push.init = function(options) {
   var self = this;
+
+  options = options || {};
+
   // options.senderID - this is for android...
   // options.apn.webServiceUrl = 'https://domain.example.com'
 
-  check(options, {
-    gcm: Match.Optional(Match.ObjectIncluding({
-      pushId: String
-    })),
-    apn: Match.Optional(Match.ObjectIncluding({
-      webServiceUrl: String,
-      pushId: String
-    })),
-  });
+  // check(options, {
+  //   gcm: Match.Optional(Match.ObjectIncluding({
+  //     pushId: String
+  //   })),
+  //   apn: Match.Optional(Match.ObjectIncluding({
+  //     webServiceUrl: String,
+  //     pushId: String
+  //   })),
+  // });
 
+
+  // XXX: Warn if apn certificates are added here on client...
+  if (options.apn && (options.apn.certData || options.apn.keyData))
+    throw new Error('Push.initPush Dont add your certificate or key in client code!');
+
+  // Add support for the raix:iframe push solution Deprecate this at some
+  // point mid aug 2015
+  if (options.iframe) {
+    // Rig iframe event listeners
+    options.iframe.addEventListener('deviceready', function() {
+
+      options.iframe.addEventListener('pushLaunch', function(evt) {
+        // Reformat into new event
+        self.emit('startup', evt);
+      });
+
+      options.iframe.addEventListener('pushSuccess', function(evt) {
+        // Reformat into new event
+        self.emit('register', evt.success);
+      });
+
+      options.iframe.addEventListener('pushToken', function(evt) {
+        if (evt.androidToken) {
+          // Format the android token
+          Push.emit('token', { gcm: evt.androidToken });     
+        } else if (evt.iosToken) {
+          // Format the ios token
+          Push.emit('token', { apn: evt.iosToken });    
+        }
+      }); 
+
+      options.iframe.addEventListener('pushError', function(evt) {
+        Push.emit('error', { type: 'cordova.browser', error: evt.error || evt });
+      });    
+      
+    });
+  } // EO options iframe
 
   if (typeof chrome !== 'undefined' && chrome.gcm) {
     // chrome.gcm api is supported!
@@ -25,13 +63,13 @@ PushApi.initPush = function(options) {
     // Set max message size
     // chrome.gcm.MAX_MESSAGE_SIZE = 4096;
 
-    if (options.senderID)
-      chrome.gcm.register(options.senderID, function(token) {
+    if (options.gcm.pushId)
+      chrome.gcm.register(options.gcm.pushId, function(token) {
         if (token) {
-          eventEmitter.emit('token', { gcm: token });
+          self.emit('token', { gcm: token });
         } else {
           // Error
-          eventEmitter.emit('error', { gcm: true, error: 'Access denied' });
+          self.emit('error', { type: 'gcm.browser', error: 'Access denied' });
         }
       });
 
@@ -57,13 +95,15 @@ PushApi.initPush = function(options) {
               );
           }
           else if (permissionData.permission === 'denied') {
+              // alert('denied');
               // The user said no.
-              eventEmitter.emit('error', { apn: true, error: 'Access denied' });
+              self.emit('error', { type: 'apn.browser', error: 'Access denied' });
           }
           else if (permissionData.permission === 'granted') {
+              // alert('granted');
               // The web service URL is a valid push provider, and the user said yes.
               // permissionData.deviceToken is now available to use.
-               eventEmitter.emit('token', { apn: permissionData.deviceToken });
+              self.emit('token', { apn: permissionData.deviceToken });
           }
       };
       
@@ -95,7 +135,7 @@ PushApi.initPush = function(options) {
         // Store the endpoint
         pushEndpoint = e.target.result;
 
-        eventEmitter.emit('token', {
+        self.emit('token', {
           SimplePush: {
             channel: channel,
             endPoint: pushEndpoint
@@ -110,7 +150,7 @@ PushApi.initPush = function(options) {
     navigator.mozSetMessageHandler('push', function(message) {
         if (message.pushEndpoint == pushEndpoint) {
           // Did we launch or were we already running?
-          eventEmitter.emit('pushLaunch', message);
+          self.emit('startup', message);
         }
       });
 
@@ -122,7 +162,7 @@ PushApi.initPush = function(options) {
     // error recovery mechanism
     // will be called very rarely, but application
     // should register again when it is called
-    navigator.mozSetMessageHandler('push-register', function(e) {
+    navigator.mozSetMessageHandler('register', function(e) {
       setupAppRegistrations();
     });
 

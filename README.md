@@ -12,7 +12,7 @@ WIP - Not for use yet
         gcm: {
             pushId: 'xxxxxxxxxxxxx'
         },
-        apn: {
+        apn: { // setting this on client throws security error
             'passphrase': 'xxx',
             'certData': Assets.getText('apnProdCert.pem'),
             'keyData': Assets.getText('apnProdKey.pem'),
@@ -23,13 +23,18 @@ WIP - Not for use yet
 
 ## Client api
 ```js
+    // Common client api
     Push.init({
         gcm: {
             pushId: 'xxxxxxxxxxxxxxxxxx'
-        }, apn: {
+        },
+        apn: {
             pushId: 'com.push.server'
             webServiceUrl: 'http://some.server.com'
-        }
+        },
+        bagde: true,
+        sound: true,
+        alert: true
     });
 
     Push.id();
@@ -38,7 +43,7 @@ WIP - Not for use yet
 ## Common api
 ```js
     Push.send();
-    Push.addListener();
+    Push.addListener(); 
 
     // Security
     // Push.allow

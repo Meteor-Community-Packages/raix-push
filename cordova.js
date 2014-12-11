@@ -1,150 +1,131 @@
-var onNotificationAPN = function(e) {
-};
+// The pushApi is just an Event emitter
+Push = new EventEmitter();
 
-var onNotificationGCM = function(e) {
-};
-
-
-PushApi = {};
-
-
-var eventEmitter = new EventEmitter();
-
-// initPush({ senderID: '00000000000000' });
-
-PushApi.initPush = function(options) {
-  var self = this;
-  self._options = {
-    senderID: (options.senderID)?''+options.senderID: '',
-    badge: (options.badge === false)?'false': 'true',
-    sound: (options.sound === false)?'false': 'true',
-    alert: (options.alert === false)?'false': 'true'
-  };
-
-  self.tokenHandler = function(result) {
-    //console.log('GOT IOS TOKEN: '+result);
-    if (self.triggerEvent) {            
-      self.triggerEvent('pushToken', { iosToken: result });
-      eventEmitter.emit('pushToken', { apn: result });
-    }
-  };
-
-  self.successHandler = function(result) {
-    if (self.triggerEvent) {            
-      self.triggerEvent('pushSuccess', { success: result });
-      eventEmitter.emit('pushSuccess', { success: result });
-    } 
-  };
-
-  self.errorHandler = function(error) {
-    if (self.triggerEvent) {            
-      self.triggerEvent('pushError', { error: error });
-      eventEmitter.emit('pushError', { error: error });
-    } 
-  };
-
-  // handle APNS notifications for iOS
-  onNotificationAPN = function(e) {
+// handle APNS notifications for iOS
+onNotificationAPN = function(e) {
+  if (e.alert) {
+    // navigator.notification.vibrate(500);
+    // navigator.notification.alert(e.alert);
+  }
+      
+  if (e.sound) {
+    // var snd = new Media(e.sound);
+    // snd.play();
+  }
+  
+  if (e.badge) {
     var pushNotification = window.plugins.pushNotification;
-    //console.log('onNotificationAPN Called');
+    // XXX: not sure if this should be omitted or kept in?
+    pushNotification.setApplicationIconBadgeNumber(function(result) {
+      // Success callback
+      Push.emit('badge', result);
+    }, e.badge);
+  }
 
-    if (e.alert) {
+  // e.sound, e.badge, e.alert
+  Push.emit('startup', e);
+};
+
+// handle GCM notifications for Android
+onNotificationGCM = function(e) {
+  var pushNotification = window.plugins.pushNotification;
+  switch( e.event ) {
+    case 'registered':
+      if ( e.regid.length > 0 ) {
+        Push.emit('token', { gcm: ''+e.regid } );
+      }
+    break;
+
+    case 'message':
+      // if this flag is set, this notification happened while we were in the foreground.
+      // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+      if (e.foreground)
+      {
+      // if the notification contains a soundname, play it.
+      // var my_media = new Media("/android_asset/www/"+e.soundname);
+      // my_media.play();
+      } else {
         // navigator.notification.vibrate(500);
-      //   navigator.notification.alert(e.alert);
-    }
-        
-    if (e.sound) {
-        // var snd = new Media(e.sound);
-        // snd.play();
-    }
-    
-    if (e.badge) {
-        pushNotification.setApplicationIconBadgeNumber(self.successHandler, e.badge);
-    }
+        // navigator.notification.alert(e.payload.message);     
+      }
 
-    if (self.triggerEvent) {            
-      self.triggerEvent('pushLaunch', e);//e.alert });
-      eventEmitter.emit('pushLaunch', e);
-    }
-  };
+      // e.foreground, e.foreground, Coldstart or background
+      Push.emit('startup', e);
+      // e.payload.message, e.payload.msgcnt, e.msg, e.soundname
+    break;
 
-  // handle GCM notifications for Android
-  onNotificationGCM = function(e) {
-    var pushNotification = window.plugins.pushNotification;
-    switch( e.event ) {
-      case 'registered':
-        if ( e.regid.length > 0 ) {
-          eventEmitter.emit('pushToken', { 'gcm': ''+e.regid } );
-          if (self.triggerEvent) {            
-            self.triggerEvent('pushToken', { 'androidToken': ''+e.regid } ); //regID??
-          }
-        }
-      break;
+    case 'error':
+      // e.msg
+      Push.emit('error', { type: 'gcm.cordova', error: e });
+    break;
+  }
+};
 
-      case 'message':
-        // if this flag is set, this notification happened while we were in the foreground.
-        // you might want to play a sound to get the user's attention, throw up a dialog, etc.
-        if (e.foreground)
-        {
-        // if the notification contains a soundname, play it.
-        // var my_media = new Media("/android_asset/www/"+e.soundname);
-        // my_media.play();
-        } else {
-      //    navigator.notification.vibrate(500);
-          // navigator.notification.alert(e.payload.message);     
-        }
 
-        if (self.triggerEvent) {            
-          self.triggerEvent('pushLaunch', e ); // e.foreground, e.foreground, Coldstart or background
-          eventEmitter.emit('pushLaunch', e);
-        }
-        // e.payload.message, e.payload.msgcnt, e.msg, e.soundname
-      break;
+Push.init = function(options) {
+  var self = this;
 
-      case 'error':
-        if (self.triggerEvent) {            
-          self.triggerEvent('pushError', e ); // e.msg
-          eventEmitter.emit('pushError', e);
-        }
-      break;
-    }
+  // Clean up options, make sure the pushId
+  if (options.gcm && !options.gcm.pushId)
+    throw new Error('Push.initPush gcm got no pushId');
+
+  // Set default options - these are needed for apn?
+  options = {
+    badge: (options.badge !== false),
+    sound: (options.sound !== false),
+    alert: (options.alert !== false)
   };
 
     // Initialize on ready
   document.addEventListener('deviceready', function() {
+
     var pushNotification = window.plugins.pushNotification;
-      // console.log('Push Registration');
-      // onNotificationAPN = self.onNotificationAPN;
-      // onNotificationGCM = self.onNotificationGCM;
 
+    if (device.platform == 'android' || device.platform == 'Android') {
       try {
-        if (device.platform == 'android' || device.platform == 'Android') {
 
-          if (self._options.senderID) {
-            pushNotification.register(self.successHandler, self.errorHandler, {
-              'senderID': self._options.senderID,
-              'ecb': 'onNotificationGCM'
-            });
-          } else {
-            throw new Error('senderID not set in options, required on android');
-          }
-
+        if (options.gcm.pushId) {
+          pushNotification.register(function(result) {
+            // Emit registered
+            self.emit('register', result);
+          }, function(error) {
+            // Emit error
+            self.emit('error', { type: 'gcm.cordova', error: error });
+          }, {
+            'senderID': ''+options.gcm.pushId,
+            'ecb': 'onNotificationGCM'
+          });
         } else {
-          pushNotification.register(self.tokenHandler, self.errorHandler, {
-            'badge': self._options.badge,
-            'sound': self._options.sound,
-            'alert': self._options.alert,
-            'ecb': 'onNotificationAPN'
-          }); // required!
+          // throw new Error('senderID not set in options, required on android');
         }
+
       } catch(err) {
         // console.log('There was an error starting up push');
         // console.log('Error description: ' + err.message);
-        if (self.triggerEvent) {            
-          self.triggerEvent('pushError', { error: err });
-          eventEmitter.emit('pushError', { error: err });          
-        }     
+        self.emit('error', { type: 'gcm.cordova', error: err.message });          
       }
+    } else {
+
+      try {
+
+        pushNotification.register(function(token) {
+          // Got apn / ios token
+          self.emit('token', { apn: token });
+        }, function(error) {
+          // Emit error
+          self.emit('error', { type: 'apn.cordova', error: error });
+        }, {
+          'badge': ''+options.badge,
+          'sound': ''+options.sound,
+          'alert': ''+options.alert,
+          'ecb': 'onNotificationAPN'
+        }); // required!
+      } catch(err) {
+        // console.log('There was an error starting up push');
+        // console.log('Error description: ' + err.message);
+        self.emit('error', { type: 'apn.cordova', error: err.message });          
+      }
+    }
 
   }, true);
 

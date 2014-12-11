@@ -1,20 +1,21 @@
 Package.describe({
   name: 'raix:push',
-  version: '0.0.0',
+  version: '2.0.0',
   summary: 'Push notifications'
 });
 
 // Server-side push deps 
 Npm.depends({
-  'apn' : '1.4.2', // 1.3.8
+  'apn' : '1.6.2', // 1.3.8, 1.4.2 
   //'debug': '0.7.3', // DEBUG
   'node-gcm' : '0.9.6' // 0.9.6
 });
 
 Cordova.depends({
-  "com.phonegap.plugins.PushPlugin": /* 2.4.0 */
-    "https://github.com/phonegap-build/PushPlugin/tarball/1979d972b6ab37e28cf2077bc7ebfe706cc4dacd"
+  'com.clone.phonegap.plugins.pushplugin': '2.4.1' //with #354 fixed
+  //'com.phonegap.plugins.PushPlugin': 'http://github.com/rossmartin/PushPlugin/tarball/6cf2e1a107310e859839fb7a0dc2618a7a199430'
 });
+
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
@@ -26,6 +27,8 @@ Package.onUse(function(api) {
 
   api.use('raix:eventemitter@0.0.2', ['client', 'server']);
 
+  api.use('mongo', 'server');
+
   // API's
   api.addFiles('browser.js', 'web.browser');
   api.addFiles('cordova.js', 'web.cordova');
@@ -34,5 +37,9 @@ Package.onUse(function(api) {
   // Unified api
   api.addFiles('client.js', 'client');
   api.addFiles('server.js', 'server');
+
+  api.export('Push');
+  api.export('onNotificationAPN', 'web.cordova');
+  api.export('onNotificationGCM', 'web.cordova');
 
 });
