@@ -13,12 +13,21 @@ WIP - Not for use yet
             pushId: 'xxxxxxxxxxxxx'
         },
         apn: { // setting this on client throws security error
-            'passphrase': 'xxx',
-            'certData': Assets.getText('apnProdCert.pem'),
-            'keyData': Assets.getText('apnProdKey.pem'),
-            'gateway': 'gateway.push.apple.com',
+            passphrase: 'xxx',
+            // pem files are placed in the app private folder
+            certData: Assets.getText('apnProdCert.pem'),
+            keyData: Assets.getText('apnProdKey.pem'),
+            production: true, // or...
+            gatewa': 'gateway.push.apple.com',
         }
     });
+
+    // Internal events
+    Push.addListener('token', function(currentToken, newToken) {
+        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' } or undefined
+        // if newToken is undefined then the currentToken is invalid
+        // if newToken is set then this should replace the currentToken
+    });    
 ```
 
 ## Client api
@@ -37,7 +46,19 @@ WIP - Not for use yet
         alert: true
     });
 
-    Push.id();
+    Push.id(); // Unified id - not a token
+
+    // Internal events
+    Push.addListener('token', function(token) {
+        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' }
+    });
+
+    /*
+    error { type: 'gcm', error: error }
+    register
+    startup
+    badge
+    */
 ```
 
 ## Common api
