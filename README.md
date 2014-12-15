@@ -18,9 +18,14 @@ WIP - Not for use yet
             certData: Assets.getText('apnProdCert.pem'),
             keyData: Assets.getText('apnProdKey.pem'),
             production: true, // or...
-            gatewa': 'gateway.push.apple.com',
+            gateway: 'gateway.push.apple.com',
         }
     });
+    
+    // Send to one token - please try out the common send
+    Push.sendAPN = function(from, userToken, title, text, count, priority);
+    // Send to array of tokens - Please try out the common send
+    Push.sendGCM = function(from, userTokens, title, text, count, priority)
 
     // Internal events
     Push.addListener('token', function(currentToken, newToken) {
@@ -63,7 +68,7 @@ WIP - Not for use yet
 
 ## Common api
 ```js
-    Push.send();
+    Push.send = function(from, appIds, title, text, count, priority);
     Push.addListener(); 
 
     // Security
