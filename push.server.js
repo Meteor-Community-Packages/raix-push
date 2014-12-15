@@ -10,6 +10,10 @@
 
 Push = new EventEmitter();
 
+Push.setBadge = function(appId, count) {
+    throw new Error('Push.setBadge not implemented on the server');
+};
+
 Push.init = function(options) {
     var self = this;
     // https://npmjs.org/package/apn

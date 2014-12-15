@@ -1,5 +1,9 @@
 Push = new EventEmitter();
 
+Push.setBadge = function(count) {
+  // XXX: Not implemented
+};
+
 Push.init = function(options) {
   var self = this;
 

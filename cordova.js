@@ -1,6 +1,24 @@
 // The pushApi is just an Event emitter
 Push = new EventEmitter();
 
+Push.setBadge = function(count) {
+  // Helper
+  var pushNotification = window.plugins.pushNotification;
+
+  // If the set application badge is available
+  if (typeof pushNotification.setApplicationIconBadgeNumber == 'function') {
+    // Set the badge
+    pushNotification.setApplicationIconBadgeNumber(function(result) {
+      // Success callback
+      Push.emit('badge', result);
+    }, function(err) {
+      // Error callback
+      Push.emit('error', { type: 'badge', error: err });
+    }, count);  
+    
+  }
+};
+
 // handle APNS notifications for iOS
 onNotificationAPN = function(e) {
   if (e.alert) {
@@ -14,12 +32,8 @@ onNotificationAPN = function(e) {
   }
   
   if (e.badge) {
-    var pushNotification = window.plugins.pushNotification;
-    // XXX: not sure if this should be omitted or kept in?
-    pushNotification.setApplicationIconBadgeNumber(function(result) {
-      // Success callback
-      Push.emit('badge', result);
-    }, e.badge);
+    // XXX: Test if this allows the server to set the badge
+    Push.setBadge(e.badge);
   }
 
   // e.sound, e.badge, e.alert

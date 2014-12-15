@@ -69,7 +69,8 @@ WIP - Not for use yet
 ## Common api
 ```js
     Push.send = function(from, appIds, title, text, count, priority);
-    Push.addListener(); 
+    Push.addListener();
+    Push.setBadge(count);
 
     // Security
     // Push.allow
