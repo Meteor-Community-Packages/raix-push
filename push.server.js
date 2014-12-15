@@ -127,7 +127,7 @@ Push.init = function(options) {
 
         self.initFeedback = function() {
             var apn = Npm.require('apn');
-            console.log('Init feedback');
+            // console.log('Init feedback');
             var feedbackOptions = {
                 "batchFeedback": true,
                 "interval": 1000,
