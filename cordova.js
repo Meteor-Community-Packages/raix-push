@@ -98,7 +98,7 @@ Push.init = function(options) {
     if (device.platform == 'android' || device.platform == 'Android') {
       try {
 
-        if (options.gcm.pushId) {
+        if (options.gcm && options.gcm.pushId) {
           pushNotification.register(function(result) {
             // Emit registered
             self.emit('register', result);
