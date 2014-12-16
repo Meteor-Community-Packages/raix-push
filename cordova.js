@@ -111,6 +111,7 @@ Push.init = function(options) {
           });
         } else {
           // throw new Error('senderID not set in options, required on android');
+          console.warn('WARNING: Push.init, No gcm.pushId set on android');
         }
 
       } catch(err) {
