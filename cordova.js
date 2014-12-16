@@ -84,11 +84,11 @@ Push.init = function(options) {
     throw new Error('Push.initPush gcm got no pushId');
 
   // Set default options - these are needed for apn?
-  options = {
+  options = _.extend({
     badge: (options.badge !== false),
     sound: (options.sound !== false),
     alert: (options.alert !== false)
-  };
+  }, options);
 
     // Initialize on ready
   document.addEventListener('deviceready', function() {
