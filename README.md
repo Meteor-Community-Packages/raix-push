@@ -39,8 +39,8 @@ Status:
 
     // Internal events
     Push.addListener('token', function(currentToken, newToken) {
-        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' } or undefined
-        // if newToken is undefined then the currentToken is invalid
+        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' } or null
+        // if newToken is null then the currentToken is invalid
         // if newToken is set then this should replace the currentToken
     });    
 ```

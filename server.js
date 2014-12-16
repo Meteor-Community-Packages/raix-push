@@ -4,7 +4,7 @@ Push.addListener('token', function(currentToken, value) {
   if (value) {
     // Update the token for app
     // XXX: Todo
-  } else {
+  } else if (value === null) {
     // Remove the token for app
     // XXX: Todo
   }

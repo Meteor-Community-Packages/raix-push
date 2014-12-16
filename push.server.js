@@ -42,7 +42,7 @@ Push.init = function(options) {
     _removeToken = function(token) {
         // console.log('Remove token: ' + token);
         // Invalidate the token
-        self.emit('token', token);
+        self.emit('token', token, null);
     }; 
 
 
