@@ -15,6 +15,18 @@ Status:
 * [ ] ADM Amazon Fire OS
 * [ ] Meteor in app notifications
 
+## Common api
+```js
+    Push.send = function(from, appIds, title, text, count, priority);
+    Push.addListener();
+    Push.setBadge(count);
+
+    // Security
+    // Push.allow
+    // Push.deny
+```
+*The client-send branch is WIP of allow/deny rules in order to allow the user to send push messages to other users directly from the client*
+
 ## Server api
 
 ```js
@@ -76,16 +88,6 @@ Status:
     */
 ```
 
-## Common api
-```js
-    Push.send = function(from, appIds, title, text, count, priority);
-    Push.addListener();
-    Push.setBadge(count);
-
-    // Security
-    // Push.allow
-    // Push.deny
-```
 
 Kind regards
 
