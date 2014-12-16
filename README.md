@@ -3,14 +3,17 @@ raix:push Push notifications
 
 Push notifications for cordova (ios, android) browser (Chrome, Safari, Firefox) - One unified api on client and server.
 
-WIP:
+Status:
 * [x] APN iOS
 * [x] GCM Android
-* [x] Safari web push (untested)
-* [x] Chrome OS (untested)
+* [x] APN Safari web push (untested)
+* [x] GCM Chrome OS (untested)
 * [x] Firefox OS (untested)
-* [ ] Blackberry
-* [ ] Windows phone
+* [ ] BPS Blackberry 10
+* [ ] MPNS Windows phone 8
+* [ ] MPNS Windows 8
+* [ ] ADM Amazon Fire OS
+* [ ] Meteor in app notifications
 
 ## Server api
 
