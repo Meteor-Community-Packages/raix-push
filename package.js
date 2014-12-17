@@ -26,7 +26,7 @@ Package.onUse(function(api) {
     'random'   // The push it is created with Random.id()
   ], 'client');
 
-  api.use('raix:eventemitter@0.1.0', ['client', 'server']);
+  api.use('raix:eventemitter@0.1.1', ['client', 'server']);
 
   api.use('mongo', 'server');
 
