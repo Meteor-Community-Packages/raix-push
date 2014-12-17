@@ -2,7 +2,7 @@ Package.describe({
   name: 'raix:push',
   version: '2.0.3',
   summary: 'Push notifications',
-  git: 'https://github.com/raix/push'
+  git: 'https://github.com/raix/push.git'
 });
 
 // Server-side push deps 
@@ -26,7 +26,7 @@ Package.onUse(function(api) {
     'random'   // The push it is created with Random.id()
   ], 'client');
 
-  api.use('raix:eventemitter@0.0.2', ['client', 'server']);
+  api.use('raix:eventemitter@0.1.0', ['client', 'server']);
 
   api.use('mongo', 'server');
 
