@@ -247,33 +247,12 @@ Push.init = function(options) {
     } // EO Android
 
     // Universal send function
-    self.send = function(from, appIds, title, text, count, priority) {
-        console.warn('WARN: Push.Send is not tested or validated yet!');
-        // TODO:
-        // This function will take an array of app id's then fetch all those
-        // who have a token apn or gcm...
-        // tokens are found in the Push.appCollection and look like:
-        // { apn: 'xxxxx' } or { gcm: 'xxxxx' }
+    var _querySend = function(from, query, title, text, count, priority) {
 
-        // Convert into array
-        if (appIds === ''+appIds) appIds = [appIds];
-
-        Push.appCollection.find({
-            $or: [
-                // XXX: Test this query: can we hand in a list of push tokens?
-                { token: { $in: appIds } },
-                // XXX: Test this query: does this work on app id? 
-                { $and: [
-                    { _in: { $in: appIds } }, // one of the app ids
-                    { $or: [
-                        { 'token.apn': { $exists: true }  }, // got apn token
-                        { 'token.gcm': { $exists: true }  }  // got gcm token
-                    ]}
-                ]}
-            ]
-        }).forEach(function(app) {
       var countApn = 0;
       var countGcm = 0;
+
+        Push.appCollection.find(query).forEach(function(app) {
 
           if (Push.debug) console.log('send to token', app.token);
 
@@ -302,6 +281,69 @@ Push.init = function(options) {
           apn: countApn,
           gcm: countGcm
         };
+    };
+
+    self.send = function(options) {
+      options = options || { count: 0 };
+      var query;
+
+      // Check basic options
+      if (options.from !== ''+options.from)
+        throw new Error('Push.send: option "from" not a string');
+
+      if (options.title !== ''+options.title)
+        throw new Error('Push.send: option "title" not a string');
+
+      if (options.text !== ''+options.text)
+        throw new Error('Push.send: option "text" not a string');
+
+      if (options.token || options.tokens) {
+
+        // The user set one token or array of tokens
+        var tokenList = (options.token)? [options.token] : options.tokens;
+
+        if (Push.debug) console.log('Push: Send message "' + options.title + '" via token(s)', tokenList);
+
+        query = {
+          $or: [
+              // XXX: Test this query: can we hand in a list of push tokens?
+              { token: { $in: tokenList } },
+              // XXX: Test this query: does this work on app id?
+              { $and: [
+                  { _in: { $in: tokenList } }, // one of the app ids
+                  { $or: [
+                      { 'token.apn': { $exists: true }  }, // got apn token
+                      { 'token.gcm': { $exists: true }  }  // got gcm token
+                  ]}
+              ]}
+          ]
+        };
+
+      } else if (options.query) {
+
+        if (Push.debug) console.log('Push: Send message "' + options.title + '" via query', options.query);
+
+        query = {
+          $and: [
+              options.query, // query object
+              { $or: [
+                  { 'token.apn': { $exists: true }  }, // got apn token
+                  { 'token.gcm': { $exists: true }  }  // got gcm token
+              ]}
+          ]
+        };
+      }
+
+
+      if (query) {
+
+        // Convert to querySend and return status
+        return _querySend(options.from, query, options.title, options.text, options.count, options.priority)
+
+      } else {
+        throw new Error('Push.send: please set option "token"/"tokens" or "query"');
+      }
+
     };
 
 };
