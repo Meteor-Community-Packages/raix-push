@@ -19,10 +19,10 @@ Push.init = function(options) {
     // https://npmjs.org/package/apn
 
     // After requesting the certificate from Apple, export your private key as a .p12 file and download the .cer file from the iOS Provisioning Portal.
-    
+
     // gateway.push.apple.com, port 2195
     // gateway.sandbox.push.apple.com, port 2195
-    
+
     // Now, in the directory containing cert.cer and key.p12 execute the following commands to generate your .pem files:
     // $ openssl x509 -in cert.cer -inform DER -outform PEM -out cert.pem
     // $ openssl pkcs12 -in key.p12 -out key.pem -nodes
@@ -43,7 +43,7 @@ Push.init = function(options) {
         // console.log('Remove token: ' + token);
         // Invalidate the token
         self.emit('token', token, null);
-    }; 
+    };
 
 
     if (options.apn) {
@@ -78,9 +78,9 @@ Push.init = function(options) {
                     console.warn('WARNING: Push APN is configured to production mode - but server is running from localhost');
                 }
             } else {
-                console.warn('WARNING: Push APN is in development mode');                
+                console.warn('WARNING: Push APN is in development mode');
             }
-        }                   
+        }
 
         // Check certificate data
         if (!options.apn['certData'] || !options.apn['certData'].length)
@@ -158,7 +158,7 @@ Push.init = function(options) {
             // console.log('sendGCM', from, userToken, title, text, count, priority);
             var gcm = Npm.require('node-gcm');
             var Fiber = Npm.require('fibers');
-             
+
             //var message = new gcm.Message();
             var message = new gcm.Message({
                 collapseKey: from,
@@ -176,20 +176,20 @@ Push.init = function(options) {
             _.each(userTokens, function(value, key) {
                 // console.log('A:Send message to: ' + value + ' count=' + count);
             });
-            
+
             /*message.addData('title', title);
             message.addData('message', text);
             message.addData('msgcnt', '1');
             message.collapseKey = 'sitDrift';
             message.delayWhileIdle = true;
             message.timeToLive = 3;*/
-                 
+
             // /**
             //  * Parameters: message-literal, userTokens-array, No. of retries, callback-function
             //  */
 
             var userToken = (userTokens.length === 1)?userTokens[0]:null;
-            
+
             sender.send(message, userTokens, 5, function (err, result) {
                 if (err) {
                     // console.log('ANDROID ERROR: result of sender: ' + result);
@@ -203,12 +203,12 @@ Push.init = function(options) {
                             try {
                                 self.callback(self.oldToken, self.newToken);
                             } catch(err) {
-                                
+
                             }
 
                         }).run({
                             oldToken: { gcm: userToken },
-                            newToken: { gcm: result.results[0].registration_id }, 
+                            newToken: { gcm: result.results[0].registration_id },
                             callback: _replaceToken
                         });
                         //_replaceToken({ gcm: userToken }, { gcm: result.results[0].registration_id });
@@ -224,11 +224,11 @@ Push.init = function(options) {
                             try {
                                 self.callback(self.token);
                             } catch(err) {
-                                
+
                             }
 
                         }).run({
-                            token: { gcm: userToken }, 
+                            token: { gcm: userToken },
                             callback: _removeToken
                         });
                         //_replaceToken({ gcm: userToken }, { gcm: result.results[0].registration_id });
@@ -241,7 +241,7 @@ Push.init = function(options) {
             // sender.sendNoRetry(message, userTokens, function (result) {
             //     console.log('ANDROID: ' + JSON.stringify(result));
             // });
-            // **/        
+            // **/
         }; // EO sendAndroid
 
     } // EO Android
