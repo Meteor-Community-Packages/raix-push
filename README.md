@@ -18,6 +18,18 @@ Status:
 ## Common api
 ```js
     Push.send = function(from, appIds, title, text, count, priority);
+
+    // Push.debug = true; // Add verbosity
+
+    Push.send({
+        from: 'push',
+        title: 'Hello',
+        text: 'world',
+        query: {} // Query the appCollection
+        // token: appId or token eg. "{ apn: token }"
+        // tokens: array of appId's or tokens
+    });
+
     Push.addListener();
     Push.setBadge(count);
 
