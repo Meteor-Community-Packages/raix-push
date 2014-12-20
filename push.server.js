@@ -291,7 +291,7 @@ Push.init = function(options) {
                 if (self.sendGCM) self.sendGCM(from, app.token.gcm, title, text, count, priority);
 
             } else {
-                throw new Error('Push.send got a faulty query - WIP');
+                throw new Error('Push.send got a faulty query');
             }
 
         });
