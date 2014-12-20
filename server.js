@@ -32,6 +32,7 @@ Meteor.methods({
     // app id via token instead
     if (app && app._id !== options.id) Push.appCollection.remove({ _id: options.id });
 
+
     // if we could not find the token then lookup id
     if (!app) app = Push.appCollection.findOne({ _id: options.id });
 
