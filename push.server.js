@@ -275,6 +275,8 @@ Push.init = function(options) {
       var countApn = 0;
       var countGcm = 0;
 
+          if (Push.debug) console.log('send to token', app.token);
+
             if (app.token.apn) {
               countApn++;
                 // Send to APN
@@ -293,6 +295,8 @@ Push.init = function(options) {
             }
 
         });
+
+        if (Push.debug) console.log('Push: Sent message "' + title + '" to ' + countApn + ' ios apps' + countGcm + ' android apps');
 
         return {
           apn: countApn,
