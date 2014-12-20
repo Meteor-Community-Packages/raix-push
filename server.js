@@ -47,7 +47,7 @@ Meteor.methods({
       };
 
       // Get the id from insert
-      var id = Push.appCollection.insert(doc);
+      var id = Push.appCollection._collection.insert(doc);
 
       // This should be true
       if (id == doc._id) app = doc;
