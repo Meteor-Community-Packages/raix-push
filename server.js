@@ -52,8 +52,11 @@ Meteor.methods({
       var id = Push.appCollection._collection.insert(doc);
 
       // This should be true
-      if (id == doc._id) app = doc;
+      if (id == doc._id) {
+        app = doc;
+
         if (Push.debug) console.log('Push: Inserted token in app collection');
+      }
 
     } else {
       Push.appCollection.update({ _id: app._id }, { updatedAt: new Date() });
