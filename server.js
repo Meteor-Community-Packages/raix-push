@@ -12,6 +12,7 @@ Push.addListener('token', function(currentToken, value) {
 
 Meteor.methods({
   'setPushToken': function(options) {
+    if (Push.debug) console.log('Push: Got push token from app:', options);
     // check(options, {
     //   id: String,
     //   token: String,
@@ -49,8 +50,11 @@ Meteor.methods({
 
       // This should be true
       if (id == doc._id) app = doc;
+        if (Push.debug) console.log('Push: Inserted token in app collection');
 
     }
+
+    if (app && Push.debug) console.log('Push: Using', app);
 
     if (!app) {
       throw new Meteor.Error(500, 'setPushToken could not create record');
