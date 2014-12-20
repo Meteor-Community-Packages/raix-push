@@ -43,7 +43,9 @@ Meteor.methods({
       var doc = {
         _id: options.id,
         token: options.token,
-        appId: options.appId
+        appId: options.appId,
+        createdAt: new Date(),
+        updatedAt: new Date()
       };
 
       // Get the id from insert
@@ -53,6 +55,8 @@ Meteor.methods({
       if (id == doc._id) app = doc;
         if (Push.debug) console.log('Push: Inserted token in app collection');
 
+    } else {
+      Push.appCollection.update({ _id: app._id }, { updatedAt: new Date() });
     }
 
     if (app && Push.debug) console.log('Push: Using', app);
