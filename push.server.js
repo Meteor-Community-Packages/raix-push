@@ -272,12 +272,16 @@ Push.init = function(options) {
                 ]}
             ]
         }).forEach(function(app) {
+      var countApn = 0;
+      var countGcm = 0;
 
             if (app.token.apn) {
+              countApn++;
                 // Send to APN
                 if (self.sendAPN) self.sendAPN(from, userTokens, title, text, count, priority);
 
             } else if (app.token.gcm) {
+              countGcm++;
 
                 // Send to GCM
                 // We do support multiple here - so we should construct an array
@@ -290,6 +294,10 @@ Push.init = function(options) {
 
         });
 
+        return {
+          apn: countApn,
+          gcm: countGcm
+        };
     };
 
 };
