@@ -278,7 +278,7 @@ Push.init = function(options) {
             if (app.token.apn) {
               countApn++;
                 // Send to APN
-                if (self.sendAPN) self.sendAPN(from, userTokens, title, text, count, priority);
+                if (self.sendAPN) self.sendAPN(from, app.token.apn, title, text, count, priority);
 
             } else if (app.token.gcm) {
               countGcm++;
@@ -286,7 +286,7 @@ Push.init = function(options) {
                 // Send to GCM
                 // We do support multiple here - so we should construct an array
                 // and send it bulk - Investigate limit count of id's
-                if (self.sendGCM) self.sendGCM(from, userTokens, title, text, count, priority);
+                if (self.sendGCM) self.sendGCM(from, app.token.gcm, title, text, count, priority);
 
             } else {
                 throw new Error('Push.send got a faulty query - WIP');
