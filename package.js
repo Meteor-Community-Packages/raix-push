@@ -30,13 +30,15 @@ Package.onUse(function(api) {
 
   api.use('mongo', 'server');
 
+  // Common api
+  api.addFiles('common.js', ['client', 'server']);
+
   // API's
   api.addFiles('browser.js', 'web.browser');
   api.addFiles('cordova.js', 'web.cordova');
   api.addFiles('push.server.js', 'server');
 
   // Unified api
-  api.addFiles('common.js', ['client', 'server']);
   api.addFiles('client.js', 'client');
   api.addFiles('server.js', 'server');
 
