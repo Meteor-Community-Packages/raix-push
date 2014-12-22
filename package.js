@@ -5,9 +5,9 @@ Package.describe({
   git: 'https://github.com/raix/push.git'
 });
 
-// Server-side push deps 
+// Server-side push deps
 Npm.depends({
-  'apn' : '1.6.2', // 1.3.8, 1.4.2 
+  'apn' : '1.6.2', // 1.3.8, 1.4.2
   //'debug': '0.7.3', // DEBUG
   'node-gcm' : '0.9.6' // 0.9.6
 });
@@ -36,6 +36,7 @@ Package.onUse(function(api) {
   api.addFiles('push.server.js', 'server');
 
   // Unified api
+  api.addFiles('common.js', ['client', 'server']);
   api.addFiles('client.js', 'client');
   api.addFiles('server.js', 'server');
 

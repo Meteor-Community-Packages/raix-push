@@ -8,8 +8,6 @@
 
 // getText / getBinary
 
-Push = new EventEmitter();
-
 Push.setBadge = function(appId, count) {
     throw new Error('Push.setBadge not implemented on the server');
 };
@@ -283,7 +281,7 @@ Push.init = function(options) {
         };
     };
 
-    self.send = function(options) {
+    self.serverSend = function(options) {
       options = options || { count: 0 };
       var query;
 
@@ -345,5 +343,37 @@ Push.init = function(options) {
       }
 
     };
+
+  var isSendingNotification = false;
+
+  Meteor.setInterval(function() {
+
+    if (!isSendingNotification) {
+      // Set send fence
+      isSendingNotification = true;
+
+      // Find one notification
+      var notification = Push.notifications.findOne({ sent :true }, { sort: { createdAt: 1 } });
+
+      // Check if we got any notifications to send
+      if (notification) {
+
+        // Send the notification
+        var result = Push.serverSend(notification);
+
+        // Update the notification
+        Push.notifications.update({ _id: notification._id }, {
+          $set: {
+            sent: true,
+            sentAt: new Date(),
+            count: result
+          }
+        });
+      }
+
+      // Remove the send fence
+      isSendingNotification = false;
+    }
+  }, options.sendInterval || 15000); // Default every 15'the sec
 
 };

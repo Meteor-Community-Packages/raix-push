@@ -1,6 +1,3 @@
-// The pushApi is just an Event emitter
-Push = new EventEmitter();
-
 Push.setBadge = function(count) {
   // Helper
   var pushNotification = window.plugins.pushNotification;
@@ -14,8 +11,8 @@ Push.setBadge = function(count) {
     }, function(err) {
       // Error callback
       Push.emit('error', { type: 'badge', error: err });
-    }, count);  
-    
+    }, count);
+
   }
 };
 
@@ -25,12 +22,12 @@ onNotificationAPN = function(e) {
     // navigator.notification.vibrate(500);
     // navigator.notification.alert(e.alert);
   }
-      
+
   if (e.sound) {
     // var snd = new Media(e.sound);
     // snd.play();
   }
-  
+
   if (e.badge) {
     // XXX: Test if this allows the server to set the badge
     Push.setBadge(e.badge);
@@ -60,7 +57,7 @@ onNotificationGCM = function(e) {
       // my_media.play();
       } else {
         // navigator.notification.vibrate(500);
-        // navigator.notification.alert(e.payload.message);     
+        // navigator.notification.alert(e.payload.message);
       }
 
       // e.foreground, e.foreground, Coldstart or background
@@ -117,7 +114,7 @@ Push.init = function(options) {
       } catch(err) {
         // console.log('There was an error starting up push');
         // console.log('Error description: ' + err.message);
-        self.emit('error', { type: 'gcm.cordova', error: err.message });          
+        self.emit('error', { type: 'gcm.cordova', error: err.message });
       }
     } else {
 
@@ -138,7 +135,7 @@ Push.init = function(options) {
       } catch(err) {
         // console.log('There was an error starting up push');
         // console.log('Error description: ' + err.message);
-        self.emit('error', { type: 'apn.cordova', error: err.message });          
+        self.emit('error', { type: 'apn.cordova', error: err.message });
       }
     }
 

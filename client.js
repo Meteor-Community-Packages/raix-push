@@ -1,12 +1,12 @@
 // Version of the push client
-var version = '0.0.1';
-var appId = 'main';
-
 var id = null;
 var idDep = new Tracker.Dependency();
 
+var appId = 'main';
+var version = '0.0.1';
+var localStorageKey = '_raix:push_token';
+
 // Namespaced storage key
-var localStorageKey = '_raix:push_' + appId;
 
 /*
   1. Check if id is already set in localstorage
@@ -20,11 +20,11 @@ try {
   // Get the stored object from local storage
   stored = JSON.parse(localStorage.getItem(localStorageKey));
   // If stored then set id
-  if (stored) id = stored.id;
-  
+  if (stored && stored.id) id = stored.id;
+
 } catch(err) {
   // XXX: Error using the local storage
-}  
+}
 
 // Use a new id if not set
 if (!id) id = Random.id();
@@ -49,7 +49,7 @@ Push.addListener('token', function(token) {
         // The result is the id - The server may update this if it finds a
         // match for an old install
         if (id !== result) {
-          // The server did match the push token for this device        
+          // The server did match the push token for this device
           id = result;
           try {
             // Try setting the id
@@ -70,21 +70,3 @@ Push.id = function() {
   idDep.depend();
   return id;
 };
-
-// We dont use the apn/gcm tokens
-// Send idArray, title, text, priority, callback
-Push.send = function(options, callback) {
-  // Check that options are as expected
-  // check(options, {
-  //   idArray: [],
-  //   title: String,
-  //   text: String,
-  //   priority: Match.Optional(Number),
-  // });
-
-  // Check if callback is set
-  // check(callback, Match.Optional(Function));
-
-  // Send message
-  Meteor.call('sendPushNotification', options, callback);
-}; // Send a push notification to one or more users
