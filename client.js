@@ -1,9 +1,10 @@
+// Reactive id
+var id = null;
+var idDep = new Tracker.Dependency();
+
 // Version of the push client
 var version = '0.0.1';
 var appId = 'main';
-
-var id = null;
-var idDep = new Tracker.Dependency();
 
 // Namespaced storage key
 var localStorageKey = '_raix:push_token';
