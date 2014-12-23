@@ -13,11 +13,12 @@ Push.addListener('token', function(currentToken, value) {
 Meteor.methods({
   'setPushToken': function(options) {
     if (Push.debug) console.log('Push: Got push token from app:', options);
-    // check(options, {
-    //   id: String,
-    //   token: String,
-    //   appId: String
-    // });
+
+    check(options, {
+      id: String,
+      token: _matchToken,
+      appId: String
+    });
 
     // if we could not find the token then lookup id
     var app = Push.appCollection.findOne({ _id: options.id });
