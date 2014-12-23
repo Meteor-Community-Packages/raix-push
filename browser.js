@@ -44,17 +44,17 @@ Push.init = function(options) {
       options.iframe.addEventListener('pushToken', function(evt) {
         if (evt.androidToken) {
           // Format the android token
-          Push.emit('token', { gcm: evt.androidToken });     
+          Push.emit('token', { gcm: evt.androidToken });
         } else if (evt.iosToken) {
           // Format the ios token
-          Push.emit('token', { apn: evt.iosToken });    
+          Push.emit('token', { apn: evt.iosToken });
         }
-      }); 
+      });
 
       options.iframe.addEventListener('pushError', function(evt) {
         Push.emit('error', { type: 'cordova.browser', error: evt.error || evt });
-      });    
-      
+      });
+
     });
   } // EO options iframe
 
@@ -85,7 +85,7 @@ Push.init = function(options) {
         var permissionData = window.safari.pushNotification.permission(options.apn.pushId);
         checkRemotePermission(permissionData);
       });
-       
+
       var checkRemotePermission = function (permissionData) {
           if (permissionData.permission === 'default') {
               // This is a new web service URL and its validity is unknown.
@@ -108,7 +108,7 @@ Push.init = function(options) {
               self.emit('token', { apn: permissionData.deviceToken });
           }
       };
-      
+
     }
 
 

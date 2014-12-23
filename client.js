@@ -21,10 +21,10 @@ try {
   stored = JSON.parse(localStorage.getItem(localStorageKey));
   // If stored then set id
   if (stored) id = stored.id;
-  
+
 } catch(err) {
   // XXX: Error using the local storage
-}  
+}
 
 // Use a new id if not set
 if (!id) id = Random.id();
@@ -49,7 +49,7 @@ Push.addListener('token', function(token) {
         // The result is the id - The server may update this if it finds a
         // match for an old install
         if (id !== result) {
-          // The server did match the push token for this device        
+          // The server did match the push token for this device
           id = result;
           try {
             // Try setting the id
