@@ -3,10 +3,10 @@ Push.appCollection = new Mongo.Collection('_raix_push_app_tokens');
 Push.addListener('token', function(currentToken, value) {
   if (value) {
     // Update the token for app
-    // XXX: Todo
+    Push.appCollection.update({ token: currentToken }, { $set: { token: value } }, { multi: true });
   } else if (value === null) {
     // Remove the token for app
-    // XXX: Todo
+    Push.appCollection.update({ token: currentToken }, { $unset: { token: true } }, { multi: true });
   }
 });
 
