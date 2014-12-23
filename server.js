@@ -69,8 +69,6 @@ Meteor.methods({
       throw new Meteor.Error(500, 'setPushToken could not create record');
     }
 
-    // console.log('App got token', app);
-
     // Return the id we want to use
     return app._id;
   },
