@@ -19,24 +19,19 @@ Meteor.methods({
     //   appId: String
     // });
 
-    // find the app via token
-    var app = Push.appCollection.findOne({
+    // if we could not find the token then lookup id
+    var app = Push.appCollection.findOne({ _id: options.id });
+
+    // The id is newly created by the client - we check the database to see if
+    // we can find an older match for the app via token
+    if (!app) app = Push.appCollection.findOne({
       $and: [
         { token: options.token },
         { appId: options.appId }
       ]
     });
 
-    // If the id for the token isnt the same as options then make sure
-    // the options provided document is removed - the client will get the
-    // app id via token instead
-    if (app && app._id !== options.id) Push.appCollection.remove({ _id: options.id });
-
-
-    // if we could not find the token then lookup id
-    if (!app) app = Push.appCollection.findOne({ _id: options.id });
-
-    // if we could not find the token then create it
+    // if we could not find the id or token then create it
     if (!app) {
 
       // Rig default doc
