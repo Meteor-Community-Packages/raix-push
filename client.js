@@ -6,7 +6,7 @@ var id = null;
 var idDep = new Tracker.Dependency();
 
 // Namespaced storage key
-var localStorageKey = '_raix:push_' + appId;
+var localStorageKey = '_raix:push_token';
 
 /*
   1. Check if id is already set in localstorage
