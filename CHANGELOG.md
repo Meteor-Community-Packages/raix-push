@@ -1,6 +1,10 @@
 # Changelog
 
 ## vCurrent
+## [v2.0.8] (https://github.com/raix/push/tree/v2.0.8)
+#### 23/12/14 by Morten Henriksen
+- Fix by @adamgins - data wiped on update #2
+
 ## [v2.0.7] (https://github.com/raix/push/tree/v2.0.7)
 #### 20/12/14 by Morten Henriksen
 - Bump to version 2.0.7
