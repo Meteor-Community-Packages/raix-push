@@ -1,6 +1,22 @@
 # Changelog
 
 ## vCurrent
+## [v2.0.7] (https://github.com/raix/push/tree/v2.0.7)
+#### 20/12/14 by Morten Henriksen
+- Bump to version 2.0.7
+
+- Add example of send
+
+- Added createdAt and updatedAt to the app collection
+
+- Created new api for the send method it now takes options instead of positioned arguments
+
+- remove wip
+
+- fix typo
+
+- have send return send status object { apn: 0, gcm: 0 }
+
 ## [v2.0.6] (https://github.com/raix/push/tree/v2.0.6)
 #### 17/12/14 by Morten Henriksen
 - Bump to version 2.0.6
