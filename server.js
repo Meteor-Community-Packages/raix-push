@@ -59,7 +59,13 @@ Meteor.methods({
       }
 
     } else {
-      Push.appCollection.update({ _id: app._id }, { $set: { updatedAt: new Date() } });
+      // We found the app so update the updatedAt and set the token
+      Push.appCollection.update({ _id: app._id }, {
+        $set: {
+          updatedAt: new Date(),
+          token: options.token
+        }
+      });
     }
 
     if (app && Push.debug) console.log('Push: Using', app);
