@@ -55,6 +55,9 @@ Status:
             gateway: 'gateway.push.apple.com',
         }
     });
+
+    // Enable apn Feedback - For now this must be called manually
+    Push.initFeedback();
     
     // Send to one token - please try out the common send
     Push.sendAPN = function(from, userToken, title, text, count, priority);
