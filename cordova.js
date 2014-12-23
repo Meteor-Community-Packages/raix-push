@@ -1,6 +1,3 @@
-// The pushApi is just an Event emitter
-Push = new EventEmitter();
-
 Push.setBadge = function(count) {
   // Helper
   var pushNotification = window.plugins.pushNotification;

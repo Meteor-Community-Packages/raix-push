@@ -1,5 +1,3 @@
-Push = new EventEmitter();
-
 Push.setBadge = function(count) {
   // XXX: Not implemented
 };
