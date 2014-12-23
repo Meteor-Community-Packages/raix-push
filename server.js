@@ -59,7 +59,7 @@ Meteor.methods({
       }
 
     } else {
-      Push.appCollection.update({ _id: app._id }, { updatedAt: new Date() });
+      Push.appCollection.update({ _id: app._id }, { $set: { updatedAt: new Date() } });
     }
 
     if (app && Push.debug) console.log('Push: Using', app);
