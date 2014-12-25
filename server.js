@@ -11,7 +11,7 @@ Push.addListener('token', function(currentToken, value) {
 });
 
 Meteor.methods({
-  'setPushToken': function(options) {
+  'raix:push-update': function(options) {
     if (Push.debug) console.log('Push: Got push token from app:', options);
 
     check(options, {
