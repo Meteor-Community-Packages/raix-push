@@ -9,6 +9,10 @@ var appId = 'main';
 // Namespaced storage key
 var localStorageKey = '_raix:push_token';
 
+// If we are using the accounts system then add the userId to appCollection
+// and monitor for logout
+var addUserId = !!Package['accounts-base'];
+
 /*
   1. Check if id is already set in localstorage
   2. If not then create an app id

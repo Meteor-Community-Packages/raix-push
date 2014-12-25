@@ -28,6 +28,9 @@ Package.onUse(function(api) {
     'random'   // The push it is created with Random.id()
   ], 'client');
 
+  // Keep track of users in the appCollection
+  api.use('accounts-base', ['client', 'server'], { weak: true });
+
   api.use(['raix:eventemitter@0.1.1', 'check'], ['client', 'server']);
 
   api.use('mongo', 'server');
