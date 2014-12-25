@@ -73,6 +73,37 @@ Meteor.methods({
     // Return the id we want to use
     return app._id;
   },
+  'raix:push-setuser': function(id) {
+    check(id, String);
+    // We update the appCollection id setting the Meteor.userId
+    var found = Push.appCollection.update({ _id: id }, { $set: { userId: this.userId } });
+
+    // Note that the app id might not exist because no token is set yet.
+    // We do create the new app id for the user since we might store additional
+    // metadata for the app / user
+
+    // If id not found then create it?
+    // We dont, its better to wait until the user wants to
+    // store metadata or token - We could end up with unused data in the
+    // collection at every app re-install / update
+    //
+    // The user could store some metadata in appCollectin but only if they
+    // have created the app and provided a token.
+    // If not the metadata should be set via ground:db
+
+    return !!found;
+  },
+  'raix:push-metadata': function(data) {
+    check(data, {
+      id: String,
+      metadata: Object
+    });
+
+    // Set the metadata
+    var found = Push.appCollection.update({ _id: data.id }, { $set: { metadata: data.metadata } });
+
+    return !!found;
+  },
   'sendPushNotification': function(options) {
     // Have some allow/deny rules?
     // check(options, {
