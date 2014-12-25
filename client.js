@@ -21,15 +21,27 @@ var addUserId = !!Package['accounts-base'];
 
 var stored;
 
-try {
-  // Get the stored object from local storage
-  stored = JSON.parse(localStorage.getItem(localStorageKey));
-  // If stored then set id
-  if (stored) id = stored.id;
+var loadLocalstorage = function() {
+  var data = {};
 
-} catch(err) {
-  // XXX: Error using the local storage
-}
+  try {
+    // Get the stored object from local storage
+    data = JSON.parse(localStorage.getItem(localStorageKey));
+
+  } catch(err) {
+    // XXX: Error using the local storage
+  }
+
+  return {
+    // Use a new id if not set
+    id: data && data.id || Random.id(),
+    // Set empty metadata object if nothing loaded
+    metadata: data && data.metadata || {},
+    // Set default token
+    token: null
+  };
+};
+
 
 // Use a new id if not set
 if (!id) id = Random.id();
