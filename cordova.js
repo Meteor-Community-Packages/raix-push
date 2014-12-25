@@ -88,6 +88,7 @@ Push.init = function(options) {
   }, options);
 
     // Initialize on ready
+  // XXX: This should be Meteor.startup(); instead...
   document.addEventListener('deviceready', function() {
 
     var pushNotification = window.plugins.pushNotification;
