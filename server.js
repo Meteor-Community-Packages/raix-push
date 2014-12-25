@@ -17,7 +17,9 @@ Meteor.methods({
     check(options, {
       id: String,
       token: _matchToken,
-      appId: String
+      appId: String,
+      userId: Match.OneOf(String, null),
+      metadata: Object
     });
 
     // if we could not find the token then lookup id
