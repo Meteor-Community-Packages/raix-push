@@ -42,6 +42,14 @@ var loadLocalstorage = function() {
   };
 };
 
+var saveLocalstorage = function(data) {
+  try {
+    // Try setting the id
+    localStorage.setItem(localStorageKey, JSON.stringify(data));
+  } catch(err) {
+    // XXX: storage error
+  }
+};
 
 // Use a new id if not set
 if (!id) id = Random.id();
