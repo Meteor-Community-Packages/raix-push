@@ -1,6 +1,3 @@
-// Reactive id
-var id = null;
-var idDep = new Tracker.Dependency();
 
 // Version of the push client
 var version = '0.0.1';
@@ -18,8 +15,6 @@ var addUserId = !!Package['accounts-base'];
   2. If not then create an app id
   3. Refresh the apn/gcm push token for this app
 */
-
-var stored;
 
 var loadLocalstorage = function() {
   var data = {};
@@ -51,8 +46,10 @@ var saveLocalstorage = function(data) {
   }
 };
 
-// Use a new id if not set
-if (!id) id = Random.id();
+// Set stored object
+var stored = loadLocalstorage();
+// Reactive id
+var idDep = new Tracker.Dependency();
 
 // Its either set by localStorage or random
 idDep.changed();
