@@ -83,15 +83,15 @@ Push.addListener('token', function(token) {
           idDep.changed();
         }
       }
+Push.id = function() {
+  idDep.depend();
+  return stored.id;
+};
     });
 
   });
 });
 
-Push.id = function() {
-  idDep.depend();
-  return id;
-};
 
 // We dont use the apn/gcm tokens
 // Send idArray, title, text, priority, callback
