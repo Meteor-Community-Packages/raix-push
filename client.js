@@ -54,43 +54,81 @@ var idDep = new Tracker.Dependency();
 // Its either set by localStorage or random
 idDep.changed();
 
-// Start listening for tokens
-Push.addListener('token', function(token) {
-  // Make sure we are ready for this
-  Meteor.startup(function() {
-
-    // token.gcm or token.apn
-    Meteor.call('setPushToken', {
-      id: id,
-      token: token,
-      appId: appId
-    }, function(err, result) {
-      if (err) {
-        // XXX: Got an error, retry?
-      } else {
-        // The result is the id - The server may update this if it finds a
-        // match for an old install
-        if (id !== result) {
-          // The server did match the push token for this device
-          id = result;
-          try {
-            // Try setting the id
-            localStorage.setItem(localStorageKey, JSON.stringify({ id: id, token: token }));
-          } catch(err) {
-            // XXX: storage error
-          }
-          // The id has changed.
-          idDep.changed();
-        }
-      }
 Push.id = function() {
   idDep.depend();
   return stored.id;
 };
-    });
 
+Push.setUser = function() {
+  // Let the server update the userId on the id
+  Meteor.call('raix:push-setuser', stored.id);
+};
+
+Push.setMetadata = function(data) {
+  stored.metadata = data;
+  saveLocalstorage(stored);
+  // Set the metadata on the server collection if we have a token, otherwise
+  // we should only set the metadata in localstorage
+  if (stored.token) {
+    // Update the metadata
+    Meteor.call('raix:push-metadata', {
+      id: stored.id,
+      metadata: stored.metadata
+    });
+  }
+};
+
+// Report token to the server
+var reportTokenToServer = function(token, userId) {
+  // Store the token
+  stored.token = token;
+
+  // Set the data object
+  var data = {
+    id: stored.id,
+    token: token,
+    appId: appId,
+    userId: (addUserId) ? Meteor.userId() : null,
+    metadata: stored.metadata
+  };
+
+  // token.gcm or token.apn
+  Meteor.call('raix:push-update', data, function(err, result) {
+    if (err) {
+      // XXX: Got an error, retry?
+    } else {
+      // The result is the id - The server may update this if it finds a
+      // match for an old install
+      if (stored.id !== result) {
+        // The server did match the push token for this device
+        stored.id = result;
+        // Save the stored object
+        saveLocalstorage(stored);
+        // The id has changed.
+        idDep.changed();
+      }
+    }
   });
+};
+
+// Start listening for tokens
+Push.addListener('token', function(token) {
+  // The app should be ready, lets call in
+  reportTokenToServer(token);
 });
+
+// Start listening for user updates if accounts package is added
+if (addUserId) {
+  Tracker.autorun(function() {
+    // Depend on the userId
+    var user = Meteor.userId();
+    // Dont run this the first time, its already done in the reportTokenToServer
+    if (!this.firstRun) {
+      // Update the userId
+      Push.setUser();
+    }
+  });
+}
 
 
 // We dont use the apn/gcm tokens
