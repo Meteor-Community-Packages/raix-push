@@ -1,6 +1,42 @@
 # Changelog
 
 ## vCurrent
+## [v2.0.10] (https://github.com/raix/push/tree/v2.0.10)
+#### 26/12/14 by Morten Henriksen
+- 2.0.10 - Added userId and metadata to the appCollection
+
+- Actually set and check the userId
+
+- For now send will return array of app id's that was sent to - This will likely change back to a simple counter in the future
+
+- Comment on meteor startup
+
+- refactor and added the store user id feature
+
+- use the stored scope
+
+- Store data in the stored scope
+
+- use a general save to storage function
+
+- use a general load from storage function
+
+- Add additional checks
+
+- The server can register what user is using the app
+
+- namespace methods to the package raix:push-method
+
+- Detect if the user installed accounts package
+
+- Fix missing ios7 badge updates
+
+- clean up code
+
+- we don't need namescpacing in localstorage
+
+- Add Push scope to common code
+
 ## [v2.0.9] (https://github.com/raix/push/tree/v2.0.9)
 #### 23/12/14 by Morten Henriksen
 - Add details about apn initFeedback
