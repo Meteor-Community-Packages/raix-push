@@ -162,7 +162,18 @@ Push.init = function(options) {
     if (options.gcm && options.gcm.apiKey) {
         if (Push.debug) console.log('GCM configured');
         self.sendGCM = function(from, userTokens, title, text, count, priority) {
-            // console.log('sendGCM', from, userToken, title, text, count, priority);
+            // Make sure userTokens are an array of strings
+            if (userTokens === ''+userTokens) userTokens = [userTokens];
+
+            // Check if any tokens in there to send
+            if (!userTokens.length) {
+                if (Push.debug) console.log('sendGCM no push tokens found');
+                return;
+            }
+
+            if (Push.debug)
+                console.log('sendGCM', from, userToken, title, text, count, priority);
+
             var gcm = Npm.require('node-gcm');
             var Fiber = Npm.require('fibers');
 
