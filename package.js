@@ -31,12 +31,15 @@ Package.onUse(function(api) {
   // Keep track of users in the appCollection
   api.use('accounts-base', ['client', 'server'], { weak: true });
 
-  api.use(['raix:eventemitter@0.1.1', 'check'], ['client', 'server']);
+  api.use(['raix:eventemitter@0.1.1', 'check', 'mongo'], ['client', 'server']);
 
   api.use('mongo', 'server');
 
   // Common api
-  api.addFiles('common.js', ['client', 'server']);
+  api.addFiles([
+    'common.js',
+    'common.notifications.js'
+  ], ['client', 'server']);
 
   // API's
   api.addFiles('browser.js', 'web.browser');

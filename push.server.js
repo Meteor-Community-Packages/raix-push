@@ -290,7 +290,7 @@ Push.init = function(options) {
         };
     };
 
-    self.send = function(options) {
+    self.serverSend = function(options) {
       options = options || { count: 0 };
       var query;
 
