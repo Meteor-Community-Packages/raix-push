@@ -47,6 +47,10 @@ Push.init = function(options) {
     if (options.apn) {
         if (Push.debug) console.log('Push: APN configured');
 
+        // Allow production to be a general option for push notifications
+        if (options.production)
+          options.apn.production = true;
+
         // We check the apn gateway i the options, we could risk shipping
         // server into production while using the production configuration.
         // On the other hand we could be in development but using the production
