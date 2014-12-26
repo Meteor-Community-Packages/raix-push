@@ -1,6 +1,16 @@
 # Changelog
 
 ## vCurrent
+## [v2.0.9] (https://github.com/raix/push/tree/v2.0.9)
+#### 23/12/14 by Morten Henriksen
+- Add details about apn initFeedback
+
+- Implement the update and invalidation of tokens - use the Push.initFeedback()
+
+- Change priority - id first then token, then create
+
+- Actually update the token
+
 ## [v2.0.8] (https://github.com/raix/push/tree/v2.0.8)
 #### 23/12/14 by Morten Henriksen
 - Fix by @adamgins - data wiped on update #2
