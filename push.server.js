@@ -127,7 +127,7 @@ Push.init = function(options) {
         };
 
 
-        self.initFeedback = function() {
+        var initFeedback = function() {
             var apn = Npm.require('apn');
             // console.log('Init feedback');
             var feedbackOptions = {
@@ -147,6 +147,11 @@ Push.init = function(options) {
                 });
             });
         };
+
+        // Init feedback from apn server
+        // This will help keep the appCollection up-to-date, it will help update
+        // and remove token from appCollection.
+        initFeedback();
 
     } // EO ios options
 
