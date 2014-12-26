@@ -189,10 +189,12 @@ Push.init = function(options) {
                     msgcnt: count
                 }
             });
+
+            if (Push.debug) console.log('Create GCM Sender using "' + options.gcm.apiKey + '"');
             var sender = new gcm.Sender(options.gcm.apiKey);
 
             _.each(userTokens, function(value, key) {
-                // console.log('A:Send message to: ' + value + ' count=' + count);
+                if (Push.debug) console.log('A:Send message to: ' + value + ' count=' + count);
             });
 
             /*message.addData('title', title);
@@ -210,9 +212,9 @@ Push.init = function(options) {
 
             sender.send(message, userTokens, 5, function (err, result) {
                 if (err) {
-                    // console.log('ANDROID ERROR: result of sender: ' + result);
+                    if (Push.debug) console.log('ANDROID ERROR: result of sender: ' + result);
                 } else {
-                    // console.log('ANDROID: Result of sender: ' + JSON.stringify(result));
+                    if (Push.debug) console.log('ANDROID: Result of sender: ' + JSON.stringify(result));
                     if (result.canonical_ids === 1 && userToken) {
 
                         // This is an old device, token is replaced
