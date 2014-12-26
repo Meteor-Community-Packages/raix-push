@@ -247,20 +247,20 @@ Push.init = function(options) {
     // Universal send function
     var _querySend = function(from, query, title, text, count, priority) {
 
-      var countApn = 0;
-      var countGcm = 0;
+      var countApn = [];
+      var countGcm = [];
 
         Push.appCollection.find(query).forEach(function(app) {
 
           if (Push.debug) console.log('send to token', app.token);
 
             if (app.token.apn) {
-              countApn++;
+              countApn.push(app._id);
                 // Send to APN
                 if (self.sendAPN) self.sendAPN(from, app.token.apn, title, text, count, priority);
 
             } else if (app.token.gcm) {
-              countGcm++;
+              countGcm.push(app._id);
 
                 // Send to GCM
                 // We do support multiple here - so we should construct an array
@@ -273,7 +273,7 @@ Push.init = function(options) {
 
         });
 
-        if (Push.debug) console.log('Push: Sent message "' + title + '" to ' + countApn + ' ios apps' + countGcm + ' android apps');
+        if (Push.debug) console.log('Push: Sent message "' + title + '" to ' + countApn.length + ' ios apps ' + countGcm.length + ' android apps');
 
         return {
           apn: countApn,
