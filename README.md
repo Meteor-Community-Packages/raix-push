@@ -35,10 +35,6 @@ Depending on the platforms you want to work with you will need some credentials 
         // token: appId or token eg. "{ apn: token }"
         // tokens: array of appId's or tokens
     });
-
-    // Security
-    // Push.allow
-    // Push.deny
 ```
 *The client send features is WIP in `devel` branch. Adding allow/deny rules in order to allow the user to send push messages to other users directly from the client*
 
@@ -84,6 +80,24 @@ Depending on the platforms you want to work with you will need some credentials 
     Push.setBadge(count); // ios specific - ignored everywhere else
 ```
 
+## Security allow/deny send
+This package allows you to send notifications from the server and client. To restrict the client or allowing the client to send use `allow` or `deny` rules.
+
+When a client calls send on Push, the Push's allow and deny callbacks are called on the server to determine if the send should be allowed. If at least one allow callback allows the send, and no deny callbacks deny the send, then the send is allowed to proceed.
+
+```js
+    Push.allow({
+        send: function(userId, notification) {
+            return true; // Allow all users to send
+        }
+    });
+
+    Push.deny({
+        send: function(userId, notification) {
+            return false; // Allow all users to send
+        }
+    });
+```
 
 For more internal or advanced features read [ADVANCED.md](ADVANCED.md)
 
