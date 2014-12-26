@@ -45,7 +45,7 @@ Push.init = function(options) {
 
 
     if (options.apn) {
-        // console.log('Push: APN configured');
+        if (Push.debug) console.log('Push: APN configured');
 
         // We check the apn gateway i the options, we could risk shipping
         // server into production while using the production configuration.
@@ -151,7 +151,7 @@ Push.init = function(options) {
     } // EO ios options
 
     if (options.gcm && options.gcm.pushId) {
-        // console.log('GCM configured');
+        if (Push.debug) console.log('GCM configured');
         self.sendGCM = function(from, userTokens, title, text, count, priority) {
             // console.log('sendGCM', from, userToken, title, text, count, priority);
             var gcm = Npm.require('node-gcm');
