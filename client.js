@@ -1,8 +1,3 @@
-
-// Version of the push client
-var version = '0.0.1';
-var appId = 'main';
-
 // Namespaced storage key
 var localStorageKey = '_raix:push_token';
 
@@ -79,7 +74,7 @@ Push.setMetadata = function(data) {
 };
 
 // Report token to the server
-var reportTokenToServer = function(token, userId) {
+var reportTokenToServer = function(token, appName) {
   // Store the token
   stored.token = token;
 
@@ -87,7 +82,7 @@ var reportTokenToServer = function(token, userId) {
   var data = {
     id: stored.id,
     token: token,
-    appId: appId,
+    appName: appName,
     userId: (addUserId) ? Meteor.userId() : null,
     metadata: stored.metadata
   };
@@ -111,40 +106,25 @@ var reportTokenToServer = function(token, userId) {
   });
 };
 
-// Start listening for tokens
-Push.addListener('token', function(token) {
-  // The app should be ready, lets call in
-  reportTokenToServer(token);
-});
+initPushUpdates = function(appName) {
 
-// Start listening for user updates if accounts package is added
-if (addUserId) {
-  Tracker.autorun(function() {
-    // Depend on the userId
-    var user = Meteor.userId();
-    // Dont run this the first time, its already done in the reportTokenToServer
-    if (!this.firstRun) {
-      // Update the userId
-      Push.setUser();
-    }
+  // Start listening for tokens
+  Push.addListener('token', function(token) {
+    // The app should be ready, lets call in
+    reportTokenToServer(token, appName || 'main');
   });
-}
 
+  // Start listening for user updates if accounts package is added
+  if (addUserId) {
+    Tracker.autorun(function() {
+      // Depend on the userId
+      var user = Meteor.userId();
+      // Dont run this the first time, its already done in the reportTokenToServer
+      if (!this.firstRun) {
+        // Update the userId
+        Push.setUser();
+      }
+    });
+  }
 
-// We dont use the apn/gcm tokens
-// Send idArray, title, text, priority, callback
-Push.send = function(options, callback) {
-  // Check that options are as expected
-  // check(options, {
-  //   idArray: [],
-  //   title: String,
-  //   text: String,
-  //   priority: Match.Optional(Number),
-  // });
-
-  // Check if callback is set
-  // check(callback, Match.Optional(Function));
-
-  // Send message
-  Meteor.call('sendPushNotification', options, callback);
-}; // Send a push notification to one or more users
+};

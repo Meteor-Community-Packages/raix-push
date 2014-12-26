@@ -17,7 +17,7 @@ Meteor.methods({
     check(options, {
       id: String,
       token: _matchToken,
-      appId: String,
+      appName: String,
       userId: Match.OneOf(String, null),
       metadata: Object
     });
@@ -34,7 +34,7 @@ Meteor.methods({
     if (!app) app = Push.appCollection.findOne({
       $and: [
         { token: options.token },
-        { appId: options.appId }
+        { appName: options.appName }
       ]
     });
 
@@ -45,7 +45,7 @@ Meteor.methods({
       var doc = {
         _id: options.id,
         token: options.token,
-        appId: options.appId,
+        appName: options.appName,
         userId: options.userId,
         createdAt: new Date(),
         updatedAt: new Date()

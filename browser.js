@@ -21,6 +21,9 @@ Push.init = function(options) {
   // Client-side security warnings
   checkClientSecurity(options);
 
+  // Start token updates
+  initPushUpdates(options.appName);
+
   // Add support for the raix:iframe push solution Deprecate this at some
   // point mid aug 2015
   if (options.iframe) {
@@ -167,6 +170,7 @@ Push.init = function(options) {
 
 
   }
+
 };
 
 /*

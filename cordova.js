@@ -90,6 +90,9 @@ Push.init = function(options) {
     alert: (options.alert !== false)
   }, options);
 
+  // Start token updates
+  initPushUpdates(options.appName);
+
     // Initialize on ready
   // XXX: This should be Meteor.startup(); instead...
   document.addEventListener('deviceready', function() {
