@@ -1,6 +1,6 @@
 Package.describe({
   name: 'raix:push',
-  version: '2.0.9',
+  version: '2.0.10',
   summary: 'Push notifications',
   git: 'https://github.com/raix/push.git'
 });
