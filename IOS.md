@@ -8,11 +8,14 @@ Bellow are some snippets of documentaion:
 ##Certificates
 
 This is fairly straight forward, for the most parts you are guided in the developer.apple.com console:
+
 1. Create the CSR from keychain
 2. Create AppId (enable push)
 3. Create push certificates for production and development
 4. Create provisioning profiles for the app production and development
+
 This is described bellow:
+
 5. Convert the push certificates into paired `key.pem` and `cert.pem` files
 6. Test the `*.pem` files making sure they work
 7. Add the `*.pem` files to your `/private` folder in the Meteor app
