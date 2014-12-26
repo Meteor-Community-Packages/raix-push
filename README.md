@@ -35,7 +35,7 @@ Status:
     // Push.allow
     // Push.deny
 ```
-*The client-send branch is WIP of allow/deny rules in order to allow the user to send push messages to other users directly from the client*
+*The client send features is WIP in `devel` branch. Adding allow/deny rules in order to allow the user to send push messages to other users directly from the client*
 
 ## Server api
 
