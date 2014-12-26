@@ -80,6 +80,8 @@ Status:
 ```
 
 
+For more internal or advanced features read [ADVANCED.md](ADVANCED.md)
+
 Kind regards
 
 Morten (aka RaiX)
