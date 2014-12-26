@@ -22,6 +22,10 @@ Meteor.methods({
       metadata: Object
     });
 
+    // The if user id is set then user id should match on client and connection
+    if (options.userId && options.userId !== this.userId)
+      throw new Meteor.Error(403, 'Forbidden access');
+
     // if we could not find the token then lookup id
     var app = Push.appCollection.findOne({ _id: options.id });
 
@@ -42,6 +46,7 @@ Meteor.methods({
         _id: options.id,
         token: options.token,
         appId: options.appId,
+        userId: options.userId,
         createdAt: new Date(),
         updatedAt: new Date()
       };
