@@ -8,8 +8,8 @@
 
 // getText / getBinary
 
-Push.setBadge = function(appId, count) {
-    throw new Error('Push.setBadge not implemented on the server');
+Push.setBadge = function(id, count) {
+    // throw new Error('Push.setBadge not implemented on the server');
 };
 
 Push.init = function(options) {
