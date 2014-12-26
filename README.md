@@ -23,12 +23,13 @@ Status:
         from: 'push',
         title: 'Hello',
         text: 'world',
-        query: {} // Query the appCollection
+        query: {
+            // Ex. send to a specific user if using accounts:
+            userId: 'xxxxxxxxx'
+        } // Query the appCollection
         // token: appId or token eg. "{ apn: token }"
         // tokens: array of appId's or tokens
     });
-
-    Push.addListener();
 
     // Security
     // Push.allow
@@ -51,14 +52,7 @@ Status:
             keyData: Assets.getText('apnProdKey.pem'),
         },
         production: true, // use production server or sandbox
-    });
-
-    // Internal events
-    Push.addListener('token', function(currentToken, newToken) {
-        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' } or null
-        // if newToken is null then the currentToken is invalid
-        // if newToken is set then this should replace the currentToken
-    });    
+    });  
 ```
 
 ## Client api
@@ -83,18 +77,6 @@ Status:
     Push.id(); // Unified id - not a token
 
     Push.setBadge(count); // ios specific - ignored everywhere else
-
-    // Internal events
-    Push.addListener('token', function(token) {
-        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' }
-    });
-
-    /*
-    error { type: 'gcm', error: error }
-    register
-    startup
-    badge
-    */
 ```
 
 
