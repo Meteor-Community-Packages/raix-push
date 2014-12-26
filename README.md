@@ -36,7 +36,7 @@ Depending on the platforms you want to work with you will need some credentials 
         // tokens: array of appId's or tokens
     });
 ```
-*The client send features is WIP in `devel` branch. Adding allow/deny rules in order to allow the user to send push messages to other users directly from the client*
+*When in secure mode the client send features require adding allow/deny rules in order to allow the user to send push messages to other users directly from the client - Read more below*
 
 ## Server api
 
