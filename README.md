@@ -29,7 +29,6 @@ Status:
     });
 
     Push.addListener();
-    Push.setBadge(count);
 
     // Security
     // Push.allow
@@ -82,6 +81,8 @@ Status:
     });
 
     Push.id(); // Unified id - not a token
+
+    Push.setBadge(count); // ios specific - ignored everywhere else
 
     // Internal events
     Push.addListener('token', function(token) {
