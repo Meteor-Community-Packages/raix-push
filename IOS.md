@@ -20,7 +20,7 @@ This is described bellow:
 6. Test the `*.pem` files making sure they work
 7. Add the `*.pem` files to your `/private` folder in the Meteor app
 
-If you need to learn more about creating certificates you should read the whole [Great writeup by Ali](http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1)
+If you need to learn more about creating certificates you should read the whole [Great writeup by Ali](http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1) - Bellow is a short snippet from the blog:
 
 ###Making a PEM File
 So now you have three files:
