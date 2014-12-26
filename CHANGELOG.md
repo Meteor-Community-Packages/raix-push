@@ -1,6 +1,20 @@
 # Changelog
 
 ## vCurrent
+## [v2.0.11] (https://github.com/raix/push/tree/v2.0.11)
+#### 26/12/14 by Morten Henriksen
+- Clean up docs and hide more advanced features
+
+- pushId in options is now deprecated - use gcm.projectNumber, gcm.apiKey, websitePushId instead - Breaking change!
+
+- have a general production option for Push.init
+
+- We init apn feedback pr. default
+
+- add more debug verbosity
+
+- Add security warnings about exposing keys/certificates or passphrase on client
+
 ## [v2.0.10] (https://github.com/raix/push/tree/v2.0.10)
 #### 26/12/14 by Morten Henriksen
 - 2.0.10 - Added userId and metadata to the appCollection
