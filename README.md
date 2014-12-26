@@ -6,14 +6,19 @@ Push notifications for cordova (ios, android) browser (Chrome, Safari, Firefox) 
 Status:
 * [x] APN iOS
 * [x] GCM Android
-* [x] APN Safari web push (untested)
-* [x] GCM Chrome OS (untested)
-* [x] Firefox OS (untested)
+* [x] APN Safari web push (partially implemented)
+* [x] GCM Chrome OS (partially implemented)
+* [x] Firefox OS (partially implemented)
 * [ ] BPS Blackberry 10
 * [ ] MPNS Windows phone 8
 * [ ] MPNS Windows 8
 * [ ] ADM Amazon Fire OS
 * [ ] Meteor in app notifications
+
+## Getting started
+Depending on the platforms you want to work with you will need some credentials or certificates.
+* [Android](ANDROID.md)
+* [iOS](IOS.md)
 
 ## Common api
 ```js
