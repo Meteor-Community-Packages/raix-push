@@ -1,6 +1,30 @@
 # Changelog
 
 ## vCurrent
+## [v2.1.0] (https://github.com/raix/push/tree/v2.1.0)
+#### 26/12/14 by Morten Henriksen
+- Correct documentation
+
+- Add allow and deny rules to documentation
+
+- Ignore setBadge on the server for now
+
+- Add the throttled send
+
+- Add secure client send push notification
+
+- Refactor appId to appName
+
+- add more credits
+
+- fix docs
+
+- Add more documentation - all for free
+
+- Correct details about client send
+
+- move setBadge to client code for now
+
 ## [v2.0.11] (https://github.com/raix/push/tree/v2.0.11)
 #### 26/12/14 by Morten Henriksen
 - Clean up docs and hide more advanced features
