@@ -17,8 +17,6 @@ Status:
 
 ## Common api
 ```js
-    Push.send = function(from, appIds, title, text, count, priority);
-
     // Push.debug = true; // Add verbosity
 
     Push.send({
@@ -46,23 +44,15 @@ Status:
         gcm: {
             apiKey: 'xxxxxxxxxxxxx'
         },
-        apn: { // setting this on client throws security error
+        apn: {
+            // setting this on client throws security error
             passphrase: 'xxx',
             // pem files are placed in the app private folder
             certData: Assets.getText('apnProdCert.pem'),
             keyData: Assets.getText('apnProdKey.pem'),
-            production: true, // or...
-            gateway: 'gateway.push.apple.com',
-        }
+        },
+        production: true, // use production server or sandbox
     });
-
-    // Enable apn Feedback - For now this must be called manually
-    Push.initFeedback();
-    
-    // Send to one token - please try out the common send
-    Push.sendAPN = function(from, userToken, title, text, count, priority);
-    // Send to array of tokens - Please try out the common send
-    Push.sendGCM = function(from, userTokens, title, text, count, priority)
 
     // Internal events
     Push.addListener('token', function(currentToken, newToken) {
