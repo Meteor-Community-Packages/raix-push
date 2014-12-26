@@ -353,4 +353,46 @@ Push.init = function(options) {
 
     };
 
+    var isSendingNotification = false;
+
+    Meteor.setInterval(function() {
+
+        if (!isSendingNotification) {
+            // Set send fence
+            isSendingNotification = true;
+
+            // Find one notification
+            var notification = Push.notifications.findOne({ sent : { $ne: true } }, { sort: { createdAt: 1 } });
+
+            // Check if we got any notifications to send
+            if (notification) {
+
+                // Send the notification
+                var result = Push.serverSend(notification);
+
+                if (!options.keepNotifications) {
+                    // Pr. Default we will remove notifications
+                    Push.notifications.remove({ _id: notification._id });
+                } else {
+
+                    // Update the notification
+                    Push.notifications.update({ _id: notification._id }, {
+                        $set: {
+                            sent: true,
+                            sentAt: new Date(),
+                            count: result
+                        }
+                    });
+
+                }
+
+                // Emit the send
+                self.emit('send', { notification: notification._id, result: result });
+            }
+
+            // Remove the send fence
+            isSendingNotification = false;
+        }
+    }, options.sendInterval || 15000); // Default every 15'the sec
+
 };
