@@ -76,9 +76,12 @@ onNotificationGCM = function(e) {
 Push.init = function(options) {
   var self = this;
 
-  // Clean up options, make sure the pushId
-  if (options.gcm && !options.gcm.pushId)
-    throw new Error('Push.initPush gcm got no pushId');
+  // Clean up options, make sure the projectNumber
+  if (options.gcm && !options.gcm.projectNumber)
+    throw new Error('Push.initPush gcm got no projectNumber');
+
+  // Client-side security warnings
+  checkClientSecurity(options);
 
   // Set default options - these are needed for apn?
   options = _.extend({

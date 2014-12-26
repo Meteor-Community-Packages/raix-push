@@ -21,9 +21,8 @@ Push.init = function(options) {
   // });
 
 
-  // XXX: Warn if apn certificates are added here on client...
-  if (options.apn && (options.apn.certData || options.apn.keyData))
-    throw new Error('Push.initPush Dont add your certificate or key in client code!');
+  // Client-side security warnings
+  checkClientSecurity(options);
 
   // Add support for the raix:iframe push solution Deprecate this at some
   // point mid aug 2015
