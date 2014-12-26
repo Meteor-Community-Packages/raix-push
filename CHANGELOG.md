@@ -1,6 +1,12 @@
 # Changelog
 
 ## vCurrent
+## [v2.1.1] (https://github.com/raix/push/tree/v2.1.1)
+#### 26/12/14 by Morten Henriksen
+- Add more debug verbosity
+
+- Fix android sends - convert string to array of strings
+
 ## [v2.1.0] (https://github.com/raix/push/tree/v2.1.0)
 #### 26/12/14 by Morten Henriksen
 - Correct documentation
