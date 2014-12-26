@@ -7,16 +7,13 @@ Push.init = function(options) {
 
   options = options || {};
 
-  // options.senderID - this is for android...
-  // options.apn.webServiceUrl = 'https://domain.example.com'
-
   // check(options, {
   //   gcm: Match.Optional(Match.ObjectIncluding({
-  //     pushId: String
+  //     projectNumber: String
   //   })),
   //   apn: Match.Optional(Match.ObjectIncluding({
   //     webServiceUrl: String,
-  //     pushId: String
+  //     websitePushId: String
   //   })),
   // });
 
@@ -64,8 +61,8 @@ Push.init = function(options) {
     // Set max message size
     // chrome.gcm.MAX_MESSAGE_SIZE = 4096;
 
-    if (options.gcm.pushId)
-      chrome.gcm.register(options.gcm.pushId, function(token) {
+    if (options.gcm.projectNumber)
+      chrome.gcm.register(options.gcm.projectNumber, function(token) {
         if (token) {
           self.emit('token', { gcm: token });
         } else {
@@ -81,7 +78,7 @@ Push.init = function(options) {
 
       Meteor.startup(function() {
         // Ensure that the user can receive Safari Push Notifications.
-        var permissionData = window.safari.pushNotification.permission(options.apn.pushId);
+        var permissionData = window.safari.pushNotification.permission(options.apn.websitePushId);
         checkRemotePermission(permissionData);
       });
 
@@ -90,7 +87,7 @@ Push.init = function(options) {
               // This is a new web service URL and its validity is unknown.
               window.safari.pushNotification.requestPermission(
                   options.apn.webServiceUrl, // The web service URL.
-                  options.apn.pushId,     // The Website Push ID.
+                  options.apn.websitePushId, // The Website Push ID.
                   {}, // Data that you choose to send to your server to help you identify the user.
                   checkRemotePermission         // The callback function.
               );

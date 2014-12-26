@@ -99,7 +99,7 @@ Push.init = function(options) {
     if (device.platform == 'android' || device.platform == 'Android') {
       try {
 
-        if (options.gcm && options.gcm.pushId) {
+        if (options.gcm && options.gcm.projectNumber) {
           pushNotification.register(function(result) {
             // Emit registered
             self.emit('register', result);
@@ -107,12 +107,12 @@ Push.init = function(options) {
             // Emit error
             self.emit('error', { type: 'gcm.cordova', error: error });
           }, {
-            'senderID': ''+options.gcm.pushId,
+            'senderID': ''+options.gcm.projectNumber,
             'ecb': 'onNotificationGCM'
           });
         } else {
           // throw new Error('senderID not set in options, required on android');
-          console.warn('WARNING: Push.init, No gcm.pushId set on android');
+          console.warn('WARNING: Push.init, No gcm.projectNumber set on android');
         }
 
       } catch(err) {

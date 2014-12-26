@@ -44,7 +44,7 @@ Status:
 ```js
     Push.init({
         gcm: {
-            pushId: 'xxxxxxxxxxxxx'
+            apiKey: 'xxxxxxxxxxxxx'
         },
         apn: { // setting this on client throws security error
             passphrase: 'xxx',
@@ -77,10 +77,13 @@ Status:
     // Common client api
     Push.init({
         gcm: {
-            pushId: 'xxxxxxxxxxxxxxxxxx'
+            // Required for Android and Chrome OS
+            projectNumber: 'xxxxxxxxxxxxxxxxxx'
         },
         apn: {
-            pushId: 'com.push.server'
+            // Only required if using safari web push, not required
+            // for iOS / cordova
+            websitePushId: 'com.push.server'
             webServiceUrl: 'http://some.server.com'
         },
         bagde: true,

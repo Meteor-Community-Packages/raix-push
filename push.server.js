@@ -159,7 +159,7 @@ Push.init = function(options) {
 
     } // EO ios options
 
-    if (options.gcm && options.gcm.pushId) {
+    if (options.gcm && options.gcm.apiKey) {
         if (Push.debug) console.log('GCM configured');
         self.sendGCM = function(from, userTokens, title, text, count, priority) {
             // console.log('sendGCM', from, userToken, title, text, count, priority);
@@ -178,7 +178,7 @@ Push.init = function(options) {
                     msgcnt: count
                 }
             });
-            var sender = new gcm.Sender(options.gcm.pushId);
+            var sender = new gcm.Sender(options.gcm.apiKey);
 
             _.each(userTokens, function(value, key) {
                 // console.log('A:Send message to: ' + value + ' count=' + count);
