@@ -1,6 +1,10 @@
 # Changelog
 
 ## vCurrent
+## [v2.1.2] (https://github.com/raix/push/tree/v2.1.2)
+#### 27/12/14 by Morten Henriksen
+- Thanks to @adam-hanna
+
 ## [v2.1.1] (https://github.com/raix/push/tree/v2.1.1)
 #### 26/12/14 by Morten Henriksen
 - Add more debug verbosity
