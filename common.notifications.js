@@ -17,7 +17,7 @@ var _validateDocument = function(notification) {
     token: Match.Optional(matchToken),
     tokens: Match.Optional([matchToken]),
     createdAt: Date,
-    createdBy: String
+    createdBy: Match.OneOf(String, null)
   });
 
   // Make sure a token selector or query have been set
