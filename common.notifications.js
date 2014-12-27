@@ -4,8 +4,6 @@ Push.notifications = new Mongo.Collection('_raix_push_notifications');
 // This is a general function to validate that the data added to notifications
 // is in the correct format. If not this function will throw errors
 var _validateDocument = function(notification) {
-  // Define how tokens should look like
-  var matchToken = Match.OneOf({ apn: String }, { gcm: String });
 
   // Check the general notification
   check(notification, {
@@ -14,8 +12,8 @@ var _validateDocument = function(notification) {
     text: String,
     count: Number,
     query: Match.Optional(Object),
-    token: Match.Optional(matchToken),
-    tokens: Match.Optional([matchToken]),
+    token: Match.Optional(_matchToken),
+    tokens: Match.Optional([_matchToken]),
     createdAt: Date,
     createdBy: Match.OneOf(String, null)
   });
