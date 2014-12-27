@@ -20,6 +20,8 @@ Depending on the platforms you want to work with you will need some credentials 
 * [Android](ANDROID.md)
 * [iOS](IOS.md)
 
+Have a look at the [Basic example](BASIC.md)
+
 ## Common api
 ```js
     // Push.debug = true; // Add verbosity
