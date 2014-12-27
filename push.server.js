@@ -172,7 +172,7 @@ Push.init = function(options) {
             }
 
             if (Push.debug)
-                console.log('sendGCM', from, userToken, title, text, count, priority);
+                console.log('sendGCM', from, userTokens, title, text, count, priority);
 
             var gcm = Npm.require('node-gcm');
             var Fiber = Npm.require('fibers');
