@@ -17,10 +17,10 @@ Status:
 
 ## Getting started
 Depending on the platforms you want to work with you will need some credentials or certificates.
-* [Android](ANDROID.md)
-* [iOS](IOS.md)
+* [Android](docs/ANDROID.md)
+* [iOS](docs/IOS.md)
 
-Have a look at the [Basic example](BASIC.md)
+Have a look at the [Basic example](docs/BASIC.md)
 
 ## Common api
 ```js
@@ -101,7 +101,7 @@ When a client calls send on Push, the Push's allow and deny callbacks are called
     });
 ```
 
-For more internal or advanced features read [ADVANCED.md](ADVANCED.md)
+For more internal or advanced features read [ADVANCED.md](docs/ADVANCED.md)
 
 Kind regards
 
