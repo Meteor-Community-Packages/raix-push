@@ -1,6 +1,14 @@
 # Changelog
 
 ## vCurrent
+## [v2.2.0] (https://github.com/raix/push/tree/v2.2.0)
+#### 28/12/14 by Morten Henriksen
+- Add support for config file
+
+- Refactor files into folders
+
+- Update change log
+
 ## [v2.1.3] (https://github.com/raix/push/tree/v2.1.3)
 #### 27/12/14 by Morten Henriksen
 - Use the matchToken in common
