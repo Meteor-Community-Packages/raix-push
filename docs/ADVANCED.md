@@ -61,3 +61,68 @@ Event types:
 * `apn.browser`
 * `gcm.browser`
 * `cordova.browser`
+
+## Setting credentials / certificates
+
+This can be done via:
+* In `config.push.json` file
+* In client/server code
+
+### Config
+Add a `config.push.json` file in your project and configure credentials / keys / certificates:
+
+```js
+{
+  "apn": {
+    "passphrase": "xxxxxxxxx",  
+    "key": "apnProdKey.pem",
+    "cert": "apnProdCert.pem"
+  },
+  "gcm": {
+    "apiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "projectNumber": xxxxxxxxxxxx
+  },
+  "production": true
+}
+```
+
+### Server api
+
+```js
+    Push.init({
+        gcm: {
+            apiKey: 'xxxxxxxxxxxxx'
+        },
+        apn: {
+            // setting this on client throws security error
+            passphrase: 'xxx',
+            // pem files are placed in the app private folder
+            certData: Assets.getText('apnProdCert.pem'),
+            keyData: Assets.getText('apnProdKey.pem'),
+        },
+        production: true, // use production server or sandbox
+    });  
+```
+
+### Client api
+```js
+    // Common client api
+    Push.init({
+        gcm: {
+            // Required for Android and Chrome OS
+            projectNumber: 'xxxxxxxxxxxxxxxxxx'
+        },
+        apn: {
+            // Only required if using safari web push, not required
+            // for iOS / cordova
+            websitePushId: 'com.push.server'
+            webServiceUrl: 'http://some.server.com'
+        },
+        bagde: true,
+        sound: true,
+        alert: true
+    });
+
+    Push.id(); // Unified application id - not a token
+    Push.setBadge(count); // ios specific - ignored everywhere else
+```

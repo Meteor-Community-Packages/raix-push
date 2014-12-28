@@ -7,45 +7,22 @@ Depending on the platforms you want to work with you will need some credentials 
 * [Android](ANDROID.md)
 * [iOS](IOS.md)
 
-## Code
-`client/client.js`
-```js
-// Fire up push asap
-Push.init({
-  gcm: {
-    projectNumber: 'xxxxxxxxxxxx'
-  }
-});
-```
+## Config
+Add a `config.push.json` file in your project and configure credentials / keys / certificates:
 
-`server/server.js`
 ```js
-var optionsProduction = {
-  gcm: {
-    apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+{
+  "apn": {
+    "passphrase": "xxxxxxxxx",  
+    "key": "apnProdKey.pem",
+    "cert": "apnProdCert.pem"
   },
-  apn: {    
-    'passphrase': 'xxxxxxx',
-    // Place the certificate files in /private
-    'certData': Assets.getText('apnProdCert.pem'),
-    'keyData': Assets.getText('apnProdKey.pem'),
+  "gcm": {
+    "apiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "projectNumber": xxxxxxxxxxxx
   },
-  production: true
-};
-
-// Fire up the push notification server
-Push.init(optionsProduction);
-```
-
-If you remove the `insecure` package from Meteor you have to explicitly allow users to send push notifications from client-side.
-`common.js`
-```js
-  Push.allow({
-    send: function(userId, notification) {
-      // Allow all users to send to everybody - For test only!
-      return true;
-    }
-  });
+  "production": true
+}
 ```
 
 ## Test
@@ -59,6 +36,18 @@ Push.send({
   count: 12,
   query: {}
 });
+```
+
+## Security
+If you remove the `insecure` package from Meteor you have to explicitly allow users to send push notifications from client-side.
+`common.js`
+```js
+  Push.allow({
+    send: function(userId, notification) {
+      // Allow all users to send to everybody - For test only!
+      return true;
+    }
+  });
 ```
 
 ## More
