@@ -18,10 +18,11 @@ var checkConfig = function(config) {
     }),
     // Allow optional production
     production: Match.Optional(Boolean),
-    // Allow optional sound, badge, alert
+    // Allow optional sound, badge, alert, vibrate
     sound: Match.Optional(Boolean),
     badge: Match.Optional(Boolean),
     alert: Match.Optional(Boolean),
+    vibrate: Match.Optional(Boolean),
     // Support the old iframe Meteor cordova integration
     iframe: Match.Optional(String)
   });
@@ -45,6 +46,7 @@ var cloneCommon = function(config, result) {
   clone('sound', config, result);
   clone('badge', config, result);
   clone('alert', config, result);
+  clone('vibrate', config, result);
 };
 
 var archConfig = {
