@@ -1,6 +1,20 @@
 # Changelog
 
 ## vCurrent
+## [v2.2.1] (https://github.com/raix/push/tree/v2.2.1)
+#### 29/12/14 by Morten Henriksen
+- Add the passphrase... ups
+
+- use meteor startup
+
+- Remove unused reference
+
+- *Fixed bug:* "Sending Push Message From Browser Console Requires Logged In User" [#11](https://github.com/raix/push/issues/11)
+
+- added more debug details
+
+- update change log
+
 ## [v2.2.0] (https://github.com/raix/push/tree/v2.2.0)
 #### 28/12/14 by Morten Henriksen
 - Add support for config file
