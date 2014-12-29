@@ -33,7 +33,7 @@ Push.send({
   from: 'Test',
   title: 'Hello',
   text: 'World',
-  count: 12,
+  badge: 12,
   query: {}
 });
 ```
@@ -58,7 +58,7 @@ Push.send({
   from: 'Test',
   title: 'Hello',
   text: 'World',
-  count: 12,
+  badge: 12,
   query: {
     userId: 'xxxxxxxxxxxx'
   }

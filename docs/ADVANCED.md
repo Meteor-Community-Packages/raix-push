@@ -19,8 +19,8 @@ Server:
     });
 
     // Direct access to the send functions
-    Push.sendAPN(from, userToken, title, text, count, priority);
-    Push.sendGCM = function(from, userTokens, title, text, count, priority)
+    Push.sendAPN(userToken, options);
+    Push.sendGCM(userTokens, options)
 ```
 
 Client:
