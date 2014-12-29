@@ -69,7 +69,8 @@ var notification = {
     badge,
     coldstart,
     background,
-    foreground
+    foreground,
+    payload
 };
 ```
 
