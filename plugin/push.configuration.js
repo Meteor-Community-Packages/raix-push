@@ -89,7 +89,8 @@ var archConfig = {
       result.apn = {
         // Set apn web service
         key: config.apn.key,
-        cert: config.apn.cert
+        cert: config.apn.cert,
+        passphrase: config.apn.passphrase
       };
     }
 
