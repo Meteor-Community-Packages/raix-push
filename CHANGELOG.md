@@ -1,6 +1,34 @@
 # Changelog
 
 ## vCurrent
+## [v2.3.0] (https://github.com/raix/push/tree/v2.3.0)
+#### 29/12/14 by Morten Henriksen
+- add type in events
+
+- 2.3.0 Added vibrate and better support for sound/alerts and a unified api
+
+- refactoring of the server send api
+
+- add limited documentation for default event listeners
+
+- add vibrate
+
+- have badge and sound added only if actually set
+
+- add badge and sound
+
+- correct default alert and add vibrate
+
+- only emit alert events when in foreground
+
+- Unify the notification message object and event model
+
+- Add basis code for apn to know about app status
+
+- Dont emit badge event when user sets badge
+
+- Add default listeners for badge/sound/alert [#13](https://github.com/raix/push/issues/13)[#12](https://github.com/raix/push/issues/12)#9
+
 ## [v2.2.1] (https://github.com/raix/push/tree/v2.2.1)
 #### 29/12/14 by Morten Henriksen
 - Add the passphrase... ups
@@ -140,8 +168,6 @@
 - Created new api for the send method it now takes options instead of positioned arguments
 
 - remove wip
-
-- fix typo
 
 - have send return send status object { apn: 0, gcm: 0 }
 
