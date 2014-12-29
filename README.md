@@ -36,7 +36,11 @@ Add a `config.push.json` file in your project and configure credentials / keys /
     "apiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "projectNumber": xxxxxxxxxxxx
   },
-  "production": true
+  "production": true,
+  // "badge": true,
+  // "sound": true,
+  // "alert": true,
+  // "vibrate": true
 }
 ```
 
