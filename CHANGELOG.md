@@ -1,6 +1,22 @@
 # Changelog
 
 ## vCurrent
+## [v2.3.1] (https://github.com/raix/push/tree/v2.3.1)
+#### 29/12/14 by Morten Henriksen
+- 2.3.1 - added payload option
+
+- fix default calback settings
+
+- add payload in event
+
+- add commented alerts for debugging
+
+- clean up foreground code and keep coldstart
+
+- document payload
+
+- check and add payload
+
 ## [v2.3.0] (https://github.com/raix/push/tree/v2.3.0)
 #### 29/12/14 by Morten Henriksen
 - add type in events
