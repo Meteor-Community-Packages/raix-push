@@ -40,19 +40,37 @@ Client:
         // Platform specific event - not really used
     });
 
-    Push.addListener('startup', function(evt) {
-        // For now the evt is platform specific but we
-        // should really have one unified object returned here
-        // eg.:
-        // evt.message
-        // evt.sound
-        // evt.badge
-        // evt.coldstart?
+    Push.addListener('alert', function(notification) {
+        // Called when message got a message in forground
     });
 
-    Push.addListener('badge', function(count) {
-        // Message wants to set badge count
+    Push.addListener('sound', function(notification) {
+        // Called when message got a sound
     });
+
+    Push.addListener('badge', function(notification) {
+        // Called when message got a badge
+    });
+
+    Push.addListener('startup', function(notification) {
+        // Called when message recieved on startup (cold+warm)
+    });
+
+    Push.addListener('message', function(notification) {
+        // Called on every message
+    });
+```
+
+The returned `notification` object from events:
+```js
+var notification = {    
+    message,
+    sound,
+    badge,
+    coldstart,
+    background,
+    foreground
+};
 ```
 
 Event types:
