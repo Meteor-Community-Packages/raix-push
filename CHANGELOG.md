@@ -1,6 +1,20 @@
 # Changelog
 
 ## vCurrent
+## [v2.5.0] (https://github.com/raix/push/tree/v2.5.0)
+#### 03/01/15 by Morten Henriksen
+- Improve the payload object, this is now the same on both iOS and Android and will preserve types via ejson
+
+- add doc about open
+
+- wrap in device ready - dont trust Meteor.startup
+
+- Add a new `open` flag marking if the note triggered the app to open
+
+- add more test alerts
+
+- exclude aps from the payload
+
 ## [v2.4.1] (https://github.com/raix/push/tree/v2.4.1)
 #### 03/01/15 by Morten Henriksen
 - Fixed getting userId on the server throws error
