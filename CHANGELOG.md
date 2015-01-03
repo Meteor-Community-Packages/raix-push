@@ -1,6 +1,18 @@
 # Changelog
 
 ## vCurrent
+## [v2.3.3] (https://github.com/raix/push/tree/v2.3.3)
+#### 03/01/15 by Morten Henriksen
+- just sound location
+
+- Add better Push.debug verbosity
+
+## [v2.3.2] (https://github.com/raix/push/tree/v2.3.2)
+#### 29/12/14 by Morten Henriksen
+- Dont try to play empty sound file names
+
+- only prefix sound if text found
+
 ## [v2.3.1] (https://github.com/raix/push/tree/v2.3.1)
 #### 29/12/14 by Morten Henriksen
 - 2.3.1 - added payload option
