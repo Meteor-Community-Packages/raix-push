@@ -65,7 +65,7 @@ The returned `notification` object from events:
 ```js
 var notification = {    
     message,
-    sound,
+    sound, // Relative to the platform
     badge,
     coldstart,
     background,

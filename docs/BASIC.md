@@ -59,6 +59,7 @@ Push.send({
   title: 'Hello',
   text: 'World',
   badge: 12,
+  // sound: fileInPublicFolder
   query: {
     userId: 'xxxxxxxxxxxx'
   }
