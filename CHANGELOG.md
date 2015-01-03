@@ -1,6 +1,10 @@
 # Changelog
 
 ## vCurrent
+## [v2.4.0] (https://github.com/raix/push/tree/v2.4.0)
+#### 03/01/15 by Morten Henriksen
+- Refactor Push.init to Push.Configure and add call once check
+
 ## [v2.3.3] (https://github.com/raix/push/tree/v2.3.3)
 #### 03/01/15 by Morten Henriksen
 - just sound location
