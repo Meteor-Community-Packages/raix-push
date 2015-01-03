@@ -53,10 +53,11 @@ var notification = {
     message,
     sound, // Relative to the platform
     badge,
-    coldstart,
-    background,
-    foreground,
-    payload
+    coldstart, // True if the app havent been resumed
+    background, // If message recieved while app was in background
+    foreground, // If message recieved while app was in foreground
+    open, // Flag marking if the note triggered the app to open
+    payload // Custom object
 };
 ```
 
