@@ -9,20 +9,6 @@ Common:
     Push.addListener();
 ```
 
-Server:
-```js
-    // Internal events
-    Push.addListener('token', function(currentToken, newToken) {
-        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' } or null
-        // if newToken is null then the currentToken is invalid
-        // if newToken is set then this should replace the currentToken
-    });
-
-    // Direct access to the send functions
-    Push.sendAPN(userToken, options);
-    Push.sendGCM(userTokens, options)
-```
-
 Client:
 ```js
     // Internal events
@@ -145,4 +131,19 @@ Please note that `Push.Configure` is called automatically when using the `config
 
     Push.id(); // Unified application id - not a token
     Push.setBadge(count); // ios specific - ignored everywhere else
+```
+
+## Internal server API
+
+```js
+    // Internal events
+    Push.addListener('token', function(currentToken, newToken) {
+        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' } or null
+        // if newToken is null then the currentToken is invalid
+        // if newToken is set then this should replace the currentToken
+    });
+
+    // Direct access to the send functions
+    Push.sendAPN(userToken, options);
+    Push.sendGCM(userTokens, options)
 ```
