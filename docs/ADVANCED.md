@@ -106,9 +106,10 @@ Add a `config.push.json` file in your project and configure credentials / keys /
 ```
 
 ### Server api
+Please note that `Push.Configure` is called automatically when using the `config.push.json` file. `Push.Configure` may only be called once otherwise it throws an error - this is intended behaviour.
 
 ```js
-    Push.init({
+    Push.Configure({
         gcm: {
             apiKey: 'xxxxxxxxxxxxx'
         },
@@ -126,7 +127,7 @@ Add a `config.push.json` file in your project and configure credentials / keys /
 ### Client api
 ```js
     // Common client api
-    Push.init({
+    Push.Configure({
         gcm: {
             // Required for Android and Chrome OS
             projectNumber: 'xxxxxxxxxxxxxxxxxx'

@@ -122,7 +122,7 @@ var configStringify = function(config) {
   if (config.iframe)
     str = str.replace('"iframe": "' + config.iframe + '"', 'iframe: ' + config.iframe);
 
-  return 'Push.init(' + str + ');'
+  return 'Push.Configure(' + str + ');'
 };
 
 
