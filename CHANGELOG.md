@@ -1,6 +1,14 @@
 # Changelog
 
 ## vCurrent
+## [v2.5.1] (https://github.com/raix/push/tree/v2.5.1)
+#### 04/01/15 by Morten Henriksen
+- Add updated iframe code for consistency
+
+- Add iOS startup workaround for stable events
+
+- Change payload behaviour - Modify payload when sending instead of storing
+
 ## [v2.5.0] (https://github.com/raix/push/tree/v2.5.0)
 #### 03/01/15 by Morten Henriksen
 - Improve the payload object, this is now the same on both iOS and Android and will preserve types via ejson
