@@ -1,3 +1,4 @@
+<img alt="Gi-SoftWare" src="https://raw.githubusercontent.com/raix/push/master/docs/logo.png" width="50%" height="50%">
 raix:push Push notifications
 =========
 
