@@ -160,9 +160,9 @@ There are 4 required parameters that must be passed to `Push.send`. They are:
 * a selection query from below
 
 The 4th parameter is a selection query for determining who the message should be sent to. This query can be one of the three following items:
-* 'query' : {}
-* 'token' : {}
-* 'tokens' : [{},{}]
+* `query` : {} or {userId : 'XXXXX'} or {id : 'XXXXX'} 
+* `token` : {gcm : 'XXXXXX'} or {apn : 'XXXXX'}
+* `tokens` : [{gcm : 'XXXXX0'},{gcm : 'XXXXX1'}, {apn : 'XXXXX0'}]
 
 `query` can be left empty in which case the notification will be sent to all devices that have registered a token. `query` can also be one or more ids obtained from clients via `Push.id()` or one or more userIds associated with the accounts-base package and Meteor.userId().
 
@@ -180,11 +180,9 @@ Push.send({
   from: 'Test',
   title: 'Hello',
   text: 'World',
-  // query: {}
-  // token: {
-    // gcm : 'XXXXXX'
-  //}
-  // tokens: [{gcm : 'XXXXXX'}, {apn : 'XXXXX'}]
+  query: {}
+  token: {}
+  tokens: [{},{}] 
 });
 ```
 
