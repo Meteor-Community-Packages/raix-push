@@ -151,19 +151,20 @@ Please note that `Push.Configure` is called automatically when using the `config
 
 ### Send API
 
-You can send push notifications from the client or the server using Push.send(). If sending from the client you are required to use [allow/deny](Advanced.md#client-security)) rules.
+You can send push notifications from the client or the server using Push.send(). If sending from the client you are required to use [allow/deny](ADVANCED.md#client-security)) rules.
 
 There are 4 required parameters that must be passed to `Push.send`. They are:
 * `from` : reserved for future use. intended to be internally used by gcm to generate a collapse key. this can be any random string at the moment
 * `title` : the bold title text that is displayed in the notification
-* `title` : the normal sub-text that is displayed in the notification
+* `text` : the normal sub-text that is displayed in the notification
+* a selection query from below
 
-The 4th parameter is a filter for selecting who the message should be sent to. This filter can be one of three things:
+The 4th parameter is a selection query for determining who the message should be sent to. This query can be one of the three following items:
 * 'query' : {}
 * 'token' : {}
-* 'tokens' : {}
+* 'tokens' : [{},{}]
 
-`query` can be left empty in which case the notification will be sent to all devices that have registered a token. `query` can also be one or more ids obtained from clients via `Push.id()` or one or more userIds associated with the accounts package.
+`query` can be left empty in which case the notification will be sent to all devices that have registered a token. `query` can also be one or more ids obtained from clients via `Push.id()` or one or more userIds associated with the accounts-base package and Meteor.userId().
 
 `token` is an apn or gcm token registered by the device in the form:
 ```js
@@ -172,12 +173,18 @@ The 4th parameter is a filter for selecting who the message should be sent to. T
 
 `tokens` is simply and array of tokens from the previous example
 
+The query selector is used against a Mongo Collection created by the push packahe called `Push.appCollection`. This collection stores the userIds, pushIds, and tokens of all devices that register with the server. With a desired selection query chosen a minimal `Push.send` takes the following form (using one of the queries). 
+
 ```js
 Push.send({
   from: 'Test',
   title: 'Hello',
   text: 'World',
-  query: {}
+  // query: {}
+  // token: {
+    // gcm : 'XXXXXX'
+  //}
+  // tokens: [{gcm : 'XXXXXX'}, {apn : 'XXXXX'}]
 });
 ```
 
@@ -199,21 +206,5 @@ When a client calls send on Push, the Push's allow and deny callbacks are called
             return false; // Allow all users to send
         }
     });
-```
-
-## More
-Try adding the Meteor `accounts-password` package and let users login. Try sending a push notification to a user:
-
-```js
-Push.send({
-  from: 'Test',
-  title: 'Hello',
-  text: 'World',
-  badge: 12,
-  // sound: fileInPublicFolder
-  query: {
-    userId: 'xxxxxxxxxxxx'
-  }
-});
 ```
 
