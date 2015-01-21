@@ -134,7 +134,7 @@ Please note that `Push.Configure` is called automatically when using the `config
     Push.setBadge(count); // ios specific - ignored everywhere else
 ```
 
-## Internal server API
+### Internal server API
 
 ```js
     // Internal events
@@ -148,3 +148,61 @@ Please note that `Push.Configure` is called automatically when using the `config
     Push.sendAPN(userToken, options);
     Push.sendGCM(userTokens, options)
 ```
+
+### Send API
+
+You can send push notifications from the client or the server using Push.send(). If sending from the client you are required to use [allow/deny](ADVANCED.md#client-security)) rules.
+
+There are 4 required parameters that must be passed to `Push.send`. They are:
+* `from` : reserved for future use. intended to be internally used by gcm to generate a collapse key. this can be any random string at the moment
+* `title` : the bold title text that is displayed in the notification
+* `text` : the normal sub-text that is displayed in the notification
+* a selection query from below
+
+The 4th parameter is a selection query for determining who the message should be sent to. This query can be one of the three following items:
+* `query` : {} or {userId : 'XXXXX'} or {id : 'XXXXX'} 
+* `token` : {gcm : 'XXXXXX'} or {apn : 'XXXXX'}
+* `tokens` : [{gcm : 'XXXXX0'},{gcm : 'XXXXX1'}, {apn : 'XXXXX0'}]
+
+`query` can be left empty in which case the notification will be sent to all devices that have registered a token. `query` can also be one or more ids obtained from clients via `Push.id()` or one or more userIds associated with the accounts-base package and Meteor.userId().
+
+`token` is an apn or gcm token registered by the device in the form:
+```js
+{ apn: String } or { gcm: String }
+```
+
+`tokens` is simply and array of tokens from the previous example
+
+The query selector is used against a Mongo Collection created by the push packahe called `Push.appCollection`. This collection stores the userIds, pushIds, and tokens of all devices that register with the server. With a desired selection query chosen a minimal `Push.send` takes the following form (using one of the queries). 
+
+```js
+Push.send({
+  from: 'Test',
+  title: 'Hello',
+  text: 'World',
+  query: {}
+  token: {}
+  tokens: [{},{}] 
+});
+```
+
+### Client Security
+This package allows you to send notifications from the server and client. To restrict the client or allowing the client to send use `allow` or `deny` rules.
+
+When a client calls send on Push, the Push's allow and deny callbacks are called on the server to determine if the send should be allowed. If at least one allow callback allows the send, and no deny callbacks deny the send, then the send is allowed to proceed.
+
+```js
+    Push.allow({
+        send: function(userId, notification) {
+            return true; // Allow all users to send
+        }
+    });
+
+    // Or...
+    Push.deny({
+        send: function(userId, notification) {
+            return false; // Allow all users to send
+        }
+    });
+```
+
