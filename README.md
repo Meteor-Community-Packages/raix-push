@@ -99,7 +99,7 @@ Stores a token associated with an application and optionally, a userId.
 **Parameters**:
 
 *options* - An object containing the necessary data to store a token. Fields:
-* `id` - String (optional) - a record id for the stored FIXME
+* `id` - String (optional) - a record id for the Application/Token document to update. If this does not exist, will return 404.
 * `token` - Object - `{ apn: 'TOKEN' }` or `{ gcm: 'TOKEN' }`
 * `appName` - String - the name of the application to associate the token with
 * `userId` - String (optional) - the user id so associate with the token and application. If none is included no user will be associated. Use `raix:push-setuser` to later associate a userId with a token.
