@@ -104,7 +104,7 @@ Stores a token associated with an application and optionally, a userId.
 * `appName` - String - the name of the application to associate the token with
 * `userId` - String (optional) - the user id so associate with the token and application. If none is included no user will be associated. Use `raix:push-setuser` to later associate a userId with a token.
 
-** Returns **:
+**Returns**:
 
 *recordId* - The id of the stored document associating appName, token, and optionally user in an object of the form:
 
