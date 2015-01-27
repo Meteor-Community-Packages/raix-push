@@ -33,6 +33,11 @@ Add a `config.push.json` file in your project and configure credentials / keys /
     "key": "apnProdKey.pem",
     "cert": "apnProdCert.pem"
   },
+  "apn-dev": {
+    "passphrase": "xxxxxxxxx",
+    "key": "apnDevKey.pem",
+    "cert": "apnDevCert.pem"
+  },  
   "gcm": {
     "apiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "projectNumber": xxxxxxxxxxxx
@@ -44,6 +49,7 @@ Add a `config.push.json` file in your project and configure credentials / keys /
   // "vibrate": true
 }
 ```
+*Note: This file should be pure json, comments are not supported*
 
 ## Common api
 ```js

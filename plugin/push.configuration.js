@@ -96,6 +96,18 @@ var archConfig = {
       };
     }
 
+    // When in development mode we set apn-dev if found
+    if (config['apn-dev'] && config.production === false) {
+      // Make sure apn is set
+      result.apn = {
+        // Set apn web service
+        key: config['apn-dev'].key,
+        cert: config['apn-dev'].cert,
+        passphrase: config['apn-dev'].passphrase,
+        development: true
+      };
+    }
+
     if (config.gcm) {
       // Make sure gcm is set
       result.gcm = {
