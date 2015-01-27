@@ -119,7 +119,7 @@ var archConfig = {
     if (result) cloneCommon(config, result);
 
     return result;
-  },
+  }
 };
 
 var configStringify = function(config) {
