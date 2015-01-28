@@ -1,6 +1,72 @@
 # Changelog
 
 ## vCurrent
+## [v2.6.0] (https://github.com/raix/push/tree/v2.6.0)
+#### 28/01/15 by Morten Henriksen
+- Respect resume - if paused wait until resume before triggering start up events
+
+- make startup event stable
+
+- enabled "alert" should not force alert - use message event instead
+
+- make sure set badge runs when device is ready
+
+- Use updated pushplugin
+
+- add raix:cordova as a weak dependency
+
+- Allow the client create doc with id instead of throwing error
+
+## [master-workpop-pr] (https://github.com/raix/push/tree/master-workpop-pr)
+#### 27/01/15 by Morten Henriksen
+## [master-foo] (https://github.com/raix/push/tree/master-foo)
+#### 27/01/15 by Morten Henriksen
+- check that token is not undefined
+
+- *Merged pull-request:* "raix:push-update -> server generates record id rather than client" [#32](https://github.com/raix/push/issues/32) ([alexcorre](https://github.com/alexcorre))
+
+- fix readme italics markdown
+
+- update to 2.6.0 for breaking change + change name back to raix:push
+
+- bump to 2.5.4
+
+- Make push-update return 404 if ID is included that does not yet exist
+
+- remove another extra comma
+
+- Add meteor method docs to README.md
+
+- Merge branch 'master' of github.com:raix/push
+
+- *Merged pull-request:* "Docupdates" [#29](https://github.com/raix/push/issues/29) ([funkyeah](https://github.com/funkyeah))
+
+- remove extra comma
+
+- bump version to 2.5.3
+
+- fix issue with push-update
+
+- .idea to gitignore and update version
+
+- raix:push-update no longer requires id, generates if none included
+
+- raix:push-update remove required but unused metadata field from options
+
+- grammar and formatting changes to Push.send
+
+- more details on the flexibility of Push.send
+
+- Push.send advanced documentation updates
+
+- Gi-Software push logo size
+
+- add logo
+
+- Add Gi-Software logo
+
+Patches by GitHub users [@alexcorre](https://github.com/alexcorre), [@funkyeah](https://github.com/funkyeah).
+
 ## [v2.5.1] (https://github.com/raix/push/tree/v2.5.1)
 #### 04/01/15 by Morten Henriksen
 - Add updated iframe code for consistency
@@ -85,7 +151,6 @@
 
 - Dont emit badge event when user sets badge
 
-- Add default listeners for badge/sound/alert [#13](https://github.com/raix/push/issues/13)[#12](https://github.com/raix/push/issues/12)#9
 
 ## [v2.2.1] (https://github.com/raix/push/tree/v2.2.1)
 #### 29/12/14 by Morten Henriksen
