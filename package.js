@@ -1,6 +1,6 @@
 Package.describe({
   name: 'workpop:push',
-  version: '2.6.0',
+  version: '2.6.1',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/raix/push.git'
 });
@@ -19,15 +19,16 @@ Cordova.depends({
   //'com.phonegap.plugins.PushPlugin': 'http://github.com/rossmartin/PushPlugin/tarball/6cf2e1a107310e859839fb7a0dc2618a7a199430'
 });
 
-Package.registerBuildPlugin({
-  name: 'configuration',
-  use: [
-    'check'
-  ],
-  sources: [
-    'plugin/push.configuration.js'
-  ]
-});
+// TODO: turn this back on if we're actually using cordova in the future
+//Package.registerBuildPlugin({
+//  name: 'configuration',
+//  use: [
+//    'check'
+//  ],
+//  sources: [
+//    'plugin/push.configuration.js'
+//  ]
+//});
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
