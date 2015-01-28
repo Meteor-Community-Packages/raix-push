@@ -42,7 +42,7 @@ Package.onUse(function(api) {
   // Keep track of users in the appCollection
   api.use('accounts-base', ['client', 'server'], { weak: true });
 
-  api.use('raix:cordova', 'client', { weak: true });
+  api.use('raix:cordova@0.2.3', 'client', { weak: true });
 
   api.use(['raix:eventemitter@0.1.1', 'check', 'mongo'], ['client', 'server']);
 
