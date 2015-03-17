@@ -134,7 +134,7 @@ var configStringify = function(config) {
   if (config.iframe)
     str = str.replace('"iframe": "' + config.iframe + '"', 'iframe: ' + config.iframe);
 
-  return 'Push.Configure(' + str + ');'
+  return 'Meteor.startup(function() {\n\tPush.Configure(' + str + ');\n});'
 };
 
 

@@ -1,6 +1,6 @@
 Package.describe({
   name: 'raix:push',
-  version: '2.6.1',
+  version: '2.6.2',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/raix/push.git'
 });
@@ -44,7 +44,7 @@ Package.onUse(function(api) {
 
   api.use('raix:cordova@0.2.3', 'client', { weak: true });
 
-  api.use(['raix:eventemitter@0.1.1', 'check', 'mongo'], ['client', 'server']);
+  api.use(['raix:eventstate@0.0.2', 'check', 'mongo'], ['client', 'server']);
 
   api.use('mongo', 'server');
 
