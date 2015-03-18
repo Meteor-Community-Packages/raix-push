@@ -75,4 +75,20 @@ Enter pass phrase for PushChatKey.pem:
 You should see a whole bunch of output, which is openssl letting you know what is going on under the hood.
 If the connection is successful, you should be able to type a few characters. When you press enter, the server should disconnect. If there was a problem establishing the connection, openssl will give you an error message but you may have to scroll up through the output to find it.
 
+If you get an error from openssl saying:
+```
+Verify return code: 20 (unable to get local issuer certificate) 
+```
+Try adding the Entrust Certificate by going here: [Entrust.net](http://www.entrust.net/developer/index.cfm). Click on 'Root Certificate Downloads' on the left hand side then click 'Download Root Certificates' near the bottom of the page. It will ask you to identify a reason for downloading and you can select 'Personal Use and Secure Server Installation' then click 'Download Certificates'. On the next page choose Root Certificates. Find the 
+```
+entrust_2048_ca.cer
+```
+Download it and put it into the same location as your PushChatCert.cert and PushChatKey.key. Now add the -CAfile flag and the certificate we just downloaded to try our secure connection again:
+```
+$ openssl s_client -connect gateway.sandbox.push.apple.com:2195 -CAfile entrust_2048_ca.cer -cert PushChatCert.pem.pem -key PushChatKey.pem
+```
+And you should see the openssl message change to 
+```
+Verify return code: 0 (ok) 
+```
 *Note: There are two different APNS servers: the “sandbox” server that you can use for testing, and the live server that you use in production mode. Above, we used the sandbox server because our certificate is intended for development, not production use.*
