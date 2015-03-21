@@ -14,7 +14,7 @@ mongo@1.1.0
 ordered-dict@1.0.3
 raix:eventemitter@0.1.2
 raix:eventstate@0.0.2
-raix:push@2.6.3
+raix:push@2.6.4
 random@1.0.3
 retry@1.0.3
 tracker@1.0.6
