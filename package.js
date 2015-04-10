@@ -1,6 +1,6 @@
 Package.describe({
   name: 'workpop:push',
-  version: '2.6.4',
+  version: '2.6.5',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/raix/push.git'
 });
