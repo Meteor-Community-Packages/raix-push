@@ -24,7 +24,9 @@ var checkConfig = function(config) {
     alert: Match.Optional(Boolean),
     vibrate: Match.Optional(Boolean),
     // Support the old iframe Meteor cordova integration
-    iframe: Match.Optional(String)
+    iframe: Match.Optional(String),
+    // Controls the sending interval
+    sendInterval: Match.Optional(Number)
   });
 
   // Make sure at least one service is configured?
@@ -47,6 +49,7 @@ var cloneCommon = function(config, result) {
   clone('badge', config, result);
   clone('alert', config, result);
   clone('vibrate', config, result);
+  clone('sendInterval', config, result);
 };
 
 var archConfig = {
