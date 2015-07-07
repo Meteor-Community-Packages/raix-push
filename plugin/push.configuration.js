@@ -26,7 +26,9 @@ var checkConfig = function(config) {
     // Support the old iframe Meteor cordova integration
     iframe: Match.Optional(String),
     // Controls the sending interval
-    sendInterval: Match.Optional(Number)
+    sendInterval: Match.Optional(Number),
+    // Controls the sending batch size per interval
+    sendBatchSize: Match.Optional(Number)
   });
 
   // Make sure at least one service is configured?
@@ -50,6 +52,7 @@ var cloneCommon = function(config, result) {
   clone('alert', config, result);
   clone('vibrate', config, result);
   clone('sendInterval', config, result);
+  clone('sendBatchSize', config, result);
 };
 
 var archConfig = {
