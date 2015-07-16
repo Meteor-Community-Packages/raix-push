@@ -173,6 +173,8 @@ The 4th parameter is a selection query for determining who the message should be
 
 `tokens` is simply and array of tokens from the previous example
 
+`delayUntil` is an optional Date. If set, sending will be delayed until then.
+
 The query selector is used against a Mongo Collection created by the push packahe called `Push.appCollection`. This collection stores the userIds, pushIds, and tokens of all devices that register with the server. With a desired selection query chosen a minimal `Push.send` takes the following form (using one of the queries). 
 
 ```js
@@ -182,7 +184,8 @@ Push.send({
   text: 'World',
   query: {}
   token: {}
-  tokens: [{},{}] 
+  tokens: [{},{}]
+  delayUntil: new Date()
 });
 ```
 

@@ -68,6 +68,7 @@ Add a `config.push.json` file in your project and configure credentials / keys /
         // token: appId or token eg. "{ apn: token }"
         // tokens: array of appId's or tokens
         // payload: user data
+        // delayUntil: Date
     });
 ```
 *When in secure mode the client send features require adding allow/deny rules in order to allow the user to send push messages to other users directly from the client - Read more below*
