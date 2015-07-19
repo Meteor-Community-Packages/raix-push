@@ -185,6 +185,11 @@ Push.send({
   tokens: [{},{}] 
 });
 ```
+#### Display multiple notifications on Android
+ * `notId` : a unique identifier for a GCM message
+
+'notId' supplies a unique id to Cordova Push plugin for 'tag' field in GCM (Android) allowing a per message id, this can be used to replace unread message on both server and client. It differs from collapseKey which only collapses undelivered messages server side. Defaults to a value of zero, must be 32 bit Integer
+If `notId` is not set then the Push plugin defaults to a value of 0 causing each message to overwrite the previous and only ever display a single notification.
 
 ### Client Security
 This package allows you to send notifications from the server and client. To restrict the client or allowing the client to send use `allow` or `deny` rules.
