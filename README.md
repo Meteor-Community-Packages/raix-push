@@ -61,7 +61,7 @@ Add a `config.push.json` file in your project and configure credentials / keys /
         from: 'push',
         title: 'Hello',
         text: 'world',
-        badge: 1, //optional, use it for increase badge counting when the app is in background.
+        badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
         query: {
             // Ex. send to a specific user if using accounts:
             userId: 'xxxxxxxxx'
