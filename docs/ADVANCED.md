@@ -185,7 +185,8 @@ Push.send({
   query: {}
   token: {}
   tokens: [{},{}]
-  delayUntil: new Date()
+  delayUntil: new Date(),
+  notId: numberId
 });
 ```
 #### Display multiple notifications on Android
@@ -193,6 +194,30 @@ Push.send({
 
 'notId' supplies a unique id to Cordova Push plugin for 'tag' field in GCM (Android) allowing a per message id, this can be used to replace unread message on both server and client. It differs from collapseKey which only collapses undelivered messages server side. Defaults to a value of zero, must be 32 bit Integer
 If `notId` is not set then the Push plugin defaults to a value of 0 causing each message to overwrite the previous and only ever display a single notification.
+
+#### Overwriting platform specific values
+If needed it's possible to specify values pr. platform `apn`/`gcm` in the send.
+Eg.:
+```js
+Push.send({
+  from: 'Test',
+  title: 'Hello',
+  text: 'World',
+  apn: {
+    // apn specific overwrites
+    title: 'sent via apn'
+  },
+  gcm: {
+    // gcm specific overwrites
+    title: 'sent via gcm'
+  },
+  query: {}
+  token: {}
+  tokens: [{},{}]
+  delayUntil: new Date()
+});
+```
+*You can overwrite keys: 'from','title','text','badge','sound' and 'notId'*
 
 ### Client Security
 This package allows you to send notifications from the server and client. To restrict the client or allowing the client to send use `allow` or `deny` rules.
