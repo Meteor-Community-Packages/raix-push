@@ -49,6 +49,8 @@ Add a `config.push.json` file in your project and configure credentials / keys /
   // "sound": true,
   // "alert": true,
   // "vibrate": true
+  // "sendInterval": 15000  Configurable interval between sending notifications
+  // "sendBatchSize": 1  Configurable number of notifications to send per batch
 }
 ```
 *Note: This file should be pure json, comments are not supported*
