@@ -1,6 +1,6 @@
 Package.describe({
   name: 'raix:push',
-  version: '2.6.13-rc.1',
+  version: '3.0.0-rc.1',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/raix/push.git'
 });
@@ -17,7 +17,9 @@ Cordova.depends({
 
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0');
+  api.versionsFrom('METEOR@1.2-rc.7');
+  api.use(['ecmascript']);
+
 
   api.use([
     'tracker', // Push.id() is reactive
@@ -36,6 +38,10 @@ Package.onUse(function(api) {
   // Common api
   api.addFiles([
     'lib/common/main.js',
+  ], ['web.browser', 'server']);
+
+  // Common api
+  api.addFiles([
     'lib/common/notifications.js'
   ], ['client', 'server']);
 
