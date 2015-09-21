@@ -24,7 +24,7 @@
 	"quotmark": false,
 	"undef": true,
 	"unused": true,
-	"strict": true,
+	"strict": false,
 	"trailing": true,
 	"maxparams": false,
 	"maxdepth": false,
@@ -36,12 +36,12 @@
 	"debug": false,
 	"eqnull": false,
 	"es5": false,
-	"esnext": false,
+	"esnext": true,
 	"moz": false,
 	"evil": false,
 	"expr": false,
 	"funcscope": false,
-	"globalstrict": true,
+	"globalstrict": false,
 	"iterator": false,
 	"lastsemic": false,
 	"laxbreak": false,
@@ -92,6 +92,13 @@
 		"_",
 		"Random",
 		"HTTP",
-		"_methodHTTP"
-	]
+		"_methodHTTP",
+		"device",
+		"EventState",
+		"PushNotification",
+		"Cordova"
+	],
+	"globals": {
+		"Push": true
+	}
 }
