@@ -23,7 +23,9 @@ Depending on the platforms you want to work with you will need some credentials 
 
 Have a look at the [Basic example](docs/BASIC.md)
 
-Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by @elvismercado
+Read the [raix:push Newbie Manual](https://github.com/raix/push/issues/115) by [@harryward](https://github.com/harryward)
+
+Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by [@elvismercado](https://github.com/elvismercado)
 
 ## Config
 Add a `config.push.json` file in your project and configure credentials / keys / certificates:
