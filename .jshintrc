@@ -1,12 +1,4 @@
 {
-   // JSHint Meteor Configuration File
-   // Match the Meteor Style Guide
-   //
-   // By @raix with contributions from @aldeed and @awatson1978
-   // Source https://github.com/raix/Meteor-jshintrc
-   //
-   // See http://jshint.com/docs/ for more details
-
 	"maxerr": 50,
 	"bitwise": true,
 	"camelcase": true,
@@ -73,30 +65,28 @@
 	"passfail": false,
 	"white": false,
 	"predef": [
-		"Meteor",
 		"Accounts",
-		"Session",
-		"Template",
-		"check",
-		"Match",
-		"Deps",
-		"EJSON",
-		"Email",
-		"Package",
-		"Tinytest",
-		"Npm",
+		"AccountsClient",
+		"AccountsServer",
+		"App",
 		"Assets",
-		"Packages",
-		"process",
-		"LocalCollection",
-		"_",
-		"Random",
-		"HTTP",
-		"_methodHTTP",
-		"device",
+		"Cordova",
+		"Deps",
+		"ECMAScript",
 		"EventState",
-		"PushNotification",
-		"Cordova"
+		"Map",
+		"Match",
+		"Meteor",
+		"Mongo",
+		"MongoInternals",
+		"Npm",
+		"Package",
+		"Promise",
+		"Random",
+		"Set",
+		"Tracker",
+		"babelHelpers",
+		"check"
 	],
 	"globals": {
 		"Push": true
