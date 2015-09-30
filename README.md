@@ -25,6 +25,9 @@ Have a look at the [Basic example](docs/BASIC.md)
 
 Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by @elvismercado
 
+Note:
+Version 3 uses the cordova npm plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
+
 ## Config
 Add a `config.push.json` file in your project and configure credentials / keys / certificates:
 
@@ -53,7 +56,7 @@ Add a `config.push.json` file in your project and configure credentials / keys /
   // "sendBatchSize": 1  Configurable number of notifications to send per batch
 }
 ```
-*Note: This file should be pure json, comments are not supported*
+*Note: This file should be pure json, comments are supported/stripped out before parsing*
 
 ## Common api
 ```js

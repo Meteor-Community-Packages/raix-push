@@ -22,7 +22,7 @@
 	"maxdepth": false,
 	"maxstatements": false,
 	"maxcomplexity": false,
-	"maxlen": 80,
+	"maxlen": 120,
 	"asi": false,
 	"boss": false,
 	"debug": false,
@@ -73,6 +73,7 @@
 		"Cordova",
 		"Deps",
 		"ECMAScript",
+		"EJSON",
 		"EventState",
 		"Map",
 		"Match",
@@ -85,10 +86,16 @@
 		"Random",
 		"Set",
 		"Tracker",
+		"_",
 		"babelHelpers",
 		"check"
 	],
 	"globals": {
-		"Push": true
+		"Push": true,
+		"_matchToken": true,
+		"_removeToken": true,
+		"_replaceToken": true,
+		"checkClientSecurity": true,
+		"initPushUpdates": true
 	}
 }
