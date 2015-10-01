@@ -83,6 +83,9 @@ Add a `config.push.json` file in your project and configure credentials / keys /
 ```js
     Push.id(); // Unified application id - not a token
     Push.setBadge(count); // ios specific - ignored everywhere else
+    Push.enabled(); // Return true or false
+    Push.enabled(false); // Will disable notifications
+    Push.enabled(true); // Will enable notifications (requires a token...)
 ```
 
 ## Security allow/deny send
