@@ -23,7 +23,9 @@ Depending on the platforms you want to work with you will need some credentials 
 
 Have a look at the [Basic example](docs/BASIC.md)
 
-Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by @elvismercado
+Read the [raix:push Newbie Manual](http://stached.io/standalone/fBLmRhsAuPSxKBSgM) by [@harryward](https://github.com/harryward)
+
+Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by [@elvismercado](https://github.com/elvismercado)
 
 Note:
 Version 3 uses the cordova npm plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
