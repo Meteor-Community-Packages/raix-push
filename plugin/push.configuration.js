@@ -47,7 +47,7 @@ var checkConfig = function(config) { // jshint ignore:line
 
 var clone = function(name, config, result) {
   if (typeof config[name] !== 'undefined') {
-    result.name = config.name;
+    result[name] = config[name];
   }
 };
 
