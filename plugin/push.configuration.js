@@ -31,7 +31,9 @@ var checkConfig = function(config) { // jshint ignore:line
     // Controls the sending interval
     sendInterval: Match.Optional(Number),
     // Controls the sending batch size per interval
-    sendBatchSize: Match.Optional(Number)
+    sendBatchSize: Match.Optional(Number),
+    // Allow optional keeping notifications in collection
+    keepNotifications: Match.Optional(Boolean)
   });
 
   // Make sure at least one service is configured?
@@ -59,6 +61,7 @@ var cloneCommon = function(config, result) {
   clone('vibrate', config, result);
   clone('sendInterval', config, result);
   clone('sendBatchSize', config, result);
+  clone('keepNotifications', config, result);
 };
 
 var archConfig = {
