@@ -33,7 +33,8 @@ var checkConfig = function(config) { // jshint ignore:line
     // Controls the sending batch size per interval
     sendBatchSize: Match.Optional(Number),
     // Allow optional keeping notifications in collection
-    keepNotifications: Match.Optional(Boolean)
+    keepNotifications: Match.Optional(Boolean),
+    categories: Match.Optional(Object)
   });
 
   // Make sure at least one service is configured?
@@ -62,6 +63,7 @@ var cloneCommon = function(config, result) {
   clone('sendInterval', config, result);
   clone('sendBatchSize', config, result);
   clone('keepNotifications', config, result);
+  clone('categories', config, result);
 };
 
 var archConfig = {
@@ -115,6 +117,9 @@ var archConfig = {
         badge: Boolean(config.badge),
         sound: Boolean(config.sound)
       };
+      if(config.categories){
+        result.ios.categories = config.categories
+      }
     }
 
     if (result) {
