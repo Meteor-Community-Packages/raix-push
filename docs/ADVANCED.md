@@ -167,7 +167,7 @@ There are 4 required parameters that must be passed to `Push.send`. They are:
 * a selection query from below
 
 The 4th parameter is a selection query for determining who the message should be sent to. This query can be one of the three following items:
-* `query` : {} or {userId : 'XXXXX'} or {id : 'XXXXX'} 
+* `query` : {} or {userId : 'XXXXX'} or {id : 'XXXXX'}
 * `token` : {gcm : 'XXXXXX'} or {apn : 'XXXXX'}
 * `tokens` : [{gcm : 'XXXXX0'},{gcm : 'XXXXX1'}, {apn : 'XXXXX0'}]
 
@@ -182,7 +182,7 @@ The 4th parameter is a selection query for determining who the message should be
 
 `delayUntil` is an optional Date. If set, sending will be delayed until then.
 
-The query selector is used against a Mongo Collection created by the push packahe called `Push.appCollection`. This collection stores the userIds, pushIds, and tokens of all devices that register with the server. With a desired selection query chosen a minimal `Push.send` takes the following form (using one of the queries). 
+The query selector is used against a Mongo Collection created by the push packahe called `Push.appCollection`. This collection stores the userIds, pushIds, and tokens of all devices that register with the server. With a desired selection query chosen a minimal `Push.send` takes the following form (using one of the queries).
 
 ```js
 Push.send({
@@ -226,6 +226,22 @@ Push.send({
 ```
 *You can overwrite keys: 'from','title','text','badge','sound' and 'notId'*
 
+### Android image in notifications
+
+```js
+Push.send({
+  from: 'Test',
+  title: 'Large icon',
+  text: 'Remotely loaded',
+  gcm: {
+    // gcm specific overwrites
+    image: 'https://c1.staticflickr.com/9/8079/8391224056_96da82499d_n.jpg'
+  }
+});
+
+Produces the following notification.
+```
+![2015-07-24 02 17 55](https://cloud.githubusercontent.com/assets/353180/8866900/2df0ab06-3190-11e5-9a81-fdb85bb0f5a4.png)
 ### Client Security
 This package allows you to send notifications from the server and client. To restrict the client or allowing the client to send use `allow` or `deny` rules.
 
@@ -245,4 +261,3 @@ When a client calls send on Push, the Push's allow and deny callbacks are called
         }
     });
 ```
-
