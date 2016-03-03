@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'raix:push',
+  name: 'crisys11:push',
   version: '3.0.2',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/raix/push.git'
