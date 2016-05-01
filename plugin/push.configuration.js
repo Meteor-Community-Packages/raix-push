@@ -28,7 +28,9 @@ var checkConfig = function(config) {
     // Controls the sending interval
     sendInterval: Match.Optional(Number),
     // Controls the sending batch size per interval
-    sendBatchSize: Match.Optional(Number)
+    sendBatchSize: Match.Optional(Number),
+    // prefix for notifications collection
+    dbCollectionPrefix: Match.Optional(String)
   });
 
   // Make sure at least one service is configured?
@@ -53,6 +55,7 @@ var cloneCommon = function(config, result) {
   clone('vibrate', config, result);
   clone('sendInterval', config, result);
   clone('sendBatchSize', config, result);
+  clone('dbCollectionPrefix', config, result);
 };
 
 var archConfig = {
