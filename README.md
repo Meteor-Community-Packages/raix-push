@@ -27,6 +27,8 @@ Read the [raix:push Newbie Manual](http://stached.io/standalone/fBLmRhsAuPSxKBSg
 
 Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by [@elvismercado](https://github.com/elvismercado)
 
+Example code for [sound](https://github.com/raix/push/issues/9#issuecomment-216068188) *(todo: add in docs)*
+
 Note:
 Version 3 uses the cordova npm plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
 
