@@ -75,6 +75,9 @@ This can be done via:
 * In client/server code
 
 ### Config
+
+NOTE: `config.push.json` is being deprecated and might not work in Meteor 1.3
+
 Add a `config.push.json` file in your project and configure credentials / keys / certificates:
 
 ```js
@@ -100,7 +103,7 @@ Add a `config.push.json` file in your project and configure credentials / keys /
 
 ### Server api
 Please note that `Push.Configure` is called automatically when using the `config.push.json` file. `Push.Configure` may only be called once otherwise it throws an error - this is intended behaviour.
-## NOTE! Outdated
+
 If you want to use the Push.Configure on the client use the options described [here](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
 ```js
     Push.Configure({
