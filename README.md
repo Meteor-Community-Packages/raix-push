@@ -54,6 +54,14 @@ Push.Configure({
 });
 ```
 
+Additionally you have to touch `mobile-config.js`
+```js
+App.configurePlugin('phonegap-plugin-push', {
+  SENDER_ID: 12341234
+});
+```
+*This is due to changes in the cordova plugin it self*
+
 Server:
 ```js
 Push.Configure({
