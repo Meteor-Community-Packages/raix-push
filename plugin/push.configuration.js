@@ -1,5 +1,8 @@
+/* global Plugin: false */
+var stripComments = Npm.require('strip-json-comments');
+
 // Check the config and log errors
-var checkConfig = function(config) {
+var checkConfig = function(config) { // jshint ignore:line
   check(config, {
     apn: Match.Optional({
       passphrase: String,
@@ -28,21 +31,26 @@ var checkConfig = function(config) {
     // Controls the sending interval
     sendInterval: Match.Optional(Number),
     // Controls the sending batch size per interval
-    sendBatchSize: Match.Optional(Number)
+    sendBatchSize: Match.Optional(Number),
+    // Allow optional keeping notifications in collection
+    keepNotifications: Match.Optional(Boolean)
   });
 
   // Make sure at least one service is configured?
-  if (!config.apn && !config.gcm)
+  if (!config.apn && !config.gcm) {
     console.warn('Push configuration: No push services configured');
+  }
 
   // If apn webServiceUrl or websitePushId then make sure both are set
-  if (config.apn && (config.apn.webServiceUrl || config.apn.websitePushId) && !(config.apn.webServiceUrl && config.apn.websitePushId))
+  if (config.apn && (config.apn.webServiceUrl || config.apn.websitePushId) && !(config.apn.webServiceUrl && config.apn.websitePushId)) { // jshint ignore:line
     throw new Error('Push configuration: Both "apn.webServiceUrl" and "apn.websitePushId" must be set');
+  }
 };
 
 var clone = function(name, config, result) {
-  if (typeof config[name] !== 'undefined')
+  if (typeof config[name] !== 'undefined') {
     result[name] = config[name];
+  }
 };
 
 var cloneCommon = function(config, result) {
@@ -53,6 +61,7 @@ var cloneCommon = function(config, result) {
   clone('vibrate', config, result);
   clone('sendInterval', config, result);
   clone('sendBatchSize', config, result);
+  clone('keepNotifications', config, result);
 };
 
 var archConfig = {
@@ -72,21 +81,47 @@ var archConfig = {
       result.iframe = config.iframe;
     }
 
-    if (result) cloneCommon(config, result);
+    if (result) {
+      cloneCommon(config, result);
+    }
 
     return result;
   },
   'web.cordova': function(config) {
     var result = {};
     if (config.gcm) {
-      // Make sure gcm is set
-      result.gcm = {
-        // Set gcm web service
-        projectNumber: config.gcm.projectNumber
+      // Map to the new cordova plugin
+      result.android = {
+        senderID: config.gcm.projectNumber,
+        alert: Boolean(config.alert),
+        badge: Boolean(config.badge),
+        sound: Boolean(config.sound),
+        vibrate: Boolean(config.vibrate),
+        clearNotifications: (config.clearNotifications !== false)
+      };
+
+      if (config.icon) {
+        result.android.icon = config.icon;
+      }
+
+      if (config.iconColor) {
+        result.android.iconColor = config.iconColor;
+      }
+    }
+
+    if (config.apn) {
+      result.ios = {
+        alert: Boolean(config.alert),
+        badge: Boolean(config.badge),
+        sound: Boolean(config.sound)
       };
     }
 
-    if (result) cloneCommon(config, result);
+    if (result) {
+      cloneCommon(config, result);
+    }
+
+
 
     return result;
   },
@@ -122,7 +157,9 @@ var archConfig = {
       };
     }
 
-    if (result) cloneCommon(config, result);
+    if (result) {
+      cloneCommon(config, result);
+    }
 
     return result;
   }
@@ -137,16 +174,18 @@ var configStringify = function(config) {
     str = str.replace('"cert": "' + config.apn.cert + '"', '"certData": Assets.getText(\'' + config.apn.cert + '\')');
   }
 
-  if (config.iframe)
+  if (config.iframe) {
     str = str.replace('"iframe": "' + config.iframe + '"', 'iframe: ' + config.iframe);
+  }
 
-  return 'Meteor.startup(function() {\n\tPush.Configure(' + str + ');\n});'
+  return 'Meteor.startup(function() {\n\tPush.Configure(' + str + ');\n});';
 };
 
 
 Plugin.registerSourceHandler('push.json', function(compileStep) {
+  console.warn('Push: "config.push.json" is deprecating - use the Push.Configure api instead');
   // Read the configuration
-  var configString = compileStep.read().toString('utf8');
+  var configString = stripComments(compileStep.read().toString('utf8'));
 
   try {
     // Try parsing the json
@@ -169,12 +208,12 @@ Plugin.registerSourceHandler('push.json', function(compileStep) {
 
       // console.log(compileStep.arch, configStringify(cloned));
 
-    } else {
+    // } else {
       // No configuration for architecture
     }
 
   } catch(err) {
-    console.error('Push configuration, Error:', err.message, err.stack);
+    console.error('Push configuration "config.push.json", JSON Error:', err.message);
   }
   // compileStep.arch
 });

@@ -1,12 +1,4 @@
 {
-   // JSHint Meteor Configuration File
-   // Match the Meteor Style Guide
-   //
-   // By @raix with contributions from @aldeed and @awatson1978
-   // Source https://github.com/raix/Meteor-jshintrc
-   //
-   // See http://jshint.com/docs/ for more details
-
 	"maxerr": 50,
 	"bitwise": true,
 	"camelcase": true,
@@ -24,24 +16,24 @@
 	"quotmark": false,
 	"undef": true,
 	"unused": true,
-	"strict": true,
+	"strict": false,
 	"trailing": true,
 	"maxparams": false,
 	"maxdepth": false,
 	"maxstatements": false,
 	"maxcomplexity": false,
-	"maxlen": 80,
+	"maxlen": 120,
 	"asi": false,
 	"boss": false,
 	"debug": false,
 	"eqnull": false,
 	"es5": false,
-	"esnext": false,
+	"esnext": true,
 	"moz": false,
 	"evil": false,
 	"expr": false,
 	"funcscope": false,
-	"globalstrict": true,
+	"globalstrict": false,
 	"iterator": false,
 	"lastsemic": false,
 	"laxbreak": false,
@@ -73,25 +65,37 @@
 	"passfail": false,
 	"white": false,
 	"predef": [
-		"Meteor",
 		"Accounts",
-		"Session",
-		"Template",
-		"check",
-		"Match",
-		"Deps",
-		"EJSON",
-		"Email",
-		"Package",
-		"Tinytest",
-		"Npm",
+		"AccountsClient",
+		"AccountsServer",
+		"App",
 		"Assets",
-		"Packages",
-		"process",
-		"LocalCollection",
-		"_",
+		"Cordova",
+		"Deps",
+		"ECMAScript",
+		"EJSON",
+		"EventState",
+		"Map",
+		"Match",
+		"Meteor",
+		"Mongo",
+		"MongoInternals",
+		"Npm",
+		"Package",
+		"Promise",
 		"Random",
-		"HTTP",
-		"_methodHTTP"
-	]
+		"Set",
+		"Tracker",
+		"_",
+		"babelHelpers",
+		"check"
+	],
+	"globals": {
+		"Push": true,
+		"_matchToken": true,
+		"_removeToken": true,
+		"_replaceToken": true,
+		"checkClientSecurity": true,
+		"initPushUpdates": true
+	}
 }

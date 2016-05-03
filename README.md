@@ -23,37 +23,70 @@ Depending on the platforms you want to work with you will need some credentials 
 
 Have a look at the [Basic example](docs/BASIC.md)
 
-Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by @elvismercado
+Read the [raix:push Newbie Manual](http://stached.io/standalone/fBLmRhsAuPSxKBSgM) by [@harryward](https://github.com/harryward)
+
+Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by [@elvismercado](https://github.com/elvismercado)
+
+Note:
+Version 3 uses the cordova npm plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
 
 ## Config
-Add a `config.push.json` file in your project and configure credentials / keys / certificates:
+Use the `Push.Configure` function on client and server.
 
+On the client
 ```js
-{
-  "apn": {
-    "passphrase": "xxxxxxxxx",  
-    "key": "apnProdKey.pem",
-    "cert": "apnProdCert.pem"
+Push.Configure({
+  android: {
+    senderID: 12341234,
+    alert: true,
+    badge: true,
+    sound: true,
+    vibrate: true,
+    clearNotifications: true
+    // icon: '',
+    // iconColor: ''
   },
-  "apn-dev": {
-    "passphrase": "xxxxxxxxx",
-    "key": "apnDevKey.pem",
-    "cert": "apnDevCert.pem"
-  },  
-  "gcm": {
-    "apiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "projectNumber": xxxxxxxxxxxx
-  },
-  "production": true,
-  // "badge": true,
-  // "sound": true,
-  // "alert": true,
-  // "vibrate": true,
-  // "sendInterval": 15000,  Configurable interval between sending notifications
-  // "sendBatchSize": 1  Configurable number of notifications to send per batch
-}
+  ios: {
+    alert: true,
+    badge: true,
+    sound: true
+  }
+});
 ```
-*Note: This file should be pure json, comments are not supported*
+
+Additionally you have to touch `mobile-config.js`
+```js
+App.configurePlugin('phonegap-plugin-push', {
+  SENDER_ID: 12341234
+});
+```
+*This is due to changes in the cordova plugin it self*
+
+Server:
+```js
+Push.Configure({
+  apn: {
+    certData: Assets.getText('apnDevCert.pem'),
+    keyData: Assets.getText('apnDevKey.pem'),
+    passphrase: 'xxxxxxxxx',
+    production: true,
+    //gateway: 'gateway.push.apple.com',
+  },
+  gcm: {
+    apiKey: 'xxxxxxx',
+  }
+  // production: true,
+  // 'sound' true,
+  // 'badge' true,
+  // 'alert' true,
+  // 'vibrate' true,
+  // 'sendInterval': 15000, Configurable interval between sending
+  // 'sendBatchSize': 1, Configurable number of notifications to send per batch
+  // 'keepNotifications': false,
+// 
+});
+```
+*Note: `config.push.json` is deprecating*
 
 ## Common api
 ```js
@@ -80,6 +113,9 @@ Add a `config.push.json` file in your project and configure credentials / keys /
 ```js
     Push.id(); // Unified application id - not a token
     Push.setBadge(count); // ios specific - ignored everywhere else
+    Push.enabled(); // Return true or false
+    Push.enabled(false); // Will disable notifications
+    Push.enabled(true); // Will enable notifications (requires a token...)
 ```
 
 ## Security allow/deny send
