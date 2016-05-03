@@ -17,7 +17,7 @@ Client:
     });
 
     Push.addListener('error', function(err) {
-        if (error.type == 'apn.cordova') {
+        if (err.type == 'apn.cordova') {
             console.log(err.error);
         }
     });
