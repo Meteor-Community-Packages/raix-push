@@ -36,7 +36,6 @@ Package.onUse(function(api) {
 
   api.use([
     'tracker', // Push.id() is reactive
-    'random'   // The push it is created with Random.id()
   ], 'client');
 
   // Keep track of users in the appCollection
@@ -49,7 +48,8 @@ Package.onUse(function(api) {
     'check',
     'mongo',
     'underscore',
-    'ejson'
+    'ejson',
+    'random',   // The push it is created with Random.id()
   ], ['client', 'server']);
 
   api.use('mongo', 'server');
