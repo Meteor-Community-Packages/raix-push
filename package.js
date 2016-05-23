@@ -68,6 +68,7 @@ Package.onUse(function(api) {
 
   // API's
   api.addFiles('lib/client/browser.js', 'web.browser');
+  api.addFiles('lib/client/browserPush.js', 'web.browser');
   api.addFiles('lib/server/push.api.js', 'server');
 
   // // Unified api
