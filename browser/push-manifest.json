@@ -1,0 +1,13 @@
+{  
+  "name": "code33chat",  
+  "short_name": "code33chat",  
+  "icons": [{  
+        "src": "images/defaultPic.jpg",  
+        "sizes": "148x148",
+        "type": "image/jpg"
+      }],  
+  "start_url": "/",
+  "display": "standalone",  
+  "gcm_sender_id": "959772988286",
+  "gcm_user_visible_only": true
+}

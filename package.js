@@ -53,6 +53,10 @@ Package.onUse(function(api) {
 
   api.use('mongo', 'server');
 
+  // public for browser
+  api.addFiles('browser/push-manifest.json', 'web.browser', {isAsset: true});
+  api.addFiles('browser/service-worker.js', 'web.browser', {isAsset: true});
+
   // API
   api.addFiles('lib/client/cordova.js', 'web.cordova');
 
