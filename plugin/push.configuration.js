@@ -4,6 +4,7 @@ var stripComments = Npm.require('strip-json-comments');
 // Check the config and log errors
 var checkConfig = function(config) { // jshint ignore:line
   check(config, {
+    browser: Match.Optional(Object),
     apn: Match.Optional({
       passphrase: String,
       cert: String,
@@ -54,6 +55,7 @@ var clone = function(name, config, result) {
 };
 
 var cloneCommon = function(config, result) {
+  clone('browser', config, result);
   clone('production', config, result);
   clone('sound', config, result);
   clone('badge', config, result);
@@ -189,7 +191,6 @@ Plugin.registerSourceHandler('push.json', function(compileStep) {
   try {
     // Try parsing the json
     var config = JSON.parse(configString);
-
     // Clone the relevant config
     var cloneConfig = archConfig[compileStep.arch];
 
