@@ -9,6 +9,9 @@ Package.describe({
 Npm.depends({
   'apn' : '1.6.2', // '1.7.4', // working: 1.6.2
   'node-gcm' : '0.9.6', // '0.12.0' // working: 0.9.6
+  'connect': '3.4.1',
+  'fibers': '1.0.13',
+  'body-parser': '1.15.1'
 });
 
 Cordova.depends({
@@ -48,13 +51,14 @@ Package.onUse(function(api) {
     'check',
     'mongo',
     'underscore',
+    'webapp',
     'ejson'
   ], ['client', 'server']);
 
   api.use('mongo', 'server');
 
   // public for browser
-  api.addFiles('browser/push-manifest.json', 'web.browser', {isAsset: true});
+//  api.addFiles('browser/push-manifest.json', 'web.browser', {isAsset: true});
   api.addFiles('browser/service-worker.js', 'web.browser', {isAsset: true});
 
   // API
@@ -78,6 +82,9 @@ Package.onUse(function(api) {
   // // Unified api
   api.addFiles('lib/client/client.js', 'client');
   api.addFiles('lib/server/server.js', 'server');
+
+  //browser
+  api.addFiles('lib/server/manifest.js', 'server');
 
   api.export('Push');
 
