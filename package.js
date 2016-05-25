@@ -58,7 +58,6 @@ Package.onUse(function(api) {
   api.use('mongo', 'server');
 
   // public for browser
-//  api.addFiles('browser/push-manifest.json', 'web.browser', {isAsset: true});
   api.addFiles('browser/service-worker.js', 'web.browser', {isAsset: true});
 
   // API
@@ -76,15 +75,11 @@ Package.onUse(function(api) {
 
   // API's
   api.addFiles('lib/client/browser.js', 'web.browser');
-  api.addFiles('lib/client/browserPush.js', 'web.browser');
   api.addFiles('lib/server/push.api.js', 'server');
 
   // // Unified api
   api.addFiles('lib/client/client.js', 'client');
   api.addFiles('lib/server/server.js', 'server');
-
-  //browser
-  api.addFiles('lib/server/manifest.js', 'server');
 
   api.export('Push');
 

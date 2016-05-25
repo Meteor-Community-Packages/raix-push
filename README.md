@@ -37,6 +37,9 @@ Add a `config.push.json` file in your project and configure credentials / keys /
 
 ```js
 {
+  "browser": {
+    //manifest.json contents goes here
+  },
   "apn": {
     "passphrase": "xxxxxxxxx",  
     "key": "apnProdKey.pem",
