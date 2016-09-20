@@ -85,7 +85,7 @@ Push.Configure({
   // 'sendInterval': 15000, Configurable interval between sending
   // 'sendBatchSize': 1, Configurable number of notifications to send per batch
   // 'keepNotifications': false,
-// 
+//
 });
 ```
 *Note: `config.push.json` is deprecating*

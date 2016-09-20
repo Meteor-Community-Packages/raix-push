@@ -85,7 +85,7 @@ entrust_2048_ca.cer
 ```
 Download it and put it into the same location as your PushChatCert.cert and PushChatKey.key. Now add the -CAfile flag and the certificate we just downloaded to try our secure connection again:
 ```
-$ openssl s_client -connect gateway.sandbox.push.apple.com:2195 -CAfile entrust_2048_ca.cer -cert PushChatCert.pem.pem -key PushChatKey.pem
+$ openssl s_client -connect gateway.sandbox.push.apple.com:2195 -CAfile entrust_2048_ca.cer -cert PushChatCert.pem -key PushChatKey.pem
 ```
 And you should see the openssl message change to 
 ```
