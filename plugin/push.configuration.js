@@ -183,6 +183,7 @@ var configStringify = function(config) {
 
 
 Plugin.registerSourceHandler('push.json', function(compileStep) {
+  console.warn('Push: "config.push.json" is deprecating - use the Push.Configure api instead');
   // Read the configuration
   var configString = stripComments(compileStep.read().toString('utf8'));
 

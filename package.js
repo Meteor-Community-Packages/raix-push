@@ -1,6 +1,6 @@
 Package.describe({
   name: 'raix:push',
-  version: '3.0.2-rc.10',
+  version: '3.0.3-rc.5',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/raix/push.git'
 });
@@ -12,7 +12,8 @@ Npm.depends({
 });
 
 Cordova.depends({
-  'phonegap-plugin-push': '1.3.0'
+  'phonegap-plugin-push': '1.6.4', // 1.3.0
+  'cordova-plugin-device': '1.1.1',
 });
 
 Package.registerBuildPlugin({
@@ -35,7 +36,6 @@ Package.onUse(function(api) {
 
   api.use([
     'tracker', // Push.id() is reactive
-    'random'   // The push it is created with Random.id()
   ], 'client');
 
   // Keep track of users in the appCollection
@@ -48,7 +48,8 @@ Package.onUse(function(api) {
     'check',
     'mongo',
     'underscore',
-    'ejson'
+    'ejson',
+    'random',   // The push it is created with Random.id()
   ], ['client', 'server']);
 
   api.use('mongo', 'server');
