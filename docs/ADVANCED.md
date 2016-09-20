@@ -17,7 +17,7 @@ Client:
     });
 
     Push.addListener('error', function(err) {
-        if (error.type == 'apn.cordova') {
+        if (err.type == 'apn.cordova') {
             console.log(err.error);
         }
     });
@@ -75,6 +75,9 @@ This can be done via:
 * In client/server code
 
 ### Config
+
+NOTE: `config.push.json` is being deprecated and might not work in Meteor 1.3
+
 Add a `config.push.json` file in your project and configure credentials / keys / certificates:
 
 ```js
@@ -101,6 +104,7 @@ Add a `config.push.json` file in your project and configure credentials / keys /
 ### Server api
 Please note that `Push.Configure` is called automatically when using the `config.push.json` file. `Push.Configure` may only be called once otherwise it throws an error - this is intended behaviour.
 
+If you want to use the Push.Configure on the client use the options described [here](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
 ```js
     Push.Configure({
         gcm: {
@@ -166,7 +170,7 @@ There are 4 required parameters that must be passed to `Push.send`. They are:
 * a selection query from below
 
 The 4th parameter is a selection query for determining who the message should be sent to. This query can be one of the three following items:
-* `query` : {} or {userId : 'XXXXX'} or {id : 'XXXXX'} 
+* `query` : {} or {userId : 'XXXXX'} or {id : 'XXXXX'}
 * `token` : {gcm : 'XXXXXX'} or {apn : 'XXXXX'}
 * `tokens` : [{gcm : 'XXXXX0'},{gcm : 'XXXXX1'}, {apn : 'XXXXX0'}]
 
@@ -181,7 +185,7 @@ The 4th parameter is a selection query for determining who the message should be
 
 `delayUntil` is an optional Date. If set, sending will be delayed until then.
 
-The query selector is used against a Mongo Collection created by the push packahe called `Push.appCollection`. This collection stores the userIds, pushIds, and tokens of all devices that register with the server. With a desired selection query chosen a minimal `Push.send` takes the following form (using one of the queries). 
+The query selector is used against a Mongo Collection created by the push packahe called `Push.appCollection`. This collection stores the userIds, pushIds, and tokens of all devices that register with the server. With a desired selection query chosen a minimal `Push.send` takes the following form (using one of the queries).
 
 ```js
 Push.send({
@@ -225,6 +229,81 @@ Push.send({
 ```
 *You can overwrite keys: 'from','title','text','badge','sound' and 'notId'*
 
+### Android image in notifications
+
+```js
+Push.send({
+  from: 'Test',
+  title: 'Large icon',
+  text: 'Remotely loaded',
+  gcm: {
+    // gcm specific overwrites
+    image: 'https://c1.staticflickr.com/9/8079/8391224056_96da82499d_n.jpg'
+  }
+});
+```
+
+Produces the following result:
+![2015-07-24 02 17 55](https://cloud.githubusercontent.com/assets/353180/8866900/2df0ab06-3190-11e5-9a81-fdb85bb0f5a4.png)
+
+### Android styles
+
+#### Inbox style
+
+First notification:
+
+```js
+Push.send({
+  from: 'Test',
+  title: 'My Title',
+  text: 'My first message',
+  gcm: {
+    style: 'inbox',
+    summaryText: 'There are %n% notifications'
+  }
+});
+```
+
+Produces the following result:
+![first message](https://cloud.githubusercontent.com/assets/353180/9468840/c9c5d43a-4b11-11e5-814f-8dc995f47830.png)
+
+Second notification:
+
+```js
+Push.send({
+  from: 'Test',
+  title: 'My Title',
+  text: 'My second message',
+  gcm: {
+    style: 'inbox',
+    summaryText: 'There are %n% notifications'
+  }
+});
+```
+
+Produces the following result:
+![second message](https://cloud.githubusercontent.com/assets/353180/9468727/2d658bee-4b11-11e5-90fa-248d54c8f3f6.png)
+
+#### Picture Messages
+
+To include a large picture in the notification:
+
+```js
+Push.send({
+  from: 'Test',
+  title: 'Big Picture',
+  text: 'This is my big picture message',
+  gcm: {
+    style: 'picture',
+    picture: 'http://36.media.tumblr.com/c066cc2238103856c9ac506faa6f3bc2/tumblr_nmstmqtuo81tssmyno1_1280.jpg',
+    summaryText: 'The internet is built on cat pictures'
+  }
+});
+```
+
+Produces the following result:
+![picture message](https://cloud.githubusercontent.com/assets/353180/9472260/3655fa7a-4b22-11e5-8d87-20528112de16.png)
+
 ### Client Security
 This package allows you to send notifications from the server and client. To restrict the client or allowing the client to send use `allow` or `deny` rules.
 
@@ -244,4 +323,3 @@ When a client calls send on Push, the Push's allow and deny callbacks are called
         }
     });
 ```
-
