@@ -23,9 +23,10 @@ Depending on the platforms you want to work with you will need some credentials 
 
 Have a look at the [Basic example](docs/BASIC.md)
 
-Read the [raix:push Newbie Manual](http://stached.io/standalone/fBLmRhsAuPSxKBSgM) by [@harryward](https://github.com/harryward)
+Read the [raix:push Newbie Manual](https://github.com/raix/push/wiki/raix:push-Newbie-Manual) by [@harryward](https://github.com/harryward)
 
 Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by [@elvismercado](https://github.com/elvismercado)
+(This example uses the deprecated config.push.json)
 
 Example code for [sound](https://github.com/raix/push/issues/9#issuecomment-216068188) *(todo: add in docs)*
 

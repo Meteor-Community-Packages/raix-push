@@ -8,22 +8,62 @@ Depending on the platforms you want to work with you will need some credentials 
 * [iOS](IOS.md)
 
 ## Config
-Add a `config.push.json` file in your project and configure credentials / keys / certificates:
+Use the `Push.Configure` function on client and server.
 
+On the client
 ```js
-{
-  "apn": {
-    "passphrase": "xxxxxxxxx",  
-    "key": "apnProdKey.pem",
-    "cert": "apnProdCert.pem"
+Push.Configure({
+  android: {
+    senderID: 12341234,
+    alert: true,
+    badge: true,
+    sound: true,
+    vibrate: true,
+    clearNotifications: true
+    // icon: '',
+    // iconColor: ''
   },
-  "gcm": {
-    "apiKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "projectNumber": xxxxxxxxxxxx
-  },
-  "production": true
-}
+  ios: {
+    alert: true,
+    badge: true,
+    sound: true
+  }
+});
 ```
+
+Additionally you have to touch `mobile-config.js`
+```js
+App.configurePlugin('phonegap-plugin-push', {
+  SENDER_ID: 12341234
+});
+```
+*This is due to changes in the cordova plugin it self*
+
+Server:
+```js
+Push.Configure({
+  apn: {
+    certData: Assets.getText('apnDevCert.pem'),
+    keyData: Assets.getText('apnDevKey.pem'),
+    passphrase: 'xxxxxxxxx',
+    production: true,
+    //gateway: 'gateway.push.apple.com',
+  },
+  gcm: {
+    apiKey: 'xxxxxxx',
+  }
+  // production: true,
+  // 'sound' true,
+  // 'badge' true,
+  // 'alert' true,
+  // 'vibrate' true,
+  // 'sendInterval': 15000, Configurable interval between sending
+  // 'sendBatchSize': 1, Configurable number of notifications to send per batch
+  // 'keepNotifications': false,
+//
+});
+```
+*Note: `config.push.json` is deprecating*
 
 ## Test
 You can send push notifications to all users from client and server - Use browser console or Meteor shell:
