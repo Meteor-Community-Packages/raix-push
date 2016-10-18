@@ -3,7 +3,7 @@ iOS GUIDE
 
 ## Get started
 In order to get started with iOS you will have to obtain a __cert.pem__ and an __key.pem__ for both production and development.
-Bellow are some snippets of documentaion:
+Bellow are some snippets of documentation:
 
 ##Certificates
 
