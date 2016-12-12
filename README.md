@@ -16,6 +16,12 @@ Status:
 * [ ] ADM Amazon Fire OS
 * [ ] Meteor in app notifications
 
+## Install
+```bash
+  $ meteor install raix:push
+  # Note: you might also need to install the "cordova-plugin-device"
+```
+
 ## Getting started
 Depending on the platforms you want to work with you will need some credentials or certificates.
 * [Android](docs/ANDROID.md)
