@@ -29,6 +29,8 @@ Depending on the platforms you want to work with you will need some credentials 
 
 Have a look at the [Basic example](docs/BASIC.md)
 
+Theres a good walkthrough by [Arthur Carabott](https://medium.com/@acarabott/meteor-native-ios-push-notifications-heroku-raix-push-cordova-213f486c4e6d#.akrtpzmi7)
+
 Read the [raix:push Newbie Manual](https://github.com/raix/push/wiki/raix:push-Newbie-Manual) by [@harryward](https://github.com/harryward)
 
 Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by [@elvismercado](https://github.com/elvismercado)
@@ -38,6 +40,9 @@ Example code for [sound](https://github.com/raix/push/issues/9#issuecomment-2160
 
 Note:
 Version 3 uses the cordova npm plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
+
+Note:
+Some of the documentation is outdated, please file an issue or create a pull request - same if you find a bug or want to add tests
 
 ## Config
 Use the `Push.Configure` function on client and server.
