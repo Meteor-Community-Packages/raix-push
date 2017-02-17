@@ -5,6 +5,10 @@ iOS GUIDE
 In order to get started with iOS you will have to obtain a __cert.pem__ and an __key.pem__ for both production and development.
 Bellow are some snippets of documentation:
 
+## Xcode build note
+
+In later versions of Xcode you have to turn on notifications in the build settings!
+
 ##Certificates
 
 This is fairly straight forward, for the most parts you are guided in the developer.apple.com console:
