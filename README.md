@@ -6,7 +6,7 @@ raix:push Push notifications
 
 Status:
 * [x] APN iOS
-* [x] GCM Android
+* [x] GCM/FCM Android
 * [x] APN Safari web push (partially implemented)
 * [x] GCM Chrome OS (partially implemented)
 * [x] Firefox OS (partially implemented)
@@ -18,8 +18,10 @@ Status:
 
 ## Install
 ```bash
-  $ meteor install raix:push
-  # Note: you might also need to install the "cordova-plugin-device"
+  $ meteor add raix:push
+  $ meteor add cordova:cordova-plugin-device@1.1.5
+  $ meteor add cordova:phonegap-plugin-push@1.5.2
+  # Note: you probably want to adjust the version numbers to the latest versions of the packages
 ```
 
 ## Getting started
@@ -45,9 +47,13 @@ Note:
 Some of the documentation is outdated, please file an issue or create a pull request - same if you find a bug or want to add tests
 
 ## Config
+
 Use the `Push.Configure` function on client and server.
 
-On the client
+### Client
+
+For example in `Meteor.startup()` block of main.js
+
 ```js
 Push.Configure({
   android: {
@@ -74,9 +80,12 @@ App.configurePlugin('phonegap-plugin-push', {
   SENDER_ID: 12341234
 });
 ```
-*This is due to changes in the cordova plugin it self*
+*This is due to changes in the cordova plugin itself*
 
-Server:
+### Server
+
+For example in `Meteor.startup()` block of main.js
+
 ```js
 Push.Configure({
   apn: {
@@ -87,7 +96,7 @@ Push.Configure({
     //gateway: 'gateway.push.apple.com',
   },
   gcm: {
-    apiKey: 'xxxxxxx',
+    apiKey: 'xxxxxxx',  // GCM/FCM server key
   }
   // production: true,
   // 'sound' true,
@@ -102,7 +111,7 @@ Push.Configure({
 ```
 *Note: `config.push.json` is deprecating*
 
-## Common api
+## Common API
 ```js
     // Push.debug = true; // Add verbosity
 
@@ -123,7 +132,7 @@ Push.Configure({
 ```
 *When in secure mode the client send features require adding allow/deny rules in order to allow the user to send push messages to other users directly from the client - Read more below*
 
-## Client api
+## Client API
 ```js
     Push.id(); // Unified application id - not a token
     Push.setBadge(count); // ios specific - ignored everywhere else
