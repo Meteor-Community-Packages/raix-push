@@ -92,3 +92,27 @@ To link your FCM service with your app in the Play Store.
 
 
 For more info and checking the validity of a server key, reference [official documentation](https://firebase.google.com/docs/cloud-messaging/server#implementing-http-connection-server-protocol)
+
+## Notification Icon
+
+To show you app's icon in the notification you will have to prepare an image file with your icon in it and every else being transparent. You can see [here](https://clevertap.com/blog/fixing-notification-icon-for-android-lollipop-and-above/) how it can be done.
+
+
+Then put the file (e.g. "logo.png") in your project directory under this path:
+
+```
+cordova-build-override/platforms/android/res/drawable/
+``` 
+
+In your `Push.configure` block on the **client** you have to set the name of the file and you can also define a color:
+
+```js 
+  Push.Configure({
+    android: {
+      ...
+      icon: 'logo',
+      iconColor: '#4cae4c',
+    },
+    
+``` 
+    
