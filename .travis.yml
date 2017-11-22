@@ -22,7 +22,7 @@ stages:
 
 script:
   - npm test
-  - npm run semantic-release
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then npm run semantic-release; fi
 
 branches:
   except:
