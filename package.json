@@ -1,0 +1,25 @@
+{
+  "name": "push",
+  "version": "0.0.0-semantic-release",
+  "description": "Isomorphic Push notifications for APN and GCM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Tests not implemented\" && exit 0",
+    "semantic-release": "semantic-release pre && ./bin/updateversion.js && meteor publish && semantic-release post"
+  },
+  "release": {
+    "getLastRelease": "meteor-ci/src/get-last-release-cb.js"
+  },
+  "repository": "https://github.com/raix/push.git",
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raix/push/issues"
+  },
+  "homepage": "https://github.com/raix/push#readme",
+  "devDependencies": {
+    "meteor-ci": "0.3.0",
+    "semantic-release": "^8.2.0",
+    "semver": "^5.4.1"
+  }
+}
