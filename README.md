@@ -19,6 +19,10 @@ Status:
 * [ ] ADM Amazon Fire OS
 * [ ] Meteor in app notifications
 
+## Contributing
+
+We are using [semantic-release](https://github.com/semantic-release/semantic-release) following the [AngularJS Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) - Following this pattern will result in better versioning, better changelog and shorter release cycle.
+
 ## Install
 ```bash
   $ meteor add raix:push
