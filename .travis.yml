@@ -11,7 +11,7 @@ node_js:
 
 install:
   - npm install
-  - if [[ ! -e "$HOME/.meteor" ]]; then curl https://install.meteor.com/ | sh; fi
+  - curl https://install.meteor.com/ | sh
   - export PATH=$HOME/.meteor:$PATH
   - npx meteor-ci login ${METEOR_TOKEN} --key ${METEOR_KEY}
   - meteor whoami
