@@ -45,6 +45,9 @@ Version 3 uses the cordova npm plugin [phonegap-plugin-push](https://github.com/
 
 Note:
 Some of the documentation is outdated, please file an issue or create a pull request - same if you find a bug or want to add tests
+## Development
+
+Watch the project [progress](https://github.com/raix/push/projects/1) for status or join development
 
 ## Config
 

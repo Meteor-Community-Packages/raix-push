@@ -1,0 +1,29 @@
+language: node_js
+
+cache:
+  directories:
+    - ~/.npm
+    - ~/.meteor
+    - "node_modules"
+
+node_js:
+  - '8'
+
+install:
+  - npm install
+  - if [[ ! -e "$HOME/.meteor" ]]; then curl https://install.meteor.com/ | sh; fi
+  - export PATH=$HOME/.meteor:$PATH
+  - npx meteor-ci login ${METEOR_TOKEN} --key ${METEOR_KEY}
+  - meteor whoami
+
+stages:
+  - test
+  - release
+
+script:
+  - npm test
+  - npm run semantic-release
+
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
