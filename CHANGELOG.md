@@ -1,6 +1,8 @@
 # Changelog
 
 ## vCurrent
+
+- add-support-to-title-in-ios
 ## [v2.6.0] (https://github.com/raix/push/tree/v2.6.0)
 #### 28/01/15 by Morten Henriksen
 - Respect resume - if paused wait until resume before triggering start up events
