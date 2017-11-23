@@ -5,10 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Tests not implemented\" && exit 0",
-    "semantic-release": "semantic-release pre && ./bin/updateversion.js && meteor publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "release": {
-    "getLastRelease": "meteor-ci/src/get-last-release-cb.js"
+    "verifyConditions": [
+      "semantic-release-meteor",
+      "@semantic-release/github"
+    ],
+    "getLastRelease": "semantic-release-meteor",
+    "publish": [
+      "semantic-release-meteor",
+      "@semantic-release/github"
+    ]
   },
   "repository": "https://github.com/raix/push.git",
   "author": "",
@@ -18,8 +26,9 @@
   },
   "homepage": "https://github.com/raix/push#readme",
   "devDependencies": {
-    "meteor-ci": "0.3.0",
-    "semantic-release": "^8.2.0",
+    "meteor-ci": "0.3.1",
+    "semantic-release": "^10.0.1",
+    "semantic-release-meteor": "^0.0.7",
     "semver": "^5.4.1"
   }
 }
