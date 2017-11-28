@@ -2,6 +2,8 @@
 
 ## vCurrent
 
+- support lookup by userid to prevent duplicate records for same user
+
 - add-support-to-title-in-ios
 
 - allow-apn-category-field
