@@ -9,6 +9,8 @@ cache:
 node_js:
   - '8'
 
+before_install: git fetch --unshallow
+
 install:
   - npm install
   - curl https://install.meteor.com/ | sh
@@ -19,6 +21,7 @@ stages:
   - release
 
 script:
+  - ./bin/lint-commit.sh
   - npm test
   - if [ "$TRAVIS_BRANCH" == "master" ]; then npm run semantic-release; fi
 
