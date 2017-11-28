@@ -13,8 +13,6 @@ install:
   - npm install
   - curl https://install.meteor.com/ | sh
   - export PATH=$HOME/.meteor:$PATH
-  - npx meteor-ci login ${METEOR_TOKEN} --key ${METEOR_KEY}
-  - meteor whoami
 
 stages:
   - test
