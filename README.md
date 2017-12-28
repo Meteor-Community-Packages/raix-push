@@ -99,11 +99,15 @@ For example in `Meteor.startup()` block of main.js
 ```js
 Push.Configure({
   apn: {
-    certData: Assets.getText('apnDevCert.pem'),
-    keyData: Assets.getText('apnDevKey.pem'),
+    token: {
+      key: Assets.getText('path/to/APNsAuthKey_XXXXXXXXXX.p8'),
+      keyId: 'key-id',
+      teamId: 'developer-team-id',
+    },
+    cert: Assets.getText('apnDevCert.pem'),
+    key: Assets.getText('apnDevKey.pem'),
     passphrase: 'xxxxxxxxx',
     production: true,
-    //gateway: 'gateway.push.apple.com',
   },
   gcm: {
     apiKey: 'xxxxxxx',  // GCM/FCM server key
