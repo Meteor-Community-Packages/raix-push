@@ -346,14 +346,14 @@ Notification.snoozeAction1Day = function(data) {
 Notification.closeAlert = function() {};
 ```
 
-If you wish to include an icon along with the button name, they must be placed in the `res/drawable` directory of your Android project. Then you can send the following JSON from FCM:
+If you wish to include an icon along with the button name, they must be placed in the `res/drawable` directory of your Android project. Then you can send the following JSON from GCM/FCM:
 
 ```json
 {
    "title": "Snooze Notification",
    "message": "Snooze your daily requirement alerts for a specific amount of time.",
    "query": {
-       userId: { $in: recipients }
+       "userId": 123456789
    },
    "actions": [
      {
