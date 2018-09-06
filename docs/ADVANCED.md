@@ -326,48 +326,57 @@ When a client calls send on Push, the Push's allow and deny callbacks are called
 
 ## Action Buttons
 
-Your notification can include a maximum of three action buttons. You register the event callback name for each of your actions, then when a user clicks on one of notification's buttons, the event corresponding to that button is fired and the listener you have registered is invoked. For instance, here is a setup with two actions `emailGuests` and `snooze`.
+Your notification can include a maximum of three action buttons. You register the event callback name for each of your actions, then when a user clicks on one of notification's buttons, the event corresponding to that button is fired and the listener you have registered is invoked. For instance, here is a setup with three actions `snoozeAction6Hour` `snoozeAction1Day` and `closeAlert`.
 
 ```javascript
-const push = PushNotification.init({
-  android: {}
-});
+window.Notification = {};
 
 // data contains the push payload just like a notification event
-push.on('emailGuests', data => {
-  console.log('I should email my guests');
-});
+Notification.snoozeAction6Hour = function(data) {
+  data.additionalData.snoozeHours = 6;
+  Meteor.call('snoozeRuleAlerts', data, function() {});
+};
 
-push.on('snooze', data => {
-  console.log('Remind me later');
-});
+Notification.snoozeAction1Day = function(data) {
+  data.additionalData.snoozeHours = 24;
+  Meteor.call('snoozeRuleAlerts', data, function() {});
+};
+
+//closing function for alert
+Notification.closeAlert = function() {};
 ```
 
 If you wish to include an icon along with the button name, they must be placed in the `res/drawable` directory of your Android project. Then you can send the following JSON from FCM:
 
 ```json
 {
-  "registration_ids": ["my device id"],
-  "data": {
-    "title": "AUX Scrum",
-    "message": "Scrum: Daily touchbase @ 10am Please be on time so we can cover everything on the agenda.",
-    "actions": [
-      {
-        "icon": "emailGuests",
-        "title": "EMAIL GUESTS",
-        "callback": "emailGuests",
-        "foreground": true
-      },
-      {
-        "icon": "snooze",
-        "title": "SNOOZE",
-        "callback": "snooze",
-        "foreground": false
-      }
-    ]
-  }
+   "title": "Snooze Notification",
+   "message": "Snooze your daily requirement alerts for a specific amount of time.",
+   "query": {
+       userId: { $in: recipients }
+   },
+   "actions": [
+     {
+       "icon": "halfDay",
+       "title": "6 hours",
+       "callback": "Notification.snoozeAction6Hour",
+       "foreground": true
+     },
+     {
+       "icon": "oneDay",
+       "title": "1 Day",
+       "callback": "Notification.snoozeAction1Day",
+       "foreground": true
+     },
+     {
+       "icon": "discard",
+       "title": "Cancel",
+       "callback": "Notification.closeAlert",
+       "foreground": false
+     }
+   ]
 }
-
+```
 This will produce the following notification in your tray:
 
 ![action_combo](https://cloud.githubusercontent.com/assets/353180/9313435/02554d2a-44f1-11e5-8cd9-0aadd1e02b18.png)
@@ -417,11 +426,11 @@ var categories = {
 
 Push.Configure({
     ios: {
-      alert: true,
-      badge: true,
-      sound: true,
-      clearBadge: true,
-      categories: categories
+      "alert": true,
+      "badge": true,
+      "sound": true,
+      "clearBadge": true,
+      "categories": categories
     }
   });
 ```
