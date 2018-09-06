@@ -323,3 +323,107 @@ When a client calls send on Push, the Push's allow and deny callbacks are called
         }
     });
 ```
+
+## Action Buttons
+
+Your notification can include a maximum of three action buttons. You register the event callback name for each of your actions, then when a user clicks on one of notification's buttons, the event corresponding to that button is fired and the listener you have registered is invoked. For instance, here is a setup with two actions `emailGuests` and `snooze`.
+
+```javascript
+const push = PushNotification.init({
+  android: {}
+});
+
+// data contains the push payload just like a notification event
+push.on('emailGuests', data => {
+  console.log('I should email my guests');
+});
+
+push.on('snooze', data => {
+  console.log('Remind me later');
+});
+```
+
+If you wish to include an icon along with the button name, they must be placed in the `res/drawable` directory of your Android project. Then you can send the following JSON from FCM:
+
+```json
+{
+  "registration_ids": ["my device id"],
+  "data": {
+    "title": "AUX Scrum",
+    "message": "Scrum: Daily touchbase @ 10am Please be on time so we can cover everything on the agenda.",
+    "actions": [
+      {
+        "icon": "emailGuests",
+        "title": "EMAIL GUESTS",
+        "callback": "emailGuests",
+        "foreground": true
+      },
+      {
+        "icon": "snooze",
+        "title": "SNOOZE",
+        "callback": "snooze",
+        "foreground": false
+      }
+    ]
+  }
+}
+
+This will produce the following notification in your tray:
+
+![action_combo](https://cloud.githubusercontent.com/assets/353180/9313435/02554d2a-44f1-11e5-8cd9-0aadd1e02b18.png)
+
+If your user clicks on the main body of the notification, then your app will be opened. However, if they click on either of the action buttons the app will open (or start) and the specified event will be triggered with the callback name. In this case it is `emailGuests` and `snooze`, respectively. If you set the `foreground` property to `true`, the app will be brought to the front, if `foreground` is `false` then the callback is run without the app being brought to the foreground.
+
+#### Actionable Notification for IOS
+
+You must setup the possible actions when you initialize the plugin:
+```javascript
+var categories = {
+  "snoozeRule": {
+    "yes": {
+      "callback": "Notification.snoozeAction6Hour",
+      "title": "6 Hours",
+      "foreground": false,
+      "destructive": false
+    },
+    "no": {
+      "callback": "Notification.snoozeAction1Day",
+      "title": "1 Day",
+      "foreground": false,
+      "destructive": false
+    },
+    "maybe": {
+      "callback": "Notification.closeAlert",
+      "title": "Cancel",
+      "foreground": false,
+      "destructive": false
+    }
+  },
+  "delete": {
+    "yes": {
+      "callback": "Notification.delete",
+      "title": "Delete",
+      "foreground": true,
+      "destructive": false
+    },
+    "no": {
+      "callback": "Notification.closeAlert",
+      "title": "Cancel",
+      "foreground": true,
+      "destructive": false
+    }
+  }
+};
+
+Push.Configure({
+    ios: {
+      alert: true,
+      badge: true,
+      sound: true,
+      clearBadge: true,
+      categories: categories
+    }
+  });
+```
+
+Each category is a named object, snoozeRule and delete in this case. These names will need to match the ones you send via your payload to APNS if you want the action buttons to be displayed. Each category can have up to three buttons which must be labeled yes, no and maybe (This is strict, it will not work if you label them anything other than this). In turn each of these buttons has four properties, callback the javascript function you want to call, title the label for the button, foreground whether or not to bring your app to the foreground and destructive which doesn’t actually do anything destructive, it just colors the button red as a warning to the user that the action may be destructive.
