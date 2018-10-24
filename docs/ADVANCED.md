@@ -436,3 +436,28 @@ Push.Configure({
 ```
 
 Each category is a named object, snoozeRule and delete in this case. These names will need to match the ones you send via your payload to APNS if you want the action buttons to be displayed. Each category can have up to three buttons which must be labeled yes, no and maybe (This is strict, it will not work if you label them anything other than this). In turn each of these buttons has four properties, callback the javascript function you want to call, title the label for the button, foreground whether or not to bring your app to the foreground and destructive which doesn’t actually do anything destructive, it just colors the button red as a warning to the user that the action may be destructive.
+
+## Force Starting App
+
+When you implement the actionable notifications, you might notice that if the user has force closed his application, then the background actions will not work untill user opens the app the next time (Note: If you have used 'foreground': true, which will restart the app, this is not the intended behaviour for many providers). In this situation, 'forceStart' comes in handy. This will start the app again BUT the application will not be brought to foreground, hence it will not disrupt any task that the user was performing. In order to take advantage of this feature, you will need to be using cordova-android 6.0.0 or higher. If you add force-start: 1 to the data payload the application will be restarted in background even if it was force closed.
+
+Example:
+```javascript
+Push.send({
+  "from": 'push',
+  "title": "Test Notification for Force Start",
+  "text": "This will forcestart your app.",
+  "badge": 1,
+  "notId": 123456,
+  "query": {},
+  "apn": {
+    "sound": "www/application/app/testApp.wav"
+  },
+  "gcm": {
+    "sound": "testApp"
+  },
+  "forceStart": 1
+});
+```
+
+Note: This is restricted to Android only. In IOS, once the user closes an app, you can not restart it forcefully unlike android.
