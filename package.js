@@ -1,13 +1,14 @@
 Package.describe({
   name: 'raix:push',
-  version: '3.0.3-rc.2',
+  version: '3.0.3-rc.3',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/raix/push.git'
 });
 
 // Server-side push deps
 Npm.depends({
-  'firebase-admin': '6.0.0'
+  'firebase-admin': '6.0.0',
+  'mock-require': '3.0.2'
 });
 
 Cordova.depends({
@@ -31,6 +32,7 @@ Package.onUse(function (api) {
   ], ['client', 'server'], {weak: true});
 
   api.use([
+    'momentjs:moment@2.17.1',
     'raix:eventstate@0.0.2',
     'check',
     'mongo',
@@ -69,4 +71,25 @@ Package.onUse(function (api) {
   api.export('_replaceToken', {testOnly: true});
   api.export('_removeToken', {testOnly: true});
 
+});
+
+Package.onTest(function (api) {
+  api.use('raix:push');
+  api.use('practicalmeteor:chai');
+
+  api.use(['ecmascript', 'meteortesting:mocha']);
+
+  api.use(['accounts-base']);
+
+  api.use([
+    'momentjs:moment@2.17.1',
+    'raix:eventstate@0.0.2',
+    'check',
+    'mongo',
+    'underscore',
+    'ejson',
+  ]);
+
+  // Finally add an entry point for tests
+  api.mainModule('lib/server/push.api.tests.js');
 });
