@@ -7,7 +7,7 @@ Package.describe({
 
 // Server-side push deps
 Npm.depends({
-  'firebase-admin': '6.0.0',
+  'firebase-admin': '6.1.0',
   'mock-require': '3.0.2'
 });
 
@@ -87,7 +87,7 @@ Package.onTest(function (api) {
     'check',
     'mongo',
     'underscore',
-    'ejson',
+    'ejson'
   ]);
 
   // Finally add an entry point for tests
