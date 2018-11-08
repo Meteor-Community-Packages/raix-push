@@ -7,6 +7,8 @@ Package.describe({
 
 // Server-side push deps
 Npm.depends({
+  'apn': '1.6.2', // '1.7.4', // working: 1.6.2 // LEGACY
+  'node-gcm': '0.9.6', // '0.12.0' // working: 0.9.6 // LEGACY
   'firebase-admin': '6.1.0',
   'mock-require': '3.0.2'
 });
@@ -58,10 +60,12 @@ Package.onUse(function (api) {
   // API's
   api.addFiles('lib/client/browser.js', 'web.browser');
   api.addFiles('lib/server/push.api.js', 'server');
+  api.addFiles('lib/server/push.api.legacy.js', 'server');
 
   // // Unified api
   api.addFiles('lib/client/client.js', 'client');
   api.addFiles('lib/server/server.js', 'server');
+  api.addFiles('lib/server/server.legacy.js', 'server');
 
   api.export('Push');
 
