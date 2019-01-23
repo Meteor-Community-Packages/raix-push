@@ -43,15 +43,18 @@ apply plugin: 'com.android.application'
 
 Add this two your dependencies:
 
+```js
 classpath 'com.google.gms:google-services:4.1.0' // I added both of these
 classpath 'com.google.firebase:firebase-core:11.0.1' // I added both of these
-
+```
 At the end of your build.gradle file add:
 
+```js
 apply plugin: 'com.google.gms.google-services'
-
+```
 In case your run into errors with conflicting google libraries add:
 
+```js
 configurations.all {
   resolutionStrategy {
     force 'com.android.support:support-v4:27.1.0'
@@ -61,7 +64,7 @@ configurations.all {
 configurations {
   all*.exclude group: 'com.android.support', module: 'support-v13'
 }
-
+```
 Other errors refer to:
 
 https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/INSTALLATION.md#co-existing-with-plugins-that-use-firebase
@@ -70,6 +73,7 @@ https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/INSTALLATION.m
 Changes for the API:
 On the client make sure you add a android channel:
 
+```js
 PushNotification.createChannel(
     () => {
         console.log('createChannel');
@@ -79,20 +83,21 @@ PushNotification.createChannel(
     },
     {
        id: Meteor.userId(), //Use any Id you prefer, but the same Id for this channel must be sent from the server, 
-       description: 'Android Channel', //Andy description your prefer
+       description: 'Android Channel', //And any description your prefer
        importance: 3,
        vibration: true
       }
 );
-
+```
 
 Server changes:
 Add the android_channel_id so the Push message like below:
 
+```js
 Push.send({
-					from: 'test',
-					title: 'test',
-					text: 'hello',
+	  from: 'test',
+	  title: 'test',
+	   text: 'hello',
           android_channel_id:this.userId,		//The android channel should match the id on the client
           query: {
               userId: this.userId
@@ -102,7 +107,7 @@ Push.send({
             summaryText: 'There are %n% notifications'
           },          
 });  
-
+```
 
 ## Install
 ```bash
