@@ -304,6 +304,10 @@ Adds metadata to a particular Application/Token record.
 
 For more internal or advanced features read [ADVANCED.md](docs/ADVANCED.md)
 
+## For maintainers
+
+We have a slack channel to keep communication tight between contributors - it's on https://meteoropensourcecomm.slack.com in channel `#raixpush` 
+
 Kind regards
 
 Morten (aka RaiX)
