@@ -9,7 +9,7 @@ Package.describe({
 Npm.depends({
   'apn': '1.6.2', // '1.7.4', // working: 1.6.2 // LEGACY
   'node-gcm': '0.9.6', // '0.12.0' // working: 0.9.6 // LEGACY
-  'firebase-admin': '6.1.0',
+  'firebase-admin': '7.2.0',
   'mock-require': '3.0.2'
 });
 
