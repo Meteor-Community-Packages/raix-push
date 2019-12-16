@@ -98,8 +98,14 @@ For more info and checking the validity of a server key, reference [official doc
 To show you app's icon in the notification you will have to prepare an image file with your icon in it and every else being transparent. You can see [here](https://clevertap.com/blog/fixing-notification-icon-for-android-lollipop-and-above/) how it can be done.
 
 
-Then put the file (e.g. "logo.png") in your project directory under this path:
+Then based on your meteor version put the file (e.g. "logo.png") in your project directory under this path:
 
+__For meteor ≥ 1.8.1__
+```
+cordova-build-override/platforms/android/app/src/main/res/drawable/
+```
+
+__For meteor < 1.8.1__
 ```
 cordova-build-override/platforms/android/res/drawable/
 ``` 
@@ -115,4 +121,30 @@ In your `Push.configure` block on the **client** you have to set the name of the
     },
     
 ``` 
+
+## Notification Sound
+
+If you want to notify your users using a personalized sound, prepare a mp3 file (e.g. yellow.mp3).
+
+Then based on your meteor version put that file in your project directory under this path:
+
+__For meteor ≥ 1.8.1__
+```
+cordova-build-override/platforms/android/app/src/main/res/raw/
+```
+
+__For meteor < 1.8.1__
+```
+cordova-build-override/platforms/android/res/raw/
+``` 
+
+In your `Push.configure` block on the **client** you have to set the sound property:
+
+```js 
+  Push.Configure({
+    android: {
+      ...
+      sound: 'yellow'
+    },
     
+```    
