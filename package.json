@@ -1,6 +1,6 @@
 {
   "name": "push",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Isomorphic Push notifications for APN and GCM",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,9 @@
     ]
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "repository": "https://github.com/raix/push.git",
   "author": "",
@@ -30,12 +32,12 @@
   },
   "homepage": "https://github.com/raix/push#readme",
   "devDependencies": {
-    "@commitlint/cli": "^5.1.1",
-    "@commitlint/config-conventional": "^5.1.3",
+    "@commitlint/cli": "^5.2.8",
+    "@commitlint/config-conventional": "^5.2.3",
     "husky": "^0.14.3",
     "meteor-ci": "0.3.1",
     "semantic-release": "^10.0.1",
     "semantic-release-meteor": "^0.0.7",
-    "semver": "^5.4.1"
+    "semver": "^5.7.1"
   }
 }

@@ -8,6 +8,7 @@ var checkConfig = function(config) { // jshint ignore:line
       passphrase: String,
       cert: String,
       key: String,
+      topic: String,
       // Web site config is optional
       webServiceUrl: Match.Optional(String),
       websitePushId: Match.Optional(String),
@@ -17,7 +18,7 @@ var checkConfig = function(config) { // jshint ignore:line
     }),
     gcm: Match.Optional({
       apiKey: String,
-      projectNumber: String
+      projectNumber: Match.OneOf(String, Number)
     }),
     // Allow optional production
     production: Match.Optional(Boolean),
@@ -44,6 +45,12 @@ var checkConfig = function(config) { // jshint ignore:line
   // If apn webServiceUrl or websitePushId then make sure both are set
   if (config.apn && (config.apn.webServiceUrl || config.apn.websitePushId) && !(config.apn.webServiceUrl && config.apn.websitePushId)) { // jshint ignore:line
     throw new Error('Push configuration: Both "apn.webServiceUrl" and "apn.websitePushId" must be set');
+  }
+  if (config.apn && !config.apn.topic) {
+    throw new Error('Topic must be set to yor app bundle name');
+  }
+  if (config.apn && (!config.apn.cert || !config.apn.key)) {
+    throw new Error('Key or certificate is missing form apn option');
   }
 };
 
@@ -170,8 +177,8 @@ var configStringify = function(config) {
   // We need to do some extra work for apn on the server - since we would
   // load certificates from the app private folder
   if (config.apn && config.apn.key && config.apn.cert) {
-    str = str.replace('"key": "' + config.apn.key + '"', '"keyData": Assets.getText(\'' + config.apn.key + '\')');
-    str = str.replace('"cert": "' + config.apn.cert + '"', '"certData": Assets.getText(\'' + config.apn.cert + '\')');
+    str = str.replace('"key": "' + config.apn.key + '"', '"key": Assets.getText(\'' + config.apn.key + '\')');
+    str = str.replace('"cert": "' + config.apn.cert + '"', '"cert": Assets.getText(\'' + config.apn.cert + '\')');
   }
 
   if (config.iframe) {
@@ -208,11 +215,11 @@ Plugin.registerSourceHandler('push.json', function(compileStep) {
 
       // console.log(compileStep.arch, configStringify(cloned));
 
-    // } else {
+      // } else {
       // No configuration for architecture
     }
 
-  } catch(err) {
+  } catch (err) {
     console.error('Push configuration "config.push.json", JSON Error:', err.message);
   }
   // compileStep.arch

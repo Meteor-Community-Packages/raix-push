@@ -23,6 +23,9 @@ Status:
 
 We are using [semantic-release](https://github.com/semantic-release/semantic-release) following the [AngularJS Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) - Following this pattern will result in better versioning, better changelog and shorter release cycle.
 
+## breaking changes in 4.X.X
+If you are using apn options and upgrading from any lower version. You have to make changes in config of apn. New configs are listed below.
+
 ## Updates For Android 8.0
 
 Meteor must be version 1.6.1 
@@ -180,7 +183,34 @@ App.configurePlugin('phonegap-plugin-push', {
 
 ### Server
 
-For example in `Meteor.startup()` block of main.js
+For example in `Meteor.startup()` block of main.js. *Version 4.0.0 and above* 
+
+```js
+Push.Configure({
+  apn: {
+    cert: Assets.getText('apnDevCert.pem'),
+    key: Assets.getText('apnDevKey.pem'),
+    passphrase: 'xxxxxxxxx',
+    production: true,
+    topic: 'com.your.app.identifier' //required
+    //gateway: 'gateway.push.apple.com',
+  },
+  gcm: {
+    apiKey: 'xxxxxxx',  // GCM/FCM server key
+  }
+  // production: true,
+  // 'sound' true,
+  // 'badge' true,
+  // 'alert' true,
+  // 'vibrate' true,
+  // 'sendInterval': 15000, Configurable interval between sending
+  // 'sendBatchSize': 1, Configurable number of notifications to send per batch
+  // 'keepNotifications': false,
+//
+});
+```
+
+For example in `Meteor.startup()` block of main.js. *Version 3.0.2 and below* 
 
 ```js
 Push.Configure({
