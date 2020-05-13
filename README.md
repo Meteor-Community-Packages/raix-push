@@ -23,7 +23,9 @@ Status:
 
 We are using [semantic-release](https://github.com/semantic-release/semantic-release) following the [AngularJS Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) - Following this pattern will result in better versioning, better changelog and shorter release cycle.
 
-## breaking changes in 4.X.X
+```diff
+- ## Breaking changes in 4.X.X
+```
 If you are using apn options and upgrading from any lower version. You have to make changes in config of apn. New configs are listed below.
 
 ## Updates For Android 8.0
