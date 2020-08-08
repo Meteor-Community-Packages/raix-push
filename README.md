@@ -1,3 +1,5 @@
+# DEPRECATED: This package is no longer maintained
+
 <img alt="Gi-SoftWare" src="https://raw.githubusercontent.com/raix/push/master/docs/logo.png" width="20%" height="20%">
 
 raix:push Push notifications
