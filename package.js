@@ -1,6 +1,6 @@
 Package.describe({
   name: 'shivangkar:push',
-  version: '1.0.0',
+  version: '1.0.2',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/shivang007/push.git'
 });
@@ -44,7 +44,7 @@ Package.onUse(function (api) {
   ], ['client', 'server'], { weak: true });
 
   api.use([
-    'shivangkar:eventstate@0.0.5',
+    'shivangkar:eventstate@1.0.0',
     'check',
     'mongo',
     'underscore',
