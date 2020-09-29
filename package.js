@@ -1,8 +1,8 @@
 Package.describe({
-  name: 'raix:push',
-  version: '0.0.0-semantic-release',
+  name: 'shivangkar:push',
+  version: '1.0.0',
   summary: 'Isomorphic Push notifications for APN and GCM',
-  git: 'https://github.com/raix/push.git'
+  git: 'https://github.com/shivang007/push.git'
 });
 
 // Server-side push deps
@@ -44,7 +44,7 @@ Package.onUse(function (api) {
   ], ['client', 'server'], { weak: true });
 
   api.use([
-    'raix:eventstate@0.0.5',
+    'shivangkar:eventstate@0.0.5',
     'check',
     'mongo',
     'underscore',
