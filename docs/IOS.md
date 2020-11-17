@@ -22,7 +22,7 @@ This is described bellow:
 
 If you need to learn more about creating certificates you should read the whole [Great writeup by Ali](http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1) - Bellow is a short snippet from the blog:
 
-###Making a PEM File
+### Making a PEM File
 So now you have three files:
 * The CSR
 * The private key as a p12 file (PushChatKey.p12)
