@@ -7,7 +7,7 @@ cache:
     - "node_modules"
 
 node_js:
-  - '8'
+  - '16'
 
 before_install: git fetch --unshallow
 
@@ -21,7 +21,7 @@ stages:
   - release
 
 script:
-  # - ./bin/lint-commit.sh
+  - ./bin/lint-commit.sh
   - npm test
   - if [ "$TRAVIS_BRANCH" == "master" ]; then npm run semantic-release; fi
 
