@@ -323,3 +323,141 @@ When a client calls send on Push, the Push's allow and deny callbacks are called
         }
     });
 ```
+
+## Action Buttons
+
+Your notification can include a maximum of three action buttons. You register the event callback name for each of your actions, then when a user clicks on one of notification's buttons, the event corresponding to that button is fired and the listener you have registered is invoked. For instance, here is a setup with three actions `snoozeAction6Hour` `snoozeAction1Day` and `closeAlert`.
+
+```javascript
+window.Notification = {};
+
+// data contains the push payload just like a notification event
+Notification.snoozeAction6Hour = function(data) {
+  data.additionalData.snoozeHours = 6;
+  Meteor.call('snoozeRuleAlerts', data, function() {});
+};
+
+Notification.snoozeAction1Day = function(data) {
+  data.additionalData.snoozeHours = 24;
+  Meteor.call('snoozeRuleAlerts', data, function() {});
+};
+
+//closing function for alert
+Notification.closeAlert = function() {};
+```
+
+If you wish to include an icon along with the button name, they must be placed in the `res/drawable` directory of your Android project. Then you can send the following JSON from GCM/FCM:
+
+```json
+{
+   "title": "Snooze Notification",
+   "message": "Snooze your daily requirement alerts for a specific amount of time.",
+   "query": {
+       "userId": 123456789
+   },
+   "actions": [
+     {
+       "icon": "halfDay",
+       "title": "6 hours",
+       "callback": "Notification.snoozeAction6Hour",
+       "foreground": true
+     },
+     {
+       "icon": "oneDay",
+       "title": "1 Day",
+       "callback": "Notification.snoozeAction1Day",
+       "foreground": true
+     },
+     {
+       "icon": "discard",
+       "title": "Cancel",
+       "callback": "Notification.closeAlert",
+       "foreground": false
+     }
+   ]
+}
+```
+This will produce the following notification in your tray:
+
+![action_combo](https://cloud.githubusercontent.com/assets/353180/9313435/02554d2a-44f1-11e5-8cd9-0aadd1e02b18.png)
+
+If your user clicks on the main body of the notification, then your app will be opened. However, if they click on either of the action buttons the app will open (or start) and the specified event will be triggered with the callback name. In this case it is `emailGuests` and `snooze`, respectively. If you set the `foreground` property to `true`, the app will be brought to the front, if `foreground` is `false` then the callback is run without the app being brought to the foreground.
+
+#### Actionable Notification for IOS
+
+You must setup the possible actions when you initialize the plugin:
+```javascript
+var categories = {
+  "snoozeRule": {
+    "yes": {
+      "callback": "Notification.snoozeAction6Hour",
+      "title": "6 Hours",
+      "foreground": false,
+      "destructive": false
+    },
+    "no": {
+      "callback": "Notification.snoozeAction1Day",
+      "title": "1 Day",
+      "foreground": false,
+      "destructive": false
+    },
+    "maybe": {
+      "callback": "Notification.closeAlert",
+      "title": "Cancel",
+      "foreground": false,
+      "destructive": false
+    }
+  },
+  "delete": {
+    "yes": {
+      "callback": "Notification.delete",
+      "title": "Delete",
+      "foreground": true,
+      "destructive": false
+    },
+    "no": {
+      "callback": "Notification.closeAlert",
+      "title": "Cancel",
+      "foreground": true,
+      "destructive": false
+    }
+  }
+};
+
+Push.Configure({
+    ios: {
+      "alert": true,
+      "badge": true,
+      "sound": true,
+      "clearBadge": true,
+      "categories": categories
+    }
+  });
+```
+
+Each category is a named object, snoozeRule and delete in this case. These names will need to match the ones you send via your payload to APNS if you want the action buttons to be displayed. Each category can have up to three buttons which must be labeled yes, no and maybe (This is strict, it will not work if you label them anything other than this). In turn each of these buttons has four properties, callback the javascript function you want to call, title the label for the button, foreground whether or not to bring your app to the foreground and destructive which doesn’t actually do anything destructive, it just colors the button red as a warning to the user that the action may be destructive.
+
+## Force Starting App
+
+When you implement the actionable notifications, you might notice that if the user has force closed his application, then the background actions will not work untill user opens the app the next time (Note: If you have used 'foreground': true, which will restart the app, this is not the intended behaviour for many providers). In this situation, 'forceStart' comes in handy. This will start the app again BUT the application will not be brought to foreground, hence it will not disrupt any task that the user was performing. In order to take advantage of this feature, you will need to be using cordova-android 6.0.0 or higher. If you add force-start: 1 to the data payload the application will be restarted in background even if it was force closed.
+
+Example:
+```javascript
+Push.send({
+  "from": 'push',
+  "title": "Test Notification for Force Start",
+  "text": "This will forcestart your app.",
+  "badge": 1,
+  "notId": 123456,
+  "query": {},
+  "apn": {
+    "sound": "www/application/app/testApp.wav"
+  },
+  "gcm": {
+    "sound": "testApp"
+  },
+  "forceStart": 1
+});
+```
+
+Note: This is restricted to Android only. In IOS, once the user closes an app, you can not restart it forcefully unlike android.
