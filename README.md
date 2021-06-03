@@ -1,6 +1,10 @@
 <img alt="Gi-SoftWare" src="https://raw.githubusercontent.com/raix/push/master/docs/logo.png" width="20%" height="20%">
 
-raix:push Push notifications
+nudelta2015:push Push notifications
+============================
+This is a fork of raix:push to support passing a pfx file to the node-apn
+
+
 ============================
 [![Build Status](https://travis-ci.org/raix/push.svg?branch=master)](https://travis-ci.org/raix/push)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -25,7 +29,7 @@ We are using [semantic-release](https://github.com/semantic-release/semantic-rel
 
 ## Install
 ```bash
-  $ meteor add raix:push
+  $ meteor add nudelta2015:push
   $ meteor add cordova:cordova-plugin-device@1.1.5
   $ meteor add cordova:phonegap-plugin-push@1.5.2
   # Note: you probably want to adjust the version numbers to the latest versions of the packages
@@ -99,13 +103,7 @@ For example in `Meteor.startup()` block of main.js
 ```js
 Push.Configure({
   apn: {
-    token: {
-      key: Assets.getText('path/to/APNsAuthKey_XXXXXXXXXX.p8'),
-      keyId: 'key-id',
-      teamId: 'developer-team-id',
-    },
-    cert: Assets.getText('apnDevCert.pem'),
-    key: Assets.getText('apnDevKey.pem'),
+    pfx: 'path/to/your-single-p12-file.p12'
     passphrase: 'xxxxxxxxx',
     production: true,
   },
