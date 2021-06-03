@@ -1,32 +1,19 @@
 Package.describe({
-  name: 'raix:push',
+  name: 'nudelta2015:push',
   version: '0.0.0-semantic-release',
   summary: 'Isomorphic Push notifications for APN and GCM',
-  git: 'https://github.com/raix/push.git'
+  git: 'https://github.com/NUDelta/push.git'
 });
 
 // Server-side push deps
 Npm.depends({
-  'apn' : '1.6.2', // '1.7.4', // working: 1.6.2
+  'apn' : '2.2.0', // '1.7.4', // working: 1.6.2
   'node-gcm' : '0.14.4', // previously: 0.9.6
 });
 
 Cordova.depends({
   'phonegap-plugin-push': '1.9.0', // previously 1.8.4
   'cordova-plugin-device': '1.1.3', // previously 1.1.1
-});
-
-Package.registerBuildPlugin({
-  name: 'configuration',
-  use: [
-    'check'
-  ],
-  sources: [
-    'plugin/push.configuration.js'
-  ],
-  npmDependencies: {
-    'strip-json-comments': '1.0.4'
-  }
 });
 
 Package.onUse(function(api) {

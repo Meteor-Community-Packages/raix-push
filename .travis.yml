@@ -21,7 +21,7 @@ stages:
   - release
 
 script:
-  - ./bin/lint-commit.sh
+  # - ./bin/lint-commit.sh
   - npm test
   - if [ "$TRAVIS_BRANCH" == "master" ]; then npm run semantic-release; fi
 

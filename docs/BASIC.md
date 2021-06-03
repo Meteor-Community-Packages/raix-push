@@ -43,8 +43,7 @@ Server:
 ```js
 Push.Configure({
   apn: {
-    certData: Assets.getText('apnDevCert.pem'),
-    keyData: Assets.getText('apnDevKey.pem'),
+    pfx: 'path/to/your/pfx/or/single/p12/file'
     passphrase: 'xxxxxxxxx',
     production: true,
     //gateway: 'gateway.push.apple.com',
