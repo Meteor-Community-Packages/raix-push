@@ -4,7 +4,7 @@
 
 nudelta2015:push Push notifications
 ============================
-This is a fork of raix:push to support passing a pfx file to the node-apn
+This is a fork of raix:push that uses node-apn v2.2. This adds support for using P8 authentication tokens or PFX/P12 certificates to connect with Apple Push Notification (APN) service. 
 
 
 ============================
@@ -186,8 +186,25 @@ App.configurePlugin('phonegap-plugin-push', {
 
 ### Server
 
-For example in `Meteor.startup()` block of main.js
+There are two ways you can configure your push APNs: (1) using p8 auth tokens; and (2) using p12/pfx certificates. Provider Authentication Toekns is the preferred method used within the `node-apn` package upon which this package relies on. More details on this setup can be found on the [node-apn README](https://github.com/node-apn/node-apn/blob/master/doc/apn.markdown#the-basics)
 
+Below we show two sample code that would be added in a `Meteor.startup()` block of main.js.
+
+For the P8 auth token method, make sure you are using the right provider options. More about [provider options](https://github.com/node-apn/node-apn/blob/master/doc/provider.markdown) on the node-apn documentation
+```js
+Push.Configure({
+  apn: {
+    token: {
+      key: Assets.absoluteFilePath('path/to/APNsAuthKey_XXXXXXXXXX.p8'),
+      keyId: 'key-id',
+      teamId: 'developer-team-id',
+    },
+    production: true,
+  },
+});
+```
+
+For the P12/PFX certificates method:
 ```js
 Push.Configure({
   apn: {
