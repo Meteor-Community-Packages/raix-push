@@ -1,6 +1,6 @@
 Package.describe({
   name: 'shivangkar:push',
-  version: '1.0.2',
+  version: '1.0.3',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/shivang007/push.git'
 });
@@ -30,7 +30,7 @@ Package.registerBuildPlugin({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.8');
+  api.versionsFrom('2.3');
   api.use(['ecmascript']);
 
 
