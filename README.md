@@ -25,98 +25,18 @@ Status:
 
 We are using [semantic-release](https://github.com/semantic-release/semantic-release) following the [AngularJS Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) - Following this pattern will result in better versioning, better changelog and shorter release cycle.
 
-## Updates For Android 8.0
+## Breaking changes in 4.X.X
 
-Meteor must be version 1.6.1 
-
-Cordova Android must be version 6.3.0
-Cordova IOS must be version 4.5.0
-
-Meteor release 1.6.1 https://docs.meteor.com/changelog.html#changes-10
-"The cordova-lib package has been updated to version 7.1.0, cordova-android has been updated to version 6.4.0 (plus one additional commit), and cordova-ios has been updated to version 4.5.4"
-
-To verify the correct installation ADD phonegap-plugin-push@2.1.2 to your cordova plugins file.
-
-After your app builds, Make the following changes to your build.gradle file. The simpliest solution to modify this file is in android studio. 
-
-The correct gradle file to modify has this line at the begining of the file:
-
-apply plugin: 'com.android.application'
-
-Add this two your dependencies:
-
-```js
-classpath 'com.google.gms:google-services:4.1.0' // I added both of these
-classpath 'com.google.firebase:firebase-core:11.0.1' // I added both of these
-```
-At the end of your build.gradle file add:
-
-```js
-apply plugin: 'com.google.gms.google-services'
-```
-In case your run into errors with conflicting google libraries add:
-
-```js
-configurations.all {
-  resolutionStrategy {
-    force 'com.android.support:support-v4:27.1.0'
-  }
-}
-
-configurations {
-  all*.exclude group: 'com.android.support', module: 'support-v13'
-}
-```
-Other errors refer to:
-
-https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/INSTALLATION.md#co-existing-with-plugins-that-use-firebase
-
-
-Changes for the API:
-On the client make sure you add a android channel:
-
-```js
-PushNotification.createChannel(
-    () => {
-        console.log('createChannel');
-    },
-    () => {
-        console.log('error');
-    },
-    {
-       id: Meteor.userId(), //Use any Id you prefer, but the same Id for this channel must be sent from the server, 
-       description: 'Android Channel', //And any description your prefer
-       importance: 3,
-       vibration: true
-      }
-);
-```
-
-Server changes:
-Add the android_channel_id so the Push message like below:
-
-```js
-Push.send({
-	  from: 'test',
-	  title: 'test',
-	   text: 'hello',
-          android_channel_id:this.userId,		//The android channel should match the id on the client
-          query: {
-              userId: this.userId
-          }, 
-          gcm: {
-            style: 'inbox',
-            summaryText: 'There are %n% notifications'
-          },          
-});  
-```
+If you are using apn options and upgrading from any lower version. You have to make changes in config of apn. New configs are listed below.
 
 ## Install
+Meteor version should be ≥ 1.8.1
+
+For lower versions of meteor please follow the **_Four changes you need to do in your project for meteor < 1.8.1_** section [here](https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/INSTALLATION.md#installation-requirements).
 ```bash
   $ meteor add raix:push
-  $ meteor add cordova:cordova-plugin-device@1.1.5
-  $ meteor add cordova:phonegap-plugin-push@1.5.2
-  # Note: you probably want to adjust the version numbers to the latest versions of the packages
+  $ meteor add cordova:cordova-plugin-device@1.1.6
+  $ meteor add cordova:phonegap-plugin-push@2.2.3
 ```
 
 ## Getting started
@@ -133,10 +53,9 @@ Read the [raix:push Newbie Manual](https://github.com/raix/push/wiki/raix:push-N
 Or check out the [DEMO](https://github.com/elvismercado/meteor-raix-push-demo) by [@elvismercado](https://github.com/elvismercado)
 (This example uses the deprecated config.push.json)
 
-Example code for [sound](https://github.com/raix/push/issues/9#issuecomment-216068188) *(todo: add in docs)*
+For implementation of Notification Channels, check out the **Raix:Push - Support for Android Channels** by [Shivang Kar](https://medium.com/fasal-engineering/raix-push-support-for-android-channels-f3060b1bb7db)
 
-Note:
-Version 3 uses the cordova npm plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push#pushnotificationinitoptions)
+Example code for [sound](https://github.com/raix/push/issues/9#issuecomment-216068188) *(todo: add in docs)*
 
 Note:
 Some of the documentation is outdated, please file an issue or create a pull request - same if you find a bug or want to add tests
@@ -182,7 +101,34 @@ App.configurePlugin('phonegap-plugin-push', {
 
 ### Server
 
-For example in `Meteor.startup()` block of main.js
+For example in `Meteor.startup()` block of main.js. *Version 4.0.0 and above* 
+
+```js
+Push.Configure({
+  apn: {
+    cert: Assets.getText('apnDevCert.pem'),
+    key: Assets.getText('apnDevKey.pem'),
+    passphrase: 'xxxxxxxxx',
+    production: true,
+    topic: 'com.your.app.identifier' //required
+    //gateway: 'gateway.push.apple.com',
+  },
+  gcm: {
+    apiKey: 'xxxxxxx',  // GCM/FCM server key
+  }
+  // production: true,
+  // 'sound' true,
+  // 'badge' true,
+  // 'alert' true,
+  // 'vibrate' true,
+  // 'sendInterval': 15000, Configurable interval between sending
+  // 'sendBatchSize': 1, Configurable number of notifications to send per batch
+  // 'keepNotifications': false,
+//
+});
+```
+
+For example in `Meteor.startup()` block of main.js. *Version 3.0.2 and below* 
 
 ```js
 Push.Configure({

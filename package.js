@@ -1,19 +1,19 @@
 Package.describe({
-  name: 'raix:push',
-  version: '0.0.0-semantic-release',
+  name: 'shivangkar:push',
+  version: '1.0.6',
   summary: 'Isomorphic Push notifications for APN and GCM',
-  git: 'https://github.com/raix/push.git'
+  git: 'https://github.com/shivang007/push.git'
 });
 
 // Server-side push deps
 Npm.depends({
-  'apn' : '1.6.2', // '1.7.4', // working: 1.6.2
-  'node-gcm' : '0.14.4', // previously: 0.9.6
+  'apn': '2.2.0', // previously: 1.6.2
+  'node-gcm': '1.0.2', // previously: 0.14.4
 });
 
 Cordova.depends({
-  'phonegap-plugin-push': '1.9.0', // previously 1.8.4
-  'cordova-plugin-device': '1.1.3', // previously 1.1.1
+  '@havesource/cordova-plugin-push': '4.0.0-dev.0', // previously phonegap-plugin-push': '2.3.0
+  'cordova-plugin-device': '2.0.3', // previously 1.1.3
 });
 
 Package.registerBuildPlugin({
@@ -25,12 +25,12 @@ Package.registerBuildPlugin({
     'plugin/push.configuration.js'
   ],
   npmDependencies: {
-    'strip-json-comments': '1.0.4'
+    'strip-json-comments': '3.1.0'
   }
 });
 
-Package.onUse(function(api) {
-  api.versionsFrom('1.2');
+Package.onUse(function (api) {
+  api.versionsFrom('2.3');
   api.use(['ecmascript']);
 
 
@@ -44,12 +44,12 @@ Package.onUse(function(api) {
   ], ['client', 'server'], { weak: true });
 
   api.use([
-    'raix:eventstate@0.0.2',
+    'shivangkar:eventstate@1.0.0',
     'check',
     'mongo',
     'underscore',
     'ejson',
-    'random',   // The push it is created with Random.id()
+    'random', // The push it is created with Random.id()
   ], ['client', 'server']);
 
   api.use('mongo', 'server');
