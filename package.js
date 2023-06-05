@@ -1,6 +1,6 @@
 Package.describe({
   name: 'shivangkar:push',
-  version: '1.0.5',
+  version: '1.0.6',
   summary: 'Isomorphic Push notifications for APN and GCM',
   git: 'https://github.com/shivang007/push.git'
 });
@@ -12,7 +12,7 @@ Npm.depends({
 });
 
 Cordova.depends({
-  '@havesource/cordova-plugin-push': '3.0.1', // previously phonegap-plugin-push': '2.3.0
+  '@havesource/cordova-plugin-push': '4.0.0-dev.0', // previously phonegap-plugin-push': '2.3.0
   'cordova-plugin-device': '2.0.3', // previously 1.1.3
 });
 
