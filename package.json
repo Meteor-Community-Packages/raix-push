@@ -20,7 +20,9 @@
     ]
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "repository": "https://github.com/raix/push.git",
   "author": "",
